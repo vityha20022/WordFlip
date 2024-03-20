@@ -71,7 +71,6 @@ opt_in_rules:
   #  - identifier_name                                # Identifier names should only contain alphanumeric characters and start with a lowercase character or should only contain capital letters. In an exception to the above, variable names may start with a capital letter when they are declared static and immutable. Variable names should not be too long or too short.
   - implicit_getter                                   # Computed read-only properties and subscripts should avoid using the get keyword.
   #  - implicit_return                                # Prefer implicit returns in closures, functions and getters.
-  - implicitly_unwrapped_optional                     # Implicitly unwrapped optionals should be avoided when possible.
   #  - indentation_width                              # Indent code using either one tab or the configured amount of spaces, unindent to match previous indentations. Don't indent the first line.
   - inert_defer                                       # If defer is at the end of its parent scope, it will be executed right where it is anyway.
   #  - is_disjoint                                    # Prefer using `Set.isDisjoint(with:)` over `Set.intersection(_:).isEmpty`.
@@ -93,7 +92,6 @@ opt_in_rules:
   - mark                                              # MARK comment should be in valid format. e.g. '// MARK: ...' or '// MARK: - ...'
   #  - missing_docs                                   # Declarations should be documented.
   - modifier_order                                    # Modifier order should be consistent.
-  - multiline_arguments                               # Arguments should be either on the same line, or one per line.
   - multiline_arguments_brackets                      # Multiline arguments should have their surrounding brackets in a new line.
   - multiline_function_chains                         # Chained function calls should be either on the same line, or one per line.
   - multiline_literal_brackets                        # Multiline literals should have their surrounding brackets in a new line.
@@ -123,8 +121,6 @@ opt_in_rules:
   #  - prefer_self_type_over_type_of_self             # Prefer `Self` over `type(of: self)` when accessing properties or calling methods.
   #  - prefixed_toplevel_constant                     # Top-level constants should be prefixed by `k`.
   - private_action                                    # IBActions should be private.
-  - private_outlet                                    # IBOutlets should be private to avoid leaking UIKit to higher layers.
-  - private_over_fileprivate                          # Prefer `private` over `fileprivate` declarations.
   #  - private_unit_test                              # Unit tests marked private are silently skipped.
   #  - prohibited_interface_builder                   # Creating views using Interface Builder should be avoided.
   #  - prohibited_super_call                          # Some methods should not call super
