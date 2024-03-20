@@ -1,32 +1,24 @@
-//
-//  File.swift
-//  
-//
-//  Created by Виктор Борисовский on 20.03.2024.
-//
 
 import UIKit
 
-public class DefaultButton: UIButton {
-    private var text = ""
-    private var color = UIColor.clear
+public final class DefaultButton: UIButton {
+    private let text: String
+    private let color: UIColor
     
-    public init(text: String, color: MyColors) {
-        super.init(frame: .zero)
+    public init(text: String, color: BaseColorScheme) {
         self.text = text
         self.color = color.setup()
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
+        
+        super.init(frame: .zero)
+        
         setup()
     }
     
     private func setup() {
-        setTitle(text, for: .normal)
+        setTitle(self.text, for: .normal)
         // TODO: set settings size
         titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
-        backgroundColor = color
+        backgroundColor = self.color
         layer.cornerRadius = 30
         layer.shadowRadius = 3
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
@@ -34,7 +26,7 @@ public class DefaultButton: UIButton {
         layer.shadowOpacity = 0.35
         layer.shadowRadius = 0.0
         layer.masksToBounds = false
-        setTitleColor(MyColors.buttonText.setup(), for: .normal)
+        setTitleColor(BaseColorScheme.buttonText.setup(), for: .normal)
     }
     
     required init?(coder: NSCoder) {
