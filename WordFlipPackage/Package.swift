@@ -11,6 +11,9 @@ let package = Package(
         .library(
             name: "WordFlipPackage",
             targets: ["WordFlipPackage"]),
+        .library(
+            name: "NavigationModule",
+            targets: ["NavigationModule"]),
     ],
     dependencies: [
     ],
@@ -20,6 +23,9 @@ let package = Package(
             dependencies: ["SystemDesign"]),
         .target(
             name: "SystemDesign",
+            dependencies: []),
+        .target(
+            name: "NavigationModule",
             dependencies: []),
         .testTarget(
             name: "WordFlipPackageTests",

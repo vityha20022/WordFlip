@@ -1,22 +1,29 @@
 import UIKit
+import WordFlipPackage
 
-class TabBarViewController: UITabBarController {
-
-    override func viewDidLoad() {
+public class TabBarViewController: UITabBarController {
+    
+    private let myTabBar = TabBar()
+    
+    public override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setValue(myTabBar, forKey: "tabBar")
+        setupTapItems()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupTapItems() {
+        let firstVC = ViewController()
+        firstVC.tabBarItem.title = "first"
+        firstVC.tabBarItem.image = UIImage(systemName: "graduationcap.fill")
+        let secondVC = ViewController()
+        secondVC.tabBarItem.title = "second"
+        secondVC.tabBarItem.image = UIImage(systemName: "doc.questionmark.fill.rtl")
+        let thridVC = ViewController()
+        thridVC.tabBarItem.title = "thrid"
+        thridVC.tabBarItem.image = UIImage(systemName: "person.fill")
+        
+        setViewControllers([firstVC, secondVC, thridVC], animated: false)
+        
+        selectedIndex = 1
     }
-    */
-
 }
