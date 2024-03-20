@@ -30,8 +30,8 @@ public class DefaultButton: UIButton {
         layer.cornerRadius = 30
         layer.shadowRadius = 3
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
-        layer.shadowOpacity = 1.0
+        layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
+        layer.shadowOpacity = 0.35
         layer.shadowRadius = 0.0
         layer.masksToBounds = false
         setTitleColor(MyColors.buttonText.setup(), for: .normal)
