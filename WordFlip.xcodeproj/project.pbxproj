@@ -9,19 +9,19 @@
 /* Begin PBXBuildFile section */
 		97BB1C1B2BA9D7220050302D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1A2BA9D7220050302D /* AppDelegate.swift */; };
 		97BB1C1D2BA9D7220050302D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */; };
-		97BB1C1F2BA9D7220050302D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1E2BA9D7220050302D /* ViewController.swift */; };
 		97BB1C242BA9D7240050302D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97BB1C232BA9D7240050302D /* Assets.xcassets */; };
 		97BB1C272BA9D7240050302D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97BB1C252BA9D7240050302D /* LaunchScreen.storyboard */; };
+		97BB1C332BAB115A0050302D /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 97BB1C322BAB115A0050302D /* WordFlipPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		97BB1C172BA9D7220050302D /* WordFlip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordFlip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97BB1C1A2BA9D7220050302D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		97BB1C1E2BA9D7220050302D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		97BB1C232BA9D7240050302D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97BB1C262BA9D7240050302D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97BB1C282BA9D7240050302D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97BB1C302BAB10130050302D /* WordFlipPackage */ = {isa = PBXFileReference; lastKnownFileType = text; path = WordFlipPackage; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97BB1C332BAB115A0050302D /* WordFlipPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +41,7 @@
 			children = (
 				97BB1C192BA9D7220050302D /* WordFlip */,
 				97BB1C182BA9D7220050302D /* Products */,
+				97BB1C312BAB115A0050302D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +56,21 @@
 		97BB1C192BA9D7220050302D /* WordFlip */ = {
 			isa = PBXGroup;
 			children = (
+				97BB1C302BAB10130050302D /* WordFlipPackage */,
 				97BB1C1A2BA9D7220050302D /* AppDelegate.swift */,
 				97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */,
-				97BB1C1E2BA9D7220050302D /* ViewController.swift */,
 				97BB1C232BA9D7240050302D /* Assets.xcassets */,
 				97BB1C252BA9D7240050302D /* LaunchScreen.storyboard */,
 				97BB1C282BA9D7240050302D /* Info.plist */,
 			);
 			path = WordFlip;
+			sourceTree = "<group>";
+		};
+		97BB1C312BAB115A0050302D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,6 +90,9 @@
 			dependencies = (
 			);
 			name = WordFlip;
+			packageProductDependencies = (
+				97BB1C322BAB115A0050302D /* WordFlipPackage */,
+			);
 			productName = WordFlip;
 			productReference = 97BB1C172BA9D7220050302D /* WordFlip.app */;
 			productType = "com.apple.product-type.application";
@@ -156,7 +168,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97BB1C1F2BA9D7220050302D /* ViewController.swift in Sources */,
 				97BB1C1B2BA9D7220050302D /* AppDelegate.swift in Sources */,
 				97BB1C1D2BA9D7220050302D /* SceneDelegate.swift in Sources */,
 			);
@@ -366,6 +377,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		97BB1C322BAB115A0050302D /* WordFlipPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WordFlipPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97BB1C0F2BA9D7220050302D /* Project object */;
 }

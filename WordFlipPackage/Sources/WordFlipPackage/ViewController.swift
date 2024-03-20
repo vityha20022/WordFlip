@@ -7,6 +7,6 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+public class ViewController: UIViewController {
 
 }
