@@ -1,6 +1,6 @@
 import UIKit
 
-public class TabBar: UITabBar {
+final public class TabBar: UITabBar {
     
 
 }
