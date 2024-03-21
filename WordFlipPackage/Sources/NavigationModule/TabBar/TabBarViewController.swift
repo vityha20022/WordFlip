@@ -5,8 +5,8 @@ final public class TabBarViewController: UITabBarController {
     
     private let myTabBar = TabBar()
     
-    lazy var deckButton = getButton(icon: "graduationcap.fill", tag: 0, action: action, opacity: 1)
-    lazy var mainButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 1, action: action)
+    lazy var deckButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action, opacity: 1)
+    lazy var mainButton = getButton(icon: "graduationcap.fill", tag: 1, action: action)
     lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
     
     private lazy var stack: UIStackView = {
