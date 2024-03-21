@@ -7,7 +7,7 @@ public final class DefaultButton: UIButton {
     
     public init(text: String, color: BaseColorScheme) {
         self.text = text
-        self.color = color.setup()
+        self.color = color.resolve()
         
         super.init(frame: .zero)
         
@@ -26,7 +26,7 @@ public final class DefaultButton: UIButton {
         layer.shadowOpacity = 0.35
         layer.shadowRadius = 0.0
         layer.masksToBounds = false
-        setTitleColor(BaseColorScheme.buttonText.setup(), for: .normal)
+        setTitleColor(BaseColorScheme.buttonText.resolve(), for: .normal)
     }
     
     required init?(coder: NSCoder) {

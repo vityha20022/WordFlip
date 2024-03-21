@@ -3,7 +3,7 @@ import UIKit
 
 public enum BaseColorScheme: CaseIterable {
     case accent, buttonText
-    func setup() -> UIColor {
+    func resolve() -> UIColor {
         switch self {
             case .accent:
                 return UIColor(named: "AccentColor")!
