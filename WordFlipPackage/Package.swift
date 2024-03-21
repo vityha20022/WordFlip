@@ -10,17 +10,27 @@ let package = Package(
     products: [
         .library(
             name: "WordFlipPackage",
-            targets: ["WordFlipPackage"]),
+            targets: ["WordFlipPackage"
+                     ]),
+        .library(
+            name: "Authentication",
+            targets: ["Authentication"
+                     ])
     ],
     dependencies: [
     ],
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["SystemDesign",
+                           "Authentication"
+                           ]),
         .target(
             name: "SystemDesign",
             dependencies: []),
+        .target(
+            name: "Authentication",
+                dependencies: ["SystemDesign"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
