@@ -17,10 +17,13 @@ let package = Package(
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["EditorModule"]),
         .target(
             name: "SystemDesign",
             dependencies: []),
+        .target(
+            name: "EditorModule",
+            dependencies: ["SystemDesign"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
