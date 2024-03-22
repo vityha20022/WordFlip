@@ -1,8 +1,15 @@
 import UIKit
 
-
 final public class TabBarViewController: UITabBarController {
+    var vc: UIViewController? = nil
+    public init(vc: UIViewController?){
+        self.vc = vc
+        super.init(nibName: "", bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     private lazy var myTabBar = TabBar()
     
     lazy var deckButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action)
@@ -15,8 +22,15 @@ final public class TabBarViewController: UITabBarController {
         make.distribution = .equalSpacing
         make.alignment = .center
         make.backgroundColor = .white
-        make.frame = .init(x: 20, y: view.frame.height - 70, width: view.frame.width - 20 - 20, height: 50)
-        make.layer.cornerRadius = 10
+        make.layer.shadowOffset = CGSize(width: 0, height: 0)
+        make.layer.shadowOpacity = 0.35
+        make.layer.shadowRadius = 20
+        if UIScreen.main.bounds.width <= 375 {
+            make.frame = .init(x: 20, y: view.frame.height - 60, width: view.frame.width - 20 - 20, height: 50)
+        }else{
+            make.frame = .init(x: 30, y: view.frame.height - 80, width: view.frame.width - 30 - 30, height: 50)
+        }
+        make.layer.cornerRadius = make.frame.height / 2
         make.addArrangedSubview(UIView())
         make.addArrangedSubview(deckButton)
         make.addArrangedSubview(mainButton)
@@ -34,9 +48,12 @@ final public class TabBarViewController: UITabBarController {
     
     private func setupControllers() {
         let deckVC = UIViewController()
-        let mainVC = UIViewController()
+        var mainVC = UIViewController()
+        if vc != nil {
+            mainVC = vc!
+        }
         let userVC = UIViewController()
-        
+
         setViewControllers([deckVC, mainVC, userVC], animated: false)
         
         selectedIndex = 1
