@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import WordFlipPackage
 import NavigationModule
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

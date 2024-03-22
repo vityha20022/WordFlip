@@ -1,12 +1,12 @@
 import UIKit
-import WordFlipPackage
+
 
 final public class TabBarViewController: UITabBarController {
     
-    private let myTabBar = TabBar()
+    private lazy var myTabBar = TabBar()
     
-    lazy var deckButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action, opacity: 1)
-    lazy var mainButton = getButton(icon: "graduationcap.fill", tag: 1, action: action)
+    lazy var deckButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action)
+    lazy var mainButton = getButton(icon: "graduationcap.fill", tag: 1, action: action, opacity: 1)
     lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
     
     private lazy var stack: UIStackView = {
@@ -16,7 +16,7 @@ final public class TabBarViewController: UITabBarController {
         make.alignment = .center
         make.backgroundColor = .white
         make.frame = .init(x: 20, y: view.frame.height - 70, width: view.frame.width - 20 - 20, height: 50)
-        make.layer.cornerRadius = 25
+        make.layer.cornerRadius = 10
         make.addArrangedSubview(UIView())
         make.addArrangedSubview(deckButton)
         make.addArrangedSubview(mainButton)
@@ -24,7 +24,6 @@ final public class TabBarViewController: UITabBarController {
         make.addArrangedSubview(UIView())
         return make
     }()
-    
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +33,9 @@ final public class TabBarViewController: UITabBarController {
     }
     
     private func setupControllers() {
-        let deckVC = ViewController()
-        let mainVC = ViewController()
-        let userVC = ViewController()
+        let deckVC = UIViewController()
+        let mainVC = UIViewController()
+        let userVC = UIViewController()
         
         setViewControllers([deckVC, mainVC, userVC], animated: false)
         
@@ -44,7 +43,7 @@ final public class TabBarViewController: UITabBarController {
     }
     
     private func getButton(icon: String, tag: Int, action: UIAction, opacity: Float = 0.5) -> UIButton {
-        let make = UIButton(primaryAction: nil)
+        let make = UIButton(primaryAction: action)
         make.setImage(UIImage(systemName: icon), for: .normal)
         make.tintColor = .black
         make.layer.opacity = opacity
@@ -62,6 +61,7 @@ final public class TabBarViewController: UITabBarController {
         setOpacity(tag: sender.tag)
         
     })
+    
     
     private func setOpacity(tag: Int) {
         [deckButton, mainButton, userButton] .forEach { button in

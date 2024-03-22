@@ -11,16 +11,13 @@ let package = Package(
         .library(
             name: "WordFlipPackage",
             targets: ["WordFlipPackage"]),
-        .library(
-            name: "NavigationModule",
-            targets: ["NavigationModule"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["SystemDesign", "NavigationModule"]),
         .target(
             name: "SystemDesign",
             dependencies: []),
