@@ -95,14 +95,14 @@ extension ProfileViewController: UITableViewDataSource {
             
         }
         
-        configureCell(cell: &cell, for: indexPath)
+        configureCell(cell: cell, for: indexPath)
         isScrollEnabled()
         
         return cell
         
     }
     
-    private func configureCell(cell: inout CustomCellProtocoll, for indexPath: IndexPath) {
+    private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath) {
         if indexPath.row == 0 {
             cell.configure(image: UIImage(systemName: "person.crop.circle"), text: "br_zahar", isOn: false)
         } else if indexPath.row == 1 {

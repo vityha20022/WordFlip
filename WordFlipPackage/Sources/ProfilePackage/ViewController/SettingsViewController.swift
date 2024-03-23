@@ -84,12 +84,12 @@ extension SettingsViewController: UITableViewDataSource {
             
         }
         
-        configureCell(cell: &cell, for: indexPath)
+        configureCell(cell: cell, for: indexPath)
         
         return cell
     }
     
-    private func configureCell(cell: inout CustomCellProtocoll, for indexPath: IndexPath) {
+    private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath) {
         if indexPath.row == 0 {
             cell.configure(image: nil, text: "Theme", isOn: false)
         } else if indexPath.row == 1 {
