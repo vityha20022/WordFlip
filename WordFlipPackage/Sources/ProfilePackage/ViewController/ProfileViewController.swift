@@ -128,8 +128,4 @@ extension ProfileViewController: UITableViewDataSource {
 }
 
 extension ProfileViewController: UITableViewDelegate {
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard indexPath.row != 0 else { return }
-//            tableView.deselectRow(at: indexPath, animated: true)
-//    }
 }
