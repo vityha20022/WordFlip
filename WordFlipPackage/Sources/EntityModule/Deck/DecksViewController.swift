@@ -8,7 +8,7 @@
 import UIKit
 import SystemDesign
 
-final public class DeckViewController: UIViewController {
+final public class DecksViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
@@ -71,7 +71,7 @@ final public class DeckViewController: UIViewController {
     }
 }
 
-extension DeckViewController: UITableViewDelegate, UITableViewDataSource {
+extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
