@@ -31,15 +31,15 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
         contentView.addSubview(switchView)
         
         NSLayoutConstraint.activate([
-            switchView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            switchView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             switchView.centerYAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerYAnchor),
             switchView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
             switchView.heightAnchor.constraint(equalToConstant: 20),
             
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             label.trailingAnchor.constraint(equalTo: switchView.leadingAnchor, constant: -10),
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
 

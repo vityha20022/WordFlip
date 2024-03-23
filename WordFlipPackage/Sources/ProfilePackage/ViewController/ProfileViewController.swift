@@ -5,6 +5,7 @@ public final class ProfileViewController: UIViewController {
     
     private let profileTableView: UITableView = UITableView()
     private let exitButton = DefaultButton(text: "Exit", color: BaseColorScheme.red)
+    private let deleteButton = UIButton()
     private let titleLabel = UILabel()
     
     public override func viewDidLoad() {
@@ -15,11 +16,13 @@ public final class ProfileViewController: UIViewController {
     
     private func setupLayout() {
         view.addSubview(exitButton)
+        view.addSubview(deleteButton)
         view.addSubview(profileTableView)
         view.addSubview(titleLabel)
         
         configureView()
         configureExitButton()
+        configureDeleteButton()
         configureTableView()
         configureTitleLable()
     }
@@ -35,8 +38,22 @@ public final class ProfileViewController: UIViewController {
             exitButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
             exitButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
             exitButton.heightAnchor.constraint(equalToConstant: 65),
-            exitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            exitButton.bottomAnchor.constraint(equalTo: deleteButton.topAnchor, constant: -10),
            
+        ])
+    }
+    
+    private func configureDeleteButton() {
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.setTitle("Delete account", for: .normal)
+        deleteButton.setTitleColor(BaseColorScheme.red.resolve(), for: .normal)
+        deleteButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        
+        NSLayoutConstraint.activate([
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            deleteButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
+            deleteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
+            deleteButton.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
@@ -71,7 +88,7 @@ public final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

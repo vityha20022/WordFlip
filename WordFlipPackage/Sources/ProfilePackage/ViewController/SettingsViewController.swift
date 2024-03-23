@@ -52,7 +52,7 @@ public final class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        30
+        2
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,10 +68,10 @@ extension SettingsViewController: UITableViewDataSource {
             
         } else if indexPath.row == 1 {
             
-            if let reuseCell = tableView.dequeueReusableCell(withIdentifier: "SettingsPickerCell") as? SettingsPickerTableViewCell {
+            if let reuseCell = tableView.dequeueReusableCell(withIdentifier: "SettingsMenuCell") as? SettingsMenuTableViewCell {
                 cell = reuseCell
             } else {
-                cell = SettingsPickerTableViewCell(style: .default, reuseIdentifier: "SettingsPickerCell", data: [1, 2, 3, 4, 5])
+                cell = SettingsMenuTableViewCell(style: .default, reuseIdentifier: "SettingsMenuCell", data: [1, 2, 3, 4, 5])
             }
             
         } else {
@@ -91,7 +91,7 @@ extension SettingsViewController: UITableViewDataSource {
     
     private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath) {
         if indexPath.row == 0 {
-            cell.configure(image: nil, text: "Theme", isOn: false)
+            cell.configure(image: nil, text: "Night theme", isOn: false)
         } else if indexPath.row == 1 {
             cell.configure(image: nil, text: "Number of words", isOn: false)
         } else {

@@ -35,12 +35,12 @@ final class SettingsDefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
             rightImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             rightImageView.centerYAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerYAnchor),
             rightImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
-            rightImageView.heightAnchor.constraint(equalToConstant: 20),
+            rightImageView.heightAnchor.constraint(equalToConstant: 25),
             
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             label.trailingAnchor.constraint(equalTo: rightImageView.leadingAnchor, constant: -10),
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
     
