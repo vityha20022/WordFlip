@@ -12,18 +12,14 @@ let package = Package(
             name: "WordFlipPackage",
             targets: ["WordFlipPackage"
                      ]),
-        .library(
-            name: "Authentication",
-            targets: ["Authentication"
-                     ])
     ],
     dependencies: [
+        
     ],
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["SystemDesign",
-                           "Authentication"
+            dependencies: ["Authentication"
                            ]),
         .target(
             name: "SystemDesign",
