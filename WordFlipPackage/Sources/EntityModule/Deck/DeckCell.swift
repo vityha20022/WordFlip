@@ -8,10 +8,16 @@
 import UIKit
 import SystemDesign
 
-class DeckCell: UITableViewCell {
+struct DeckCellModel {
+    let titleText: String
+    let wordCounterText: String
+    let wordsLearnedText: String
+}
+
+final class DeckCell: UITableViewCell {
     static let identifier = "DeckCell"
     
-    let cellView: UIView = {
+    private let cellView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
@@ -25,7 +31,7 @@ class DeckCell: UITableViewCell {
         return view
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -34,7 +40,7 @@ class DeckCell: UITableViewCell {
         return label
     }()
     
-    let wordCounterLabel: UILabel = {
+    private let wordCounterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18)
@@ -43,7 +49,7 @@ class DeckCell: UITableViewCell {
         return label
     }()
     
-    let wordsLearnedLabel: UILabel = {
+    private let wordsLearnedLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18)
@@ -61,23 +67,26 @@ class DeckCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with model: DeckCellModel) {
+        titleLabel.text = model.titleText
+        wordCounterLabel.text = model.wordCounterText
+        wordsLearnedLabel.text = model.wordsLearnedText
+    }
+    
     private func setup() {
         contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         
         contentView.addSubview(cellView)
-        NSLayoutConstraint.activate([
-            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5)
-        ])
-        
-        
         cellView.addSubview(titleLabel)
         cellView.addSubview(wordCounterLabel)
         cellView.addSubview(wordsLearnedLabel)
         
         NSLayoutConstraint.activate([
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
+            
             titleLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 25),
             titleLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 15),

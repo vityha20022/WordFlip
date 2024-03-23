@@ -8,7 +8,7 @@
 import UIKit
 import SystemDesign
 
-public class DeckViewController: UIViewController {
+final public class DeckViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
@@ -50,26 +50,23 @@ public class DeckViewController: UIViewController {
         
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         
-        let margins = view.safeAreaLayoutGuide
+        let safeArea = view.safeAreaLayoutGuide
         
         view.addSubview(headerLabel)
-        NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: 50),
-            headerLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 10)
-        ])
-        
         view.addSubview(plusButton)
-        NSLayoutConstraint.activate([
-            plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
-            plusButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -10)
-        ])
-        
         view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
+            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            headerLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            
+            plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
+            plusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            
             tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
-            tableView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
 }
@@ -88,9 +85,9 @@ extension DeckViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // TODO: Use model values
-        cell.titleLabel.text = "DeckName"
-        cell.wordCounterLabel.text = "78 words"
-        cell.wordsLearnedLabel.text = "Learned 40 words"
+        let model = DeckCellModel(titleText: "DeckName", wordCounterText: "78 words", wordsLearnedText: "Learned 40 words")
+        cell.configure(with: model)
+        
         return cell
     }
     
