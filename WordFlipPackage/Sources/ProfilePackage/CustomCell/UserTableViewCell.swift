@@ -41,6 +41,10 @@ final class UserTableViewCell: UITableViewCell, CustomCellProtocoll {
         configureViewInUIView()
     }
     
+    required init?(coder Decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func configureViewInUIView() {
         viewAtCell.addSubview(pictureImageView)
         viewAtCell.addSubview(usernameLabel)
@@ -58,16 +62,12 @@ final class UserTableViewCell: UITableViewCell, CustomCellProtocoll {
         ])
     }
     
-    required init?(coder Decoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         pictureImageView.layer.cornerRadius = pictureImageView.layer.frame.width / 2
     }
     
-    func configure(image: UIImage?, text: String?, isOn: Bool?) {
+    func configure(image: UIImage?, text: String?, isOn: Bool) {
         pictureImageView.image = image
         usernameLabel.text = text
         

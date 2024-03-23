@@ -90,7 +90,6 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     private func configureCell(cell: inout CustomCellProtocoll, for indexPath: IndexPath) {
-
         if indexPath.row == 0 {
             cell.configure(image: nil, text: "Theme", isOn: false)
         } else if indexPath.row == 1 {
@@ -104,5 +103,4 @@ extension SettingsViewController: UITableViewDataSource {
 }
 
 extension SettingsViewController: UITableViewDelegate {
-    
 }

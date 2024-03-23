@@ -47,6 +47,10 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
         configureViewInUIView()
     }
     
+    required init?(coder Decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func configureViewInUIView() {
         viewAtCell.addSubview(leftImageView)
         viewAtCell.addSubview(titleLabel)
@@ -64,11 +68,7 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
         ])
     }
     
-    required init?(coder Decoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(image: UIImage?, text: String?, isOn: Bool?) {
+    func configure(image: UIImage?, text: String?, isOn: Bool) {
         leftImageView.image = image
         titleLabel.text = text
     }

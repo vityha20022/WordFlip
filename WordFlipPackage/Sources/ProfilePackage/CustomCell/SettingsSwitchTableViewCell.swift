@@ -22,6 +22,10 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
         configureView()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func configureView() {
         contentView.addSubview(label)
         contentView.addSubview(switchView)
@@ -38,13 +42,9 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
             label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(image: UIImage?, text: String?, isOn: Bool?) {
+
+    func configure(image: UIImage?, text: String?, isOn: Bool) {
         label.text = text
-        switchView.isOn = isOn ?? false
+        switchView.isOn = isOn
     }
 }

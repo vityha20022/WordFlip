@@ -4,7 +4,7 @@ import SystemDesign
 public final class ProfileViewController: UIViewController {
     
     private let profileTableView: UITableView = UITableView()
-    private let exitButton = DefaultButton(text: "Выход", color: BaseColorScheme.red)
+    private let exitButton = DefaultButton(text: "Exit", color: BaseColorScheme.red)
     private let titleLabel = UILabel()
     
     public override func viewDidLoad() {
@@ -103,15 +103,14 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     private func configureCell(cell: inout CustomCellProtocoll, for indexPath: IndexPath) {
-
         if indexPath.row == 0 {
-            cell.configure(image: UIImage(systemName: "person.crop.circle"), text: "br_zahar", isOn: nil)
+            cell.configure(image: UIImage(systemName: "person.crop.circle"), text: "br_zahar", isOn: false)
         } else if indexPath.row == 1 {
-            cell.configure(image: UIImage(systemName: "gear"), text: "Settings", isOn: nil)
+            cell.configure(image: UIImage(systemName: "gear"), text: "Settings", isOn: false)
         } else if indexPath.row == 2 {
-            cell.configure(image: UIImage(systemName: "info.circle"), text: "About the program", isOn: nil)
+            cell.configure(image: UIImage(systemName: "info.circle"), text: "About the program", isOn: false)
         } else {
-            cell.configure(image: UIImage(systemName: "exclamationmark.triangle"), text: "default", isOn: nil)
+            cell.configure(image: UIImage(systemName: "exclamationmark.triangle"), text: "default", isOn: false)
         }
         
         cell.selectionStyle = .none
