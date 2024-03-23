@@ -26,7 +26,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "MainView",
-            dependencies: []),
+            dependencies: ["SystemDesign"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
