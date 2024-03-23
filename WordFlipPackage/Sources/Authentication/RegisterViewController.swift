@@ -1,5 +1,5 @@
 //
-//  AuthViewController.swift
+//  RegisterViewController.swift
 //
 //
 //  Created by Никита Кисляков on 21.03.2024.
@@ -8,7 +8,7 @@
 import UIKit
 import SystemDesign
 
-public class AuthViewController: UIViewController {
+public class RegisterViewController: UIViewController {
     
     private var scrollView: UIScrollView = {
         var scrollView = UIScrollView()
@@ -22,9 +22,9 @@ public class AuthViewController: UIViewController {
         return view
     }()
     
-    private var authLabel: UILabel = {
+    private var registerLabel: UILabel = {
         var label = UILabel()
-        label.text = "Authorization"
+        label.text = "Registration"
         label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,13 +33,22 @@ public class AuthViewController: UIViewController {
     
     private var additionalTextLabel: UILabel = {
         var label = UILabel()
-        label.text = "Enter your email and password"
+        label.text = "Enter your username, email address and password"
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
+    }()
+    
+    private var usernameTextField: UITextField = {
+        var textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .left
+        textField.borderStyle = .roundedRect
+        textField.placeholder = "Username"
+        return textField
     }()
     
     private var emailTextField: UITextField = {
@@ -66,15 +75,17 @@ public class AuthViewController: UIViewController {
         return button
     }()
     
-    private var topAnchorOfAuthLabel: NSLayoutConstraint?
+    private var topAnchorOfRegisterLabel: NSLayoutConstraint?
     private var topAnchorOfAdditionalTextLabel: NSLayoutConstraint?
-    private var topAnchorOfEmailTextField: NSLayoutConstraint?
+    private var topAnchorOfUsernameTextField: NSLayoutConstraint?
     private var topAnchorOfContinueButton: NSLayoutConstraint?
     private var bottomAnchorofContinueButton: NSLayoutConstraint?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        passwordTextField.delegate = self
+        usernameTextField.delegate = self
+        emailTextField.delegate = self
         layout()
         setupViews()
         hideKeyboardWhenTappedAround()
@@ -83,9 +94,9 @@ public class AuthViewController: UIViewController {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         UIView.animate(withDuration: 2) {
-            self.topAnchorOfAuthLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.4
-            self.topAnchorOfAdditionalTextLabel?.constant = 20
-            self.topAnchorOfEmailTextField?.constant = 30
+            self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.4
+            self.topAnchorOfAdditionalTextLabel?.constant = 10
+            self.topAnchorOfUsernameTextField?.constant = 30
             self.topAnchorOfContinueButton?.constant = 30
             self.bottomAnchorofContinueButton?.constant = -180
             self.contentView.layoutIfNeeded()
@@ -93,14 +104,14 @@ public class AuthViewController: UIViewController {
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
-        self.topAnchorOfAuthLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3
+        self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3
         self.topAnchorOfAdditionalTextLabel?.constant = 40
-        self.topAnchorOfEmailTextField?.constant = 50
+        self.topAnchorOfUsernameTextField?.constant = 50
         self.topAnchorOfContinueButton?.constant = 60
         self.bottomAnchorofContinueButton?.constant = -150
         self.contentView.layoutIfNeeded()
     }
-
+    
     private func setupScrollView() {
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo:
@@ -131,109 +142,117 @@ public class AuthViewController: UIViewController {
         ])
     }
     
-    private func authLabelSetup() {
-        NSLayoutConstraint.activate([
-            authLabel.centerXAnchor.constraint(equalTo: 
-                                                contentView.safeAreaLayoutGuide.centerXAnchor)
-        ])
-        topAnchorOfAuthLabel = authLabel.centerYAnchor.constraint(equalTo:
-                                                                    contentView.safeAreaLayoutGuide.centerYAnchor,
-                                                                   constant:
-                                                                    -contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3)
-        topAnchorOfAuthLabel?.isActive = true
+    private func registerLabelSetup() {
+        registerLabel.centerXAnchor.constraint(equalTo:
+                                                contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        topAnchorOfRegisterLabel = registerLabel.centerYAnchor.constraint(equalTo:
+                                                                            contentView.safeAreaLayoutGuide.centerYAnchor,
+                                                                          constant:
+                                                                            -contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3)
+        topAnchorOfRegisterLabel?.isActive = true
     }
     
     private func additionalTextLabelSetup() {
-        
         NSLayoutConstraint.activate([
-            additionalTextLabel.centerXAnchor.constraint(equalTo:
-                                                            view.centerXAnchor),
-            additionalTextLabel.widthAnchor.constraint(equalToConstant: 350)
+            additionalTextLabel.trailingAnchor.constraint(equalTo:
+                                                            contentView.safeAreaLayoutGuide.trailingAnchor,
+                                                          constant: -20),
+            additionalTextLabel.leadingAnchor.constraint(equalTo:
+                                                            contentView.safeAreaLayoutGuide.leadingAnchor,
+                                                         constant: 20)
         ])
-        topAnchorOfAdditionalTextLabel = additionalTextLabel.topAnchor.constraint(equalTo: 
-                                                                                    authLabel.safeAreaLayoutGuide.bottomAnchor,
+        
+        topAnchorOfAdditionalTextLabel = additionalTextLabel.topAnchor.constraint(equalTo:
+                                                                                    registerLabel.bottomAnchor,
                                                                                   constant: 40)
         topAnchorOfAdditionalTextLabel?.isActive = true
     }
     
+    private func usernameTextFieldSetup() {
+        NSLayoutConstraint.activate([
+            usernameTextField.trailingAnchor.constraint(equalTo:
+                                                            contentView.safeAreaLayoutGuide.trailingAnchor,
+                                                        constant: -40),
+            usernameTextField.leadingAnchor.constraint(equalTo:
+                                                            contentView.safeAreaLayoutGuide.leadingAnchor,
+                                                       constant: 40)
+        ])
+        
+        topAnchorOfUsernameTextField =  usernameTextField.topAnchor.constraint(equalTo:
+                                                                                 additionalTextLabel.safeAreaLayoutGuide.bottomAnchor,
+                                                                               constant: 50)
+        topAnchorOfUsernameTextField?.isActive = true
+    }
+    
     private func emailTextFieldSetup() {
         NSLayoutConstraint.activate([
-            emailTextField.centerXAnchor.constraint(equalTo:
-                                                        contentView.safeAreaLayoutGuide.centerXAnchor),
-            emailTextField.trailingAnchor.constraint(equalTo: 
+            emailTextField.topAnchor.constraint(equalTo:
+                                                    usernameTextField.safeAreaLayoutGuide.bottomAnchor,
+                                                constant: 10),
+            emailTextField.trailingAnchor.constraint(equalTo:
                                                         contentView.safeAreaLayoutGuide.trailingAnchor,
                                                      constant: -40),
-            emailTextField.leadingAnchor.constraint(equalTo: 
+            emailTextField.leadingAnchor.constraint(equalTo:
                                                         contentView.safeAreaLayoutGuide.leadingAnchor,
                                                     constant: 40),
-            emailTextField.heightAnchor.constraint(equalToConstant: 40),
         ])
-        topAnchorOfEmailTextField = emailTextField.topAnchor.constraint(equalTo: 
-                                                                            additionalTextLabel.safeAreaLayoutGuide.bottomAnchor,
-                                                                        constant: 50)
-        topAnchorOfEmailTextField?.isActive = true
     }
     
     private func passwordTextFieldSetup() {
         NSLayoutConstraint.activate([
+            passwordTextField.topAnchor.constraint(equalTo:
+                                                    emailTextField.safeAreaLayoutGuide.bottomAnchor,
+                                                   constant: 10),
             passwordTextField.trailingAnchor.constraint(equalTo:
                                                             contentView.safeAreaLayoutGuide.trailingAnchor,
                                                         constant: -40),
             passwordTextField.leadingAnchor.constraint(equalTo:
                                                         contentView.safeAreaLayoutGuide.leadingAnchor,
                                                        constant: 40),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 40),
-            passwordTextField.topAnchor.constraint(equalTo:
-                                                    emailTextField.safeAreaLayoutGuide.bottomAnchor,
-                                                   constant: 10)
         ])
     }
     
     private func continueButtonSetup() {
         continueButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            continueButton.trailingAnchor.constraint(equalTo: 
+            continueButton.trailingAnchor.constraint(equalTo:
                                                         contentView.safeAreaLayoutGuide.trailingAnchor,
                                                      constant: -25),
-            continueButton.leadingAnchor.constraint(equalTo: 
+            continueButton.leadingAnchor.constraint(equalTo:
                                                         contentView.safeAreaLayoutGuide.leadingAnchor,
                                                     constant: 25),
-            continueButton.heightAnchor.constraint(equalToConstant: 65)
+            continueButton.heightAnchor.constraint(equalToConstant:
+                                                    65),
         ])
-        bottomAnchorofContinueButton = continueButton.bottomAnchor.constraint(lessThanOrEqualTo:
-                                                                                contentView.safeAreaLayoutGuide.bottomAnchor,
-                                                                              constant: -150)
+        bottomAnchorofContinueButton = continueButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -150)
         bottomAnchorofContinueButton?.isActive = true
         bottomAnchorofContinueButton?.priority = .defaultLow
-        topAnchorOfContinueButton = continueButton.topAnchor.constraint(equalTo:
+        topAnchorOfContinueButton = continueButton.topAnchor.constraint(equalTo: 
                                                                             passwordTextField.safeAreaLayoutGuide.bottomAnchor,
                                                                         constant: 60)
         topAnchorOfContinueButton?.isActive = true
     }
     
-    private func setupViews() {
+    func setupViews() {
         setupScrollView()
         setupContentView()
-        authLabelSetup()
+        registerLabelSetup()
         additionalTextLabelSetup()
+        usernameTextFieldSetup()
         emailTextFieldSetup()
         passwordTextFieldSetup()
         continueButtonSetup()
     }
     
-    private func layout() {
+    func layout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(authLabel)
+        contentView.addSubview(registerLabel)
         contentView.addSubview(additionalTextLabel)
+        contentView.addSubview(usernameTextField)
         contentView.addSubview(emailTextField)
         contentView.addSubview(passwordTextField)
         contentView.addSubview(continueButton)
-    }
-    
-    private func hideKeyboard() {
-        view.endEditing(true)
     }
     
     func addingObservers() {
@@ -241,39 +260,17 @@ public class AuthViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    private func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
 }
 
-extension AuthViewController: UITextFieldDelegate {
+extension RegisterViewController: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         hideKeyboard()
         return true
     }
     
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-extension UIViewController {
-    
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
 }

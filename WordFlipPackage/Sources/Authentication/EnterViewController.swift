@@ -1,6 +1,6 @@
 //
 //  AuthViewController.swift
-//  
+//
 //
 //  Created by Никита Кисляков on 20.03.2024.
 //
@@ -8,9 +8,9 @@
 import UIKit
 import SystemDesign
 
-public class EnterViewController: UIViewController {
+public final class EnterViewController: UIViewController {
     
-    var appTitleLabel: UILabel = {
+    private var appTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "WordFlip"
         label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
@@ -19,7 +19,7 @@ public class EnterViewController: UIViewController {
         return label
     }()
     
-    var birdImageView: UIImageView = {
+    private var birdImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(named: "Bird")
         imageView.contentMode = .scaleAspectFit
@@ -28,10 +28,10 @@ public class EnterViewController: UIViewController {
     }()
     
     
-    var registerButton = DefaultButton(text: "Зарегистрироваться", color: BaseColorScheme.accent)
-        
+    private var registerButton = DefaultButton(text: "Register", color: BaseColorScheme.accent)
+    
     var signInButton: DefaultButton = {
-        var button = DefaultButton(text: "Войти", color: BaseColorScheme.black)
+        var button = DefaultButton(text: "Sign in", color: BaseColorScheme.black)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1
         button.setTitleColor(.white, for: .normal)
@@ -41,72 +41,93 @@ public class EnterViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
         addLayout()
         setupButtons()
     }
     
-    func setupAppTitleLabel() {
-        appTitleLabel.centerXAnchor.constraint(equalTo: 
-                                                view.centerXAnchor).isActive = true
-        appTitleLabel.bottomAnchor.constraint(equalTo: 
-                                                view.bottomAnchor,
-                                                constant: -500).isActive = true
+    private func setupAppTitleLabel() {
+        NSLayoutConstraint.activate([
+            appTitleLabel.centerXAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.centerXAnchor),
+            appTitleLabel.centerYAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.centerYAnchor,
+                                                   constant: -view.safeAreaLayoutGuide.layoutFrame.height * 0.3)
+        ])
     }
     
-    func setupBirdImageView() {
-        birdImageView.centerXAnchor.constraint(equalTo: 
-                                                view.centerXAnchor).isActive = true
-        birdImageView.widthAnchor.constraint(equalToConstant: 
-                                                180).isActive = true
-        birdImageView.heightAnchor.constraint(equalToConstant: 
-                                                180).isActive = true
-        birdImageView.centerYAnchor.constraint(equalTo: 
-                                                view.centerYAnchor,
-                                                constant: 28).isActive = true
+    private func setupBirdImageView() {
+        
+        NSLayoutConstraint.activate([
+            birdImageView.centerXAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.centerXAnchor),
+            birdImageView.widthAnchor.constraint(equalToConstant:
+                                                    180),
+            birdImageView.heightAnchor.constraint(equalToConstant:
+                                                    180),
+            birdImageView.topAnchor.constraint(equalTo:
+                                                appTitleLabel.safeAreaLayoutGuide.bottomAnchor,
+                                               constant:
+                                                20)
+        ])
     }
     
-    func setupsignInButton() {
-        signInButton.centerXAnchor.constraint(equalTo:
-                                                view.centerXAnchor).isActive = true
-        signInButton.bottomAnchor.constraint(equalTo:
-                                                view.bottomAnchor,
-                                                constant: -140).isActive = true
-        signInButton.widthAnchor.constraint(equalTo:
-                                                view.widthAnchor,
-                                                constant: -50).isActive = true
-        signInButton.heightAnchor.constraint(equalToConstant:
-                                                65).isActive = true
+    private func setupSignInButton() {
+        NSLayoutConstraint.activate([
+            signInButton.centerXAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.centerXAnchor),
+            signInButton.heightAnchor.constraint(equalToConstant:
+                                                    65),
+            signInButton.trailingAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.trailingAnchor,
+                                                   constant:
+                                                    -25),
+            signInButton.leadingAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.leadingAnchor,
+                                                  constant:
+                                                    25),
+            signInButton.bottomAnchor.constraint(equalTo:
+                                                    registerButton.safeAreaLayoutGuide.topAnchor,
+                                                 constant:
+                                                    -10)
+        ])
     }
     
-    func setupRegisterButton() {
+    private func setupRegisterButton() {
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.centerXAnchor.constraint(equalTo:
-                                                view.centerXAnchor).isActive = true
-        registerButton.bottomAnchor.constraint(equalTo:
-                                                view.bottomAnchor,
-                                                constant: -60).isActive = true
-        registerButton.widthAnchor.constraint(equalTo:
-                                                view.widthAnchor,
-                                                constant: -50).isActive = true
-        registerButton.heightAnchor.constraint(equalToConstant:
-                                                65).isActive = true
+        NSLayoutConstraint.activate([
+            registerButton.bottomAnchor.constraint(equalTo:
+                                                    view.safeAreaLayoutGuide.bottomAnchor,
+                                                   constant:
+                                                    -20),
+            registerButton.trailingAnchor.constraint(equalTo:
+                                                        view.safeAreaLayoutGuide.trailingAnchor,
+                                                     constant:
+                                                        -25),
+            registerButton.leadingAnchor.constraint(equalTo:
+                                                        view.safeAreaLayoutGuide.leadingAnchor,
+                                                    constant:
+                                                        25),
+            registerButton.heightAnchor.constraint(equalToConstant:
+                                                    65)
+        ])
     }
     
-    func addLayout() {
+    private func addLayout() {
         view.addSubview(appTitleLabel)
         view.addSubview(signInButton)
         view.addSubview(registerButton)
         view.addSubview(birdImageView)
     }
     
-    func setupButtons() {
+    private func setupButtons() {
         setupAppTitleLabel()
-        setupsignInButton()
+        setupSignInButton()
         setupRegisterButton()
         setupBirdImageView()
     }
     
-    
 }
+
+
+
 
