@@ -30,9 +30,12 @@ let package = Package(
         .target(
             name: "MainView",
             dependencies: ["SystemDesign"]),
+         .target(
+            name: "EntityModule",
+            dependencies: ["SystemDesign"]),
         .target(
             name: "Builder",
-            dependencies: ["NavigationModule", "MainView", "ProfilePackage"]),
+            dependencies: ["NavigationModule", "MainView", "ProfilePackage", "EntityModule", "ProfilePackage"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
