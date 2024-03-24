@@ -2,7 +2,9 @@
 import UIKit
 
 public enum BaseColorScheme: CaseIterable {
-    case accent, buttonText, backgroundColor, shadowColor
+
+    case accent, buttonText, backgroundColor, shadowColor, red
+
     public func resolve() -> UIColor {
         switch self {
             case .accent:
@@ -13,6 +15,8 @@ public enum BaseColorScheme: CaseIterable {
                 return UIColor(named: "BackgroundColor")!
             case .shadowColor:
                 return UIColor(named: "ShadowColor")!
+            case .red:
+                return UIColor(named: "RedColor")!
         }
     }
 }

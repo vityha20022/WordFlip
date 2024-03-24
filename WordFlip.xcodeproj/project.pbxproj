@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55B7B17B2BADC6B400EA7AA9 /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 55B7B17A2BADC6B400EA7AA9 /* WordFlipPackage */; };
 		97BB1C1B2BA9D7220050302D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1A2BA9D7220050302D /* AppDelegate.swift */; };
 		97BB1C1D2BA9D7220050302D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */; };
 		97BB1C242BA9D7240050302D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97BB1C232BA9D7240050302D /* Assets.xcassets */; };
 		97BB1C272BA9D7240050302D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97BB1C252BA9D7240050302D /* LaunchScreen.storyboard */; };
-		97BB1C332BAB115A0050302D /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 97BB1C322BAB115A0050302D /* WordFlipPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97BB1C332BAB115A0050302D /* WordFlipPackage in Frameworks */,
+				55B7B17B2BADC6B400EA7AA9 /* WordFlipPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 			);
 			name = WordFlip;
 			packageProductDependencies = (
-				97BB1C322BAB115A0050302D /* WordFlipPackage */,
+				55B7B17A2BADC6B400EA7AA9 /* WordFlipPackage */,
 			);
 			productName = WordFlip;
 			productReference = 97BB1C172BA9D7220050302D /* WordFlip.app */;
@@ -121,6 +121,9 @@
 				Base,
 			);
 			mainGroup = 97BB1C0E2BA9D7220050302D;
+			packageReferences = (
+				55B7B1792BADC6B400EA7AA9 /* XCLocalSwiftPackageReference "WordFlipPackage" */,
+			);
 			productRefGroup = 97BB1C182BA9D7220050302D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -378,8 +381,15 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		55B7B1792BADC6B400EA7AA9 /* XCLocalSwiftPackageReference "WordFlipPackage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = WordFlipPackage;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		97BB1C322BAB115A0050302D /* WordFlipPackage */ = {
+		55B7B17A2BADC6B400EA7AA9 /* WordFlipPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WordFlipPackage;
 		};
