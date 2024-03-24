@@ -7,6 +7,7 @@
 
 import UIKit
 import WordFlipPackage
+import Authentication
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

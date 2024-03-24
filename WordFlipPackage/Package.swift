@@ -10,14 +10,16 @@ let package = Package(
     products: [
         .library(
             name: "WordFlipPackage",
-            targets: ["WordFlipPackage"]),
+            targets: ["WordFlipPackage"
+                     ]),
     ],
     dependencies: [
+        
     ],
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["EntityModule", "ProfilePackage"]),
+            dependencies: ["EntityModule", "ProfilePackage", "Authentication"]),
         .target(
             name: "ProfilePackage",
             dependencies: ["SystemDesign"]),
@@ -25,6 +27,9 @@ let package = Package(
             name: "SystemDesign",
             dependencies: []),
         .target(
+            name: "Authentication",
+                dependencies: ["SystemDesign"]),
+         .target(
             name: "EntityModule",
             dependencies: ["SystemDesign"]),
         .testTarget(
