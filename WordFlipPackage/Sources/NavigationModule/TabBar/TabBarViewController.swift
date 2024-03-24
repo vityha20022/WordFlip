@@ -6,9 +6,9 @@ public protocol TabBarViewControllerProtocol: AnyObject {
 
 public final class TabBarViewController: UITabBarController, TabBarViewControllerProtocol{
     // MARK: - Properties
-    private var presenter: TabBarPresenterProtocol!
+    private var presenter: TabBarPresenterProtocol
 
-    private var tabBarViewControllers: [UIViewController]!
+    private var tabBarViewControllers: [UIViewController]
     
     private lazy var action = UIAction(handler: { [weak self] sender in
         guard let sender = sender.sender as? UIButton else { return }
@@ -46,9 +46,11 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
     public init(
         decksVC: UIViewController,
         cardsVC: UIViewController,
-        userVC: UIViewController
+        userVC: UIViewController,
+        presenter: TabBarPresenterProtocol
     ){
         self.tabBarViewControllers = [decksVC, cardsVC, userVC]
+        self.presenter = presenter
         super.init(nibName: "", bundle: nil)
     }
     
@@ -60,10 +62,6 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
         super.viewDidLoad()
         view.addSubview(stack)
         setupControllers()
-    }
-    
-    public func get(presenter: TabBarPresenterProtocol) {
-        self.presenter = presenter
     }
     
     // MARK: -  Setup Base UI

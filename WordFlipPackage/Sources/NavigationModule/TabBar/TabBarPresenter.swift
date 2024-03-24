@@ -3,13 +3,14 @@ public protocol TabBarPresenterProtocol {
 }
 
 public final class TabBarPresenter: TabBarPresenterProtocol {
-    weak var view: TabBarViewControllerProtocol?
-
-    public init(view: TabBarViewControllerProtocol) {
+    public weak var view: TabBarViewControllerProtocol?
+    
+    public init(view: TabBarViewControllerProtocol? = nil) {
         self.view = view
     }
 
     public func didTapButton(withTag tag: Int) {
-        view?.updateSelected(index: tag)
+        guard let view = view else {fatalError("No link to view is provided")}
+        view.updateSelected(index: tag)
     }
 }

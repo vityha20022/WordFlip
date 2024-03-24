@@ -6,9 +6,9 @@ import ProfilePackage
 public class Builder {
     public init(){}
     public func createTabBar() -> UIViewController {
-        let view = TabBarViewController(decksVC: UIViewController(), cardsVC: CardsViewController(), userVC: ProfileViewController())
-        let presenter = TabBarPresenter(view: view)
-        view.get(presenter: presenter)
+        let presenter = TabBarPresenter()
+        let view = TabBarViewController(decksVC: UIViewController(), cardsVC: CardsViewController(), userVC: ProfileViewController(), presenter: presenter)
+        presenter.view = view
         return view
     }
 }
