@@ -167,7 +167,6 @@ public final class AuthViewController: UIViewController {
     }
     
     private func additionalTextLabelSetup() {
-        
         NSLayoutConstraint.activate(
             [
                 additionalTextLabel.centerXAnchor.constraint(
