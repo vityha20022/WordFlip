@@ -305,7 +305,6 @@ public final class RegisterViewController: UIViewController {
         topAnchorOfContinueButton?.isActive = true
     }
     
-    
     private func setupViews() {
         setupScrollView()
         setupContentView()
