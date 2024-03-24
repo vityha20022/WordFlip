@@ -19,7 +19,7 @@ let package = Package(
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["ProfilePackage", "Authentication"]),
+            dependencies: ["EntityModule", "ProfilePackage", "Authentication"]),
         .target(
             name: "ProfilePackage",
             dependencies: ["SystemDesign"]),
@@ -29,6 +29,9 @@ let package = Package(
         .target(
             name: "Authentication",
                 dependencies: ["SystemDesign"]),
+         .target(
+            name: "EntityModule",
+            dependencies: ["SystemDesign"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
