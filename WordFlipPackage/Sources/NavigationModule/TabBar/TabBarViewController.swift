@@ -1,7 +1,10 @@
 import UIKit
 
-final public class TabBarViewController: UITabBarController {
-    var vc: UIViewController? = nil
+protocol TabBarViewController: AnyObject {
+    func updateSelected(index: Int)
+}
+
+final public class TabBarViewControllerImp: UITabBarController, TabBarViewController {
     public init(vc: UIViewController?){
         self.vc = vc
         super.init(nibName: "", bundle: nil)
@@ -10,12 +13,35 @@ final public class TabBarViewController: UITabBarController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    private lazy var myTabBar = TabBar()
     
+    public var presenter: TabBarPresenter!
+    
+    //UIViewController, который будет передаваться в кнопку TabBar
+    var vc: UIViewController?
+    
+    //создание конопок TabBar'а
     lazy var deckButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action)
     lazy var mainButton = getButton(icon: "graduationcap.fill", tag: 1, action: action, opacity: 1)
     lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
     
+    //Событие кнопки в TabBar'е.
+    //Передает номер контроллера, который должен открыться
+    lazy var action = UIAction(handler: { [weak self] sender in
+        guard let sender = sender.sender as? UIButton else { return }
+        self?.presenter.didTapButton(withTag: sender.tag)
+    })
+    
+    //Настройка внешнего вида кнопок
+    private func getButton(icon: String, tag: Int, action: UIAction, opacity: Float = 0.5) -> UIButton {
+        let make = UIButton(primaryAction: action)
+        make.setImage(UIImage(systemName: icon), for: .normal)
+        make.tintColor = .black
+        make.layer.opacity = opacity
+        make.tag = tag
+        return make
+    }
+    
+    //Настройка стека
     private lazy var stack: UIStackView = {
         let make = UIStackView()
         make.axis = .horizontal
@@ -41,11 +67,11 @@ final public class TabBarViewController: UITabBarController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        setValue(myTabBar, forKey: "tabBar")
         view.addSubview(stack)
         setupControllers()
     }
     
+    //установка контроллера для каждой позиции в баре
     private func setupControllers() {
         let deckVC = UIViewController()
         var mainVC = UIViewController()
@@ -55,31 +81,18 @@ final public class TabBarViewController: UITabBarController {
         let userVC = UIViewController()
 
         setViewControllers([deckVC, mainVC, userVC], animated: false)
-        
+        //открывается главный экран первым
         selectedIndex = 1
     }
     
-    private func getButton(icon: String, tag: Int, action: UIAction, opacity: Float = 0.5) -> UIButton {
-        let make = UIButton(primaryAction: action)
-        make.setImage(UIImage(systemName: icon), for: .normal)
-        make.tintColor = .black
-        make.layer.opacity = opacity
-        make.tag = tag
-        return make
+    //обновление выбранного
+    func updateSelected(index: Int) {
+        self.selectedIndex = index
+        setOpacity(tag: index)
     }
     
-    lazy var action = UIAction(handler: { [weak self] sender in
-        guard 
-            let sender = sender.sender as? UIButton,
-            let self = self
-        else { return }
-        
-        self.selectedIndex = sender.tag
-        setOpacity(tag: sender.tag)
-        
-    })
-    
-    
+    //настрока серого и черного (основного) цвета
+    //при выборе определенного контроллера
     private func setOpacity(tag: Int) {
         [deckButton, mainButton, userButton] .forEach { button in
             if button.tag != tag {
@@ -89,5 +102,4 @@ final public class TabBarViewController: UITabBarController {
             }
         }
     }
-    
 }

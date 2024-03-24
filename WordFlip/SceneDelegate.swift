@@ -7,6 +7,9 @@
 
 import UIKit
 import NavigationModule
+import MainView
+import WordFlipPackage
+import Router
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -27,7 +30,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-        window?.rootViewController = TabBarViewController()
+        let router = RouterImp()
+        let rootVC = router.createTabBar()
+        window?.rootViewController = rootVC
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
