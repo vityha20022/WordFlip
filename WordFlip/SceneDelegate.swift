@@ -9,7 +9,7 @@ import UIKit
 import NavigationModule
 import MainView
 import WordFlipPackage
-import Router
+import Builder
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-        let router = RouterImp()
+        let router = Builder()
         let rootVC = router.createTabBar()
         window?.rootViewController = rootVC
     }

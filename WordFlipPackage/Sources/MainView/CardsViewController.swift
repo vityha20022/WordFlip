@@ -1,7 +1,7 @@
 import UIKit
 import SystemDesign
 
-public class MainViewController: UIViewController {
+public final class CardsViewController: UIViewController {
     // MARK: -  UI Elements
     private lazy var exitButton: UIButton = {
         let make = UIButton()
@@ -9,14 +9,12 @@ public class MainViewController: UIViewController {
         make.contentHorizontalAlignment = .center
         make.contentVerticalAlignment = .center
         make.translatesAutoresizingMaskIntoConstraints = false
-        make.setTitle("Button", for: .normal)
         make.setImage(UIImage(systemName: "xmark"), for: .normal)
         make.configuration = .plain()
         make.setTitle("", for: .normal)
         return make
     }()
 
-    
     private lazy var learntWordsLabel: UILabel = {
         let make = UILabel()
         make.contentMode = .left
@@ -71,7 +69,6 @@ public class MainViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.layer.cornerRadius = 45
         make.backgroundColor = BaseColorScheme.baseTint.resolve()
-        //make.backgroundColor = BaseColorScheme.accent.resolve()
         make.layer.shadowOffset = CGSize(width: 0, height: 0)
         make.layer.shadowOpacity = 0.5
         make.layer.shadowRadius = 5
@@ -79,13 +76,11 @@ public class MainViewController: UIViewController {
         return make
     }()
     
-
-    
     private lazy var cardViewText: UILabel = {
         let make = UILabel()
         make.contentMode = .left
         make.text = "Animal"
-        make.textColor = #colorLiteral(red: 0.2410846055, green: 0.5627357364, blue: 0.9369452596, alpha: 1)
+        make.textColor = BaseColorScheme.cardText.resolve()
         make.textAlignment = .center
         make.lineBreakMode = .byTruncatingTail
         make.baselineAdjustment = .alignBaselines
@@ -140,9 +135,8 @@ public class MainViewController: UIViewController {
         setConstrains()
     }
     
-    
     // MARK: -  View Hierachy
-    func setViewHierachy() {
+    private func setViewHierachy() {
         view.addSubview(invertButton)
         view.addSubview(learntWordsProgressView)
         view.addSubview(favouritesButton)
@@ -153,8 +147,9 @@ public class MainViewController: UIViewController {
         view.addSubview(exitButton)
         view.addSubview(cardView)
     }
+    
     // MARK: -  Constrains
-    func setConstrains() {
+    private func setConstrains() {
         NSLayoutConstraint.activate([
             // - exitButton
             exitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),

@@ -1,47 +1,25 @@
 import UIKit
 
-protocol TabBarViewController: AnyObject {
+public protocol TabBarViewControllerProtocol: AnyObject {
     func updateSelected(index: Int)
 }
 
-final public class TabBarViewControllerImp: UITabBarController, TabBarViewController {
-    public init(vc: UIViewController?){
-        self.vc = vc
-        super.init(nibName: "", bundle: nil)
-    }
+public final class TabBarViewController: UITabBarController, TabBarViewControllerProtocol{
+    // MARK: - Properties
+    private var presenter: TabBarPresenterProtocol!
+
+    private var tabBarViewControllers: [UIViewController]!
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public var presenter: TabBarPresenter!
-    
-    //UIViewController, который будет передаваться в кнопку TabBar
-    var vc: UIViewController?
-    
-    //создание конопок TabBar'а
-    lazy var deckButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action)
-    lazy var mainButton = getButton(icon: "graduationcap.fill", tag: 1, action: action, opacity: 1)
-    lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
-    
-    //Событие кнопки в TabBar'е.
-    //Передает номер контроллера, который должен открыться
-    lazy var action = UIAction(handler: { [weak self] sender in
+    private lazy var action = UIAction(handler: { [weak self] sender in
         guard let sender = sender.sender as? UIButton else { return }
         self?.presenter.didTapButton(withTag: sender.tag)
     })
     
-    //Настройка внешнего вида кнопок
-    private func getButton(icon: String, tag: Int, action: UIAction, opacity: Float = 0.5) -> UIButton {
-        let make = UIButton(primaryAction: action)
-        make.setImage(UIImage(systemName: icon), for: .normal)
-        make.tintColor = .black
-        make.layer.opacity = opacity
-        make.tag = tag
-        return make
-    }
+    // MARK: -  UI Elements
+    private lazy var decksButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action)
+    private lazy var cardsButton = getButton(icon: "graduationcap.fill", tag: 1, action: action, opacity: 1)
+    private lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
     
-    //Настройка стека
     private lazy var stack: UIStackView = {
         let make = UIStackView()
         make.axis = .horizontal
@@ -58,12 +36,24 @@ final public class TabBarViewControllerImp: UITabBarController, TabBarViewContro
         }
         make.layer.cornerRadius = make.frame.height / 2
         make.addArrangedSubview(UIView())
-        make.addArrangedSubview(deckButton)
-        make.addArrangedSubview(mainButton)
+        make.addArrangedSubview(decksButton)
+        make.addArrangedSubview(cardsButton)
         make.addArrangedSubview(userButton)
         make.addArrangedSubview(UIView())
         return make
     }()
+
+    public init(
+        decksVC: UIViewController,
+        cardsVC: UIViewController,
+        userVC: UIViewController
+    ){
+        self.tabBarViewControllers = [decksVC, cardsVC, userVC]
+        super.init(nibName: "", bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,30 +61,33 @@ final public class TabBarViewControllerImp: UITabBarController, TabBarViewContro
         setupControllers()
     }
     
-    //установка контроллера для каждой позиции в баре
+    public func get(presenter: TabBarPresenterProtocol) {
+        self.presenter = presenter
+    }
+    
+    // MARK: -  Setup Base UI
     private func setupControllers() {
-        let deckVC = UIViewController()
-        var mainVC = UIViewController()
-        if vc != nil {
-            mainVC = vc!
-        }
-        let userVC = UIViewController()
-
-        setViewControllers([deckVC, mainVC, userVC], animated: false)
-        //открывается главный экран первым
+        setViewControllers(tabBarViewControllers, animated: false)
         selectedIndex = 1
     }
     
-    //обновление выбранного
-    func updateSelected(index: Int) {
+    private func getButton(icon: String, tag: Int, action: UIAction, opacity: Float = 0.5) -> UIButton {
+        let make = UIButton(primaryAction: action)
+        make.setImage(UIImage(systemName: icon), for: .normal)
+        make.tintColor = .black
+        make.layer.opacity = opacity
+        make.tag = tag
+        return make
+    }
+    
+    // MARK: -  View Actions
+    public func updateSelected(index: Int) {
         self.selectedIndex = index
         setOpacity(tag: index)
     }
     
-    //настрока серого и черного (основного) цвета
-    //при выборе определенного контроллера
     private func setOpacity(tag: Int) {
-        [deckButton, mainButton, userButton] .forEach { button in
+        [decksButton, cardsButton, userButton] .forEach { button in
             if button.tag != tag {
                 button.layer.opacity = 0.5
             } else{

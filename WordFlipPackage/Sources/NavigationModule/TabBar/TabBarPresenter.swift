@@ -1,13 +1,11 @@
-
-
-public protocol TabBarPresenter {
+public protocol TabBarPresenterProtocol {
     func didTapButton(withTag tag: Int)
 }
 
-public class TabBarPresenterImp: TabBarPresenter {
-    weak var view: TabBarViewControllerImp?
+public final class TabBarPresenter: TabBarPresenterProtocol {
+    weak var view: TabBarViewControllerProtocol?
 
-    public init(view: TabBarViewControllerImp) {
+    public init(view: TabBarViewControllerProtocol) {
         self.view = view
     }
 
