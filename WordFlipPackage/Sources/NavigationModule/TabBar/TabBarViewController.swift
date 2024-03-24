@@ -64,6 +64,10 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
         super.viewDidLoad()
         view.addSubview(stack)
         setupControllers()
+        tabBar.backgroundImage = UIImage()
+        tabBar.shadowImage = UIImage()
+        tabBar.barTintColor = UIColor.clear
+        tabBar.isTranslucent = true
     }
 
     // MARK: - Setup Base UI
