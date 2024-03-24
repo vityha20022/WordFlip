@@ -1,4 +1,3 @@
-
 import UIKit
 
 public enum BaseColorScheme: CaseIterable {
@@ -22,6 +21,3 @@ public enum BaseColorScheme: CaseIterable {
         }
     }
 }
-
-
-
