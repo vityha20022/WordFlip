@@ -1,7 +1,7 @@
 
 import UIKit
-import SystemDesign
 
-public class ViewController: UIViewController {
-    
+final public class ViewController: UIViewController {
+
 }
+
