@@ -20,10 +20,10 @@ public final class DefaultButton: UIButton {
         titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         backgroundColor = self.color
         layer.cornerRadius = 30
-        layer.shadowRadius = 3
-        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
-        layer.shadowOpacity = 0.7
+        layer.shadowRadius = ComponentMetrics.shadowRadius
+        layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
+        layer.shadowOffset = ComponentMetrics.shadowOffset
+        layer.shadowOpacity = ComponentMetrics.shadowOpacity
         layer.masksToBounds = false
         setTitleColor(BaseColorScheme.buttonText.resolve(), for: .normal)
     }

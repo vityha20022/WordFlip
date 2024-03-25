@@ -1,12 +1,9 @@
-//
-//  SceneDelegate.swift
-//  WordFlip
-//
-//  Created by Виктор Борисовский on 19.03.2024.
-//
 
 import UIKit
+import NavigationModule
+import MainView
 import WordFlipPackage
+import Builder
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -27,7 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
+        let router = Builder()
+        let rootVC = router.createTabBar()
+        window?.rootViewController = rootVC
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
