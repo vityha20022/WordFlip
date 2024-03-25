@@ -38,7 +38,7 @@ let package = Package(
             dependencies: ["SystemDesign"]),
         .target(
             name: "Builder",
-            dependencies: ["NavigationModule", "MainView", "ProfilePackage", "EntityModule", "ProfilePackage", "Authentication"]),
+            dependencies: ["NavigationModule", "MainView", "EntityModule", "ProfilePackage", "Authentication"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
