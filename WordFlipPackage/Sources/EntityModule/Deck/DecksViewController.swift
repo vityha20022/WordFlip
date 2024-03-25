@@ -1,5 +1,6 @@
 import UIKit
 import SystemDesign
+import Models
 
 final public class DecksViewController: UIViewController {
     private let tableView: UITableView = {
@@ -78,7 +79,7 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // TODO: Use model values
-        let model = DeckCellModel(titleText: "DeckName", wordCounterText: "78 words", wordsLearnedText: "Learned 40 words")
+        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), wordCounter: Int.random(in: 0...100), learnedWordCounter: Int.random(in: 0...100), cards: [CardModel(frontText: "Animal", downText: "Shark")])
         cell.configure(with: model)
         
         return cell
