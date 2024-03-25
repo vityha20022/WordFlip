@@ -1,8 +1,20 @@
 import UIKit
 
 public final class SettingsViewController: UIViewController {
+    
     private let settingsTableView: UITableView = UITableView()
     private let titleLabel = UILabel()
+    
+    private let presenter: SettingsPresenterProtocol
+    
+    init(presenter: SettingsPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,11 +74,12 @@ public final class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        return presenter.numberRowsInSection(section: section)
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: CustomCellProtocoll
+        let model = presenter.getDataArray()[indexPath.row]
         
         if indexPath.row == 0 {
             
@@ -81,7 +94,7 @@ extension SettingsViewController: UITableViewDataSource {
             if let reuseCell = tableView.dequeueReusableCell(withIdentifier: "SettingsMenuCell") as? SettingsMenuTableViewCell {
                 cell = reuseCell
             } else {
-                cell = SettingsMenuTableViewCell(style: .default, reuseIdentifier: "SettingsMenuCell", data: [1, 2, 3, 4, 5])
+                cell = SettingsMenuTableViewCell(style: .default, reuseIdentifier: "SettingsMenuCell", data: model.data)
             }
             
         } else {
@@ -94,23 +107,19 @@ extension SettingsViewController: UITableViewDataSource {
             
         }
         
-        configureCell(cell: cell, for: indexPath)
+        configureCell(cell: cell, for: indexPath, model: model)
         
         return cell
     }
     
-    private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            cell.configure(image: nil, text: "Night theme", isOn: false)
-        } else if indexPath.row == 1 {
-            cell.configure(image: nil, text: "Number of words", isOn: false)
-        } else {
-            cell.configure(image: UIImage(systemName: "exclamationmark.triangle"), text: "default", isOn: false)
-        }
-        
+    private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath, model: SettingsModel) {
+        cell.configure(image: model.image, text: model.labelText, isOn: model.isOn, closureForAction: model.closureForAction)
         cell.selectionStyle = .none
     }
 }
 
 extension SettingsViewController: UITableViewDelegate {
+}
+
+extension SettingsViewController: SettingsViewProtocol {
 }
