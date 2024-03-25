@@ -79,7 +79,7 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // TODO: Use model values
-        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), wordCounter: Int.random(in: 0...100), learnedWordCounter: Int.random(in: 0...100), cards: [CardModel(frontText: "Animal", downText: "Shark")])
+        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), wordCounter: Int.random(in: 0...100), learnedWordCounter: Int.random(in: 0...100), cards: [CardModel(frontText: "Animal", downText: "Shark", guessCounter: 0)])
         cell.configure(with: model)
         
         return cell

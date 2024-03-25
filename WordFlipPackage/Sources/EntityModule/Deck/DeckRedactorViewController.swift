@@ -123,7 +123,7 @@ extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         // TODO: Use model values
-        let model = CardModel(frontText: "Animals", downText: "Shark")
+        let model = CardModel(frontText: "Animals", downText: "Shark", guessCounter: 0)
         cell.configure(with: model)
         
         return cell
