@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Виктор Борисовский on 22.03.2024.
-//
-
 import Foundation
 
 public enum ComponentMetrics {
