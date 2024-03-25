@@ -5,9 +5,9 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
     private let viewAtCell: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 15
         view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 0.25
+        view.layer.borderWidth = 1 / UIScreen.main.scale
+        view.layer.cornerRadius = 15
         view.backgroundColor = .white
         view.layer.shadowRadius = 3
         view.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
