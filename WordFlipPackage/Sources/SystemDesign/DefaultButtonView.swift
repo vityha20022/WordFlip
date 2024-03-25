@@ -23,8 +23,7 @@ public final class DefaultButton: UIButton {
         layer.shadowRadius = 3
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
-        layer.shadowOpacity = 0.35
-        layer.shadowRadius = 0.0
+        layer.shadowOpacity = 0.7
         layer.masksToBounds = false
         setTitleColor(BaseColorScheme.buttonText.resolve(), for: .normal)
     }
