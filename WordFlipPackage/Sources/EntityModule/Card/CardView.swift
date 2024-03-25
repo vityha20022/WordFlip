@@ -85,10 +85,10 @@ final class CardView: UIView {
         switch cardSide {
             case .front:
                 textView.text = model.frontText
-                textView.textColor = .white
+                textView.textColor = BaseColorScheme.downSideCardColor.resolve()
             case .down:
                 textView.text = model.downText
-                textView.textColor = BaseColorScheme.cardText.resolve()
+                textView.textColor = BaseColorScheme.frontSideCardColor.resolve()
         }
         
         textView.backgroundColor = cardColor

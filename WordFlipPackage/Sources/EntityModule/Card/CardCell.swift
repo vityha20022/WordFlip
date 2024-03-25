@@ -15,7 +15,7 @@ final class CardCell: UITableViewCell {
         view.layer.shadowRadius = ComponentMetrics.shadowRadius
         view.layer.masksToBounds = false
         
-        view.backgroundColor = BaseColorScheme.accent.resolve()
+        view.backgroundColor = BaseColorScheme.frontSideCardColor.resolve()
         return view
     }()
     
@@ -24,7 +24,7 @@ final class CardCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 25, weight: .bold)
-        label.textColor = .white
+        label.textColor = BaseColorScheme.downSideCardColor.resolve()
         return label
     }()
     
