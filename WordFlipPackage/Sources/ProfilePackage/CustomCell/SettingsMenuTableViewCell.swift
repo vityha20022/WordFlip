@@ -4,6 +4,7 @@ import SystemDesign
 final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
     
     private let data: [Int]
+    private var menuActionClosure: ((Int) -> Void)?
     
     private let label: UILabel = {
         let label = UILabel()
@@ -58,9 +59,9 @@ final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
         var menuActions = [UIAction]()
         
         for number in data {
-            let action = UIAction(title: "\(number)", handler: { [self] _ in
-                print("Selected number: \(number)")
-                numberButton.setTitle("\(number)", for: .normal)
+            let action = UIAction(title: "\(number)", handler: { [weak self] _ in
+                self?.numberButton.setTitle("\(number)", for: .normal)
+                self?.menuActionClosure?(number)
             })
             menuActions.append(action)
         }
@@ -71,5 +72,6 @@ final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
     
     func configure(image: UIImage?, text: String?, isOn: Bool, closureForAction: ((Int) -> Void)?) {
         label.text = text
+        menuActionClosure = closureForAction
     }
 }

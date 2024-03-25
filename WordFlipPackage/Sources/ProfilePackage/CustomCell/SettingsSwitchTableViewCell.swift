@@ -2,6 +2,8 @@ import UIKit
 
 final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
     
+    private var switchStateChangedHandler: ((Int) -> Void)?
+    
     private let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,5 +48,14 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
     func configure(image: UIImage?, text: String?, isOn: Bool, closureForAction: ((Int) -> Void)?) {
         label.text = text
         switchView.isOn = isOn
+        
+        switchStateChangedHandler = closureForAction
+        
+        switchView.removeTarget(nil, action: nil, for: .allEvents)
+        
+        switchView.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            switchStateChangedHandler?(self.switchView.isOn ? 1 : 0)
+        }, for: .valueChanged)
     }
 }
