@@ -50,7 +50,7 @@ public final class ProfileViewController: UIViewController {
         deleteButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         
         NSLayoutConstraint.activate([
-            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
             deleteButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
             deleteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
             deleteButton.heightAnchor.constraint(equalToConstant: 35)
@@ -64,7 +64,7 @@ public final class ProfileViewController: UIViewController {
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10)
         ])
 
