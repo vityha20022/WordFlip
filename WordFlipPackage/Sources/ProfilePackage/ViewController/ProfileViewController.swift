@@ -20,6 +20,8 @@ public final class ProfileViewController: UIViewController {
         view.addSubview(profileTableView)
         view.addSubview(titleLabel)
         
+        navigationItem.title = "Profile"
+        
         configureView()
         configureExitButton()
         configureDeleteButton()

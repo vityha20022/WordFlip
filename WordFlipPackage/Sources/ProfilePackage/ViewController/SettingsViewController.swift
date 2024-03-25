@@ -10,6 +10,16 @@ public final class SettingsViewController: UIViewController {
         setupLayout()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     private func setupLayout() {
         view.addSubview(settingsTableView)
         view.addSubview(titleLabel)
