@@ -113,10 +113,8 @@ extension ProfileViewController: UITableViewDataSource {
         }
         
         configureCell(cell: cell, for: indexPath)
-        isScrollEnabled()
         
         return cell
-        
     }
     
     private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath) {
@@ -131,14 +129,6 @@ extension ProfileViewController: UITableViewDataSource {
         }
         
         cell.selectionStyle = .none
-    }
-    
-    private func isScrollEnabled() {
-        if profileTableView.contentSize.height <= profileTableView.bounds.size.height {
-            profileTableView.isScrollEnabled = false
-        } else {
-            profileTableView.isScrollEnabled = true
-        }
     }
     
 }
