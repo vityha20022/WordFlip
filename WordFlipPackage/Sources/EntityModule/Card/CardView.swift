@@ -61,7 +61,7 @@ final class CardView: UIView {
     
     private func setup() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 35
         self.layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
         self.layer.shadowOffset = ComponentMetrics.shadowOffset
         self.layer.shadowOpacity = ComponentMetrics.shadowOpacity
