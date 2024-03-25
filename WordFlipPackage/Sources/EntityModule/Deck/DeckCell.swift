@@ -1,5 +1,6 @@
 import UIKit
 import SystemDesign
+import Models
 
 struct DeckCellModel {
     let titleText: String
@@ -42,13 +43,9 @@ final class DeckCell: UITableViewCell {
         return label
     }()
     
-    private let wordsLearnedLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18)
-        label.numberOfLines = 0
-        label.textColor = BaseColorScheme.buttonText.resolve()
-        return label
+    private let deckView: DeckView = {
+        let deckView = DeckView()
+        return deckView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -60,38 +57,20 @@ final class DeckCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with model: DeckCellModel) {
-        titleLabel.text = model.titleText
-        wordCounterLabel.text = model.wordCounterText
-        wordsLearnedLabel.text = model.wordsLearnedText
+    func configure(with model: DeckModel) {
+        deckView.configure(with: model)
     }
     
     private func setup() {
         contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         
-        contentView.addSubview(cellView)
-        cellView.addSubview(titleLabel)
-        cellView.addSubview(wordCounterLabel)
-        cellView.addSubview(wordsLearnedLabel)
+        contentView.addSubview(deckView)
         
         NSLayoutConstraint.activate([
-            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
-            
-            titleLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 25),
-            titleLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 15),
-            titleLabel.bottomAnchor.constraint(equalTo: wordCounterLabel.topAnchor, constant: -5),
-            
-            wordCounterLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 30),
-            wordCounterLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
-            wordCounterLabel.bottomAnchor.constraint(equalTo: wordsLearnedLabel.topAnchor),
-        
-            wordsLearnedLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 30),
-            wordsLearnedLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
-            wordsLearnedLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -20)
+            deckView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            deckView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            deckView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            deckView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
         ])
     }
 }
