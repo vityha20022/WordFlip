@@ -10,11 +10,9 @@ let package = Package(
     products: [
         .library(
             name: "WordFlipPackage",
-            targets: ["WordFlipPackage"
-                     ]),
+            targets: ["WordFlipPackage"]),
     ],
     dependencies: [
-        
     ],
     targets: [
         .target(
