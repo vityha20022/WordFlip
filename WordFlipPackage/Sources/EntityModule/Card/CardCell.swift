@@ -7,10 +7,7 @@
 
 import UIKit
 import SystemDesign
-
-struct CardCellModel {
-    let titleText: String
-}
+import Models
 
 final class CardCell: UITableViewCell {
     static let identifier = "CardCell"
@@ -47,8 +44,8 @@ final class CardCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with model: CardCellModel) {
-        titleLabel.text = model.titleText
+    func configure(with model: CardModel) {
+        titleLabel.text = model.frontText
     }
     
     private func setup() {
@@ -58,8 +55,8 @@ final class CardCell: UITableViewCell {
         cellView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
             
