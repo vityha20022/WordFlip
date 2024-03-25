@@ -68,7 +68,7 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
         ])
     }
     
-    func configure(image: UIImage?, text: String?, isOn: Bool) {
+    func configure(image: UIImage?, text: String?, isOn: Bool, closureForAction: ((Int) -> Void)?) {
         leftImageView.image = image
         titleLabel.text = text
     }
