@@ -11,11 +11,13 @@ public struct CardModel {
     public let id: String
     public let frontText: String
     public let downText: String
+    public let guessCounter: Int
     
-    public init(id: String = UUID().uuidString, frontText: String, downText: String) {
-        self.id = id
+    public init(frontText: String, downText: String, guessCounter: Int) {
+        self.id = UUID().uuidString
         self.frontText = frontText
         self.downText = downText
+        self.guessCounter = guessCounter
     }
 }
 
@@ -26,8 +28,8 @@ public struct DeckModel {
     public let learnedWordCounter: Int
     public let cards: [CardModel]
     
-    public init(id: String = UUID().uuidString, name: String, wordCounter: Int, learnedWordCounter: Int, cards: [CardModel]) {
-        self.id = id
+    public init(name: String, wordCounter: Int, learnedWordCounter: Int, cards: [CardModel]) {
+        self.id = UUID().uuidString
         self.name = name
         self.wordCounter = wordCounter
         self.learnedWordCounter = learnedWordCounter
