@@ -12,7 +12,7 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
         view.layer.shadowRadius = 3
         view.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         view.layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
-        view.layer.shadowOpacity = 1
+        view.layer.shadowOpacity = 0.25
         view.layer.masksToBounds = false
         return view
     }()
