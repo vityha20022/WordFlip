@@ -63,7 +63,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "MainView",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["SystemDesign", "Models"]),
         .target(
             name: "Authentication",
             dependencies: [
