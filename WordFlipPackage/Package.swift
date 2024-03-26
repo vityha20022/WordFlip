@@ -35,7 +35,9 @@ let package = Package(
                 dependencies: ["SystemDesign"]),
          .target(
             name: "EntityModule",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["SystemDesign", "Models"]),
+        .target(name: "Models",
+                dependencies: []),
         .target(
             name: "Builder",
             dependencies: ["NavigationModule", "MainView", "EntityModule", "ProfilePackage", "Authentication"]),

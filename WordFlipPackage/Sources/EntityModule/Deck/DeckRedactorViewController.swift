@@ -2,25 +2,25 @@ import UIKit
 import SystemDesign
 import Models
 
-final public class DecksViewController: UIViewController {
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.allowsSelection = false
-        tableView.estimatedRowHeight = 100
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.register(DeckCell.self, forCellReuseIdentifier: DeckCell.identifier)
-        return tableView
-    }()
+public struct DeckRedactorConfiguration {
+    let title: String
+    let model: DeckModel
+    
+    public init(title: String, model: DeckModel) {
+        self.title = title
+        self.model = model
+    }
+}
+
+final public class DeckRedactorViewController: UIViewController{
+    private let configuration: DeckRedactorConfiguration
+    
+    private let deckView = DeckView()
     
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Decks"
         return label
     }()
     
@@ -31,24 +31,55 @@ final public class DecksViewController: UIViewController {
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         return button
     }()
+
+    private let cardsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.allowsSelection = false
+        tableView.estimatedRowHeight = 100
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = true
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+        tableView.register(CardCell.self, forCellReuseIdentifier: CardCell.identifier)
+        return tableView
+    }()
+    
+    public init(with configuration: DeckRedactorConfiguration) {
+        self.configuration = configuration
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setup()
     }
     
     private func setup() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        cardsTableView.delegate = self
+        cardsTableView.dataSource = self
+        
+        hideKeyboardWhenTappedAround()
+        
+        deckView.configure(with: configuration.model, isEditable: true)
         
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
+        
+        headerLabel.text = configuration.title
         
         let safeArea = view.safeAreaLayoutGuide
         
         view.addSubview(headerLabel)
         view.addSubview(plusButton)
-        view.addSubview(tableView)
+        view.addSubview(cardsTableView)
+        view.addSubview(deckView)
         
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMargin),
@@ -57,29 +88,32 @@ final public class DecksViewController: UIViewController {
             plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
             plusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
             
-            tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
-            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            deckView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
+            deckView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            deckView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            deckView.bottomAnchor.constraint(equalTo: cardsTableView.topAnchor, constant: 0),
+            
+            cardsTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            cardsTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
 
-extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
+extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: Use model count
-        5
+        return configuration.model.cards.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.identifier, for: indexPath) as? DeckCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier, for: indexPath) as? CardCell else {
             fatalError("No cell with such identifier.")
         }
         
         // TODO: Use model values
-        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), wordCounter: Int.random(in: 0...100), learnedWordCounter: Int.random(in: 0...100), cards: [CardModel(frontText: "Animal", downText: "Shark", guessCounter: 0)])
+        let model = CardModel(frontText: "Animals", downText: "Shark", guessCounter: 0)
         cell.configure(with: model)
         
         return cell
@@ -92,7 +126,6 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDelegate
     
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
         var actions = [UIContextualAction]()
 
         let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
@@ -121,6 +154,17 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
         config.performsFirstActionWithFullSwipe = false
 
         return config
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
