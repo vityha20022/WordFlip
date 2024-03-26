@@ -12,13 +12,10 @@ public struct DeckRedactorConfiguration {
     }
 }
 
-
 final public class DeckRedactorViewController: UIViewController{
     private let configuration: DeckRedactorConfiguration
     
-    private lazy var deckView: DeckView = {
-        return DeckView()
-    }()
+    private let deckView = DeckView()
     
     private let headerLabel: UILabel = {
         let label = UILabel()
