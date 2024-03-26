@@ -17,6 +17,7 @@ public enum CardSide {
 final class CardView: UIView {
     private let cardNamePlaceholderText: String
     private let cardColor: UIColor
+    private let cardTextColor: UIColor
     private let cardSide: CardSide
     private let cardNamePlaceholderColor = UIColor.lightGray
     
@@ -37,9 +38,11 @@ final class CardView: UIView {
             case .front:
                 cardNamePlaceholderText = "Type word..."
                 cardColor = BaseColorScheme.frontSideCardColor.resolve()
+                cardTextColor = BaseColorScheme.downSideCardColor.resolve()
             case .down:
                 cardNamePlaceholderText = "Type tip..."
                 cardColor = BaseColorScheme.downSideCardColor.resolve()
+                cardTextColor = BaseColorScheme.frontSideCardColor.resolve()
         }
         
         cardSide = side
@@ -105,7 +108,7 @@ extension CardView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == cardNamePlaceholderColor {
             textView.text = ""
-            textView.textColor = .white
+            textView.textColor = cardTextColor
         }
     }
     
