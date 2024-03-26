@@ -1,10 +1,3 @@
-//
-//  DeckRedactorViewController.swift
-//  
-//
-//  Created by Виктор Борисовский on 24.03.2024.
-//
-
 import UIKit
 import SystemDesign
 import Models
@@ -92,7 +85,7 @@ final public class DeckRedactorViewController: UIViewController{
         view.addSubview(deckView)
         
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMargin),
             headerLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
             
             plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
@@ -136,7 +129,6 @@ extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource
     // MARK: - UITableViewDelegate
     
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
         var actions = [UIContextualAction]()
 
         let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
@@ -171,7 +163,6 @@ extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     

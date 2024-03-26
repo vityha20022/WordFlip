@@ -1,15 +1,9 @@
-//
-//  DeckView.swift
-//  
-//
-//  Created by Виктор Борисовский on 24.03.2024.
-//
-
 import UIKit
 import SystemDesign
 import Models
 
-class DeckView: UIView {
+final class DeckView: UIView {
+    
     private var deckNamePlaceholderText = "Type deck name..."
     private var deckNamePlaceholderColor = UIColor.lightGray
     

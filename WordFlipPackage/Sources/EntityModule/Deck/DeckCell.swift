@@ -43,10 +43,7 @@ final class DeckCell: UITableViewCell {
         return label
     }()
     
-    private let deckView: DeckView = {
-        let deckView = DeckView()
-        return deckView
-    }()
+    private let deckView = DeckView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

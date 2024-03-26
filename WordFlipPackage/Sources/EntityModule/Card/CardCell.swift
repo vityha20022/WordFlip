@@ -1,10 +1,3 @@
-//
-//  CardCell.swift
-//  
-//
-//  Created by Виктор Борисовский on 23.03.2024.
-//
-
 import UIKit
 import SystemDesign
 import Models

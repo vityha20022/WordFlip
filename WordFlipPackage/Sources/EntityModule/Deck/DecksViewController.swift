@@ -51,7 +51,7 @@ final public class DecksViewController: UIViewController {
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMargin),
             headerLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
             
             plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
