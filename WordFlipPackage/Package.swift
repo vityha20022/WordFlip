@@ -29,18 +29,19 @@ let package = Package(
             dependencies: []),
         .target(
             name: "MainView",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["SystemDesign", "Models"]),
         .target(
             name: "Authentication",
                 dependencies: ["SystemDesign"]),
          .target(
             name: "EntityModule",
             dependencies: ["SystemDesign", "Models"]),
-        .target(name: "Models",
-                dependencies: []),
+        .target(
+            name: "Models",
+            dependencies: []),
         .target(
             name: "Builder",
-            dependencies: ["NavigationModule", "MainView", "EntityModule", "ProfilePackage", "Authentication"]),
+            dependencies: ["NavigationModule", "MainView", "ProfilePackage", "EntityModule", "Authentication"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]),
