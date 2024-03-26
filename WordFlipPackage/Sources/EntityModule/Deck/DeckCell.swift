@@ -1,10 +1,3 @@
-//
-//  DeckCell.swift
-//  
-//
-//  Created by Виктор Борисовский on 20.03.2024.
-//
-
 import UIKit
 import SystemDesign
 
