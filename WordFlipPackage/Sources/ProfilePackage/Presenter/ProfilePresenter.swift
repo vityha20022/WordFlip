@@ -9,10 +9,6 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         ProfileModel(image: UIImage(systemName: "info.circle"), labelText: "About the program", isOn: false, closureForAction: nil)
     ]
     
-    func numberRowsInSection(section: Int) -> Int {
-        return arrayProfile.count
-    }
-    
     func getDataArray() -> [ProfileModel] {
         return arrayProfile
     }

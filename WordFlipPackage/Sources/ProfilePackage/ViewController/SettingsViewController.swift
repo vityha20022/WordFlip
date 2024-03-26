@@ -74,7 +74,7 @@ public final class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberRowsInSection(section: section)
+        return presenter.getDataArray().count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

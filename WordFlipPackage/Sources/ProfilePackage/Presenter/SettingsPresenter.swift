@@ -18,10 +18,6 @@ final class SettingsPresenter: SettingsPresenterProtocol {
         }
     ]
     
-    func numberRowsInSection(section: Int) -> Int {
-        return arraySettings.count
-    }
-    
     func getDataArray() -> [SettingsModel] {
         return arraySettings
     }

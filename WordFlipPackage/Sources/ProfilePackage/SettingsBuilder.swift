@@ -6,9 +6,9 @@ public struct SettingsBuilder {
     }
     
     public func build() -> UIViewController {
-        let presentor = SettingsPresenter()
-        let settingsViewController = SettingsViewController(presenter: presentor)
-        presentor.settingsView = settingsViewController
+        let presenter = SettingsPresenter()
+        let settingsViewController = SettingsViewController(presenter: presenter)
+        presenter.settingsView = settingsViewController
         return settingsViewController
     }
 }
