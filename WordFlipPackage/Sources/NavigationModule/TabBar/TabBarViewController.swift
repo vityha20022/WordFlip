@@ -15,8 +15,8 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
         guard let sender = sender.sender as? UIButton else { return }
         self?.presenter.didTapButton(withTag: sender.tag)
     })
-
-    // MARK: - UI Elements
+    
+    // MARK: -  UI Elements
     private lazy var decksButton = getButton(icon: "menucard.fill", tag: 0, action: action)
     private lazy var cardsButton = getButton(icon: "graduationcap.fill", tag: 1, action: action, opacity: 1)
     private lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
@@ -31,7 +31,7 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
         make.layer.shadowOffset = CGSize(width: 0, height: 0)
         make.layer.shadowOpacity = 0.35
         make.layer.shadowRadius = 20
-        if UIScreen.main.bounds.width <= 375 {
+        if UIScreen.main.bounds.height <= 667 {
             make.frame = .init(x: 20, y: view.frame.height - 60, width: view.frame.width - 20 - 20, height: 50)
         } else {
             make.frame = .init(x: 30, y: view.frame.height - 80, width: view.frame.width - 30 - 30, height: 50)
