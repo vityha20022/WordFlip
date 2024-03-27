@@ -18,7 +18,7 @@ final class RegisterScreenPresenter: RegisterScreenPresenterProtocol {
             return
         }
 
-        let userRequest = RegisterUserRequest(username: username, eMail: email, password: password)
+        let userRequest = RegisterUserRequest(username: username, email: email, password: password)
 
         AuthService.shared.registerUser(with: userRequest) { [weak self] _, error in
             guard let strongSelf = self else {

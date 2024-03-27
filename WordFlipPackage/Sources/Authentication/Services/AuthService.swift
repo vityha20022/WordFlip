@@ -19,10 +19,10 @@ public final class AuthService {
     ///   - Error?: an optional error if Firebase provides one
     public func registerUser(with registerUserRequest: RegisterUserRequest, completion: @escaping (Bool, Error?) -> Void) {
         let username = registerUserRequest.username
-        let eMail = registerUserRequest.email
+        let email = registerUserRequest.email
         let password = registerUserRequest.password
         Database.database().isPersistenceEnabled = true
-        Auth.auth().createUser(withEmail: eMail, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(false, error)
                 return
@@ -37,7 +37,7 @@ public final class AuthService {
                 .document(resultUser.uid)
                 .setData([
                     "username": username,
-                    "email": eMail,
+                    "email": email,
                 ]) { error in
                     if let error = error {
                         completion(false, error)

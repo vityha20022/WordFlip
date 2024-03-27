@@ -5,9 +5,9 @@ public struct RegisterUserRequest {
     let email: String
     let password: String
 
-    public init(username: String, eMail: String, password: String) {
+    public init(username: String, email: String, password: String) {
         self.username = username
-        self.email = eMail
+        self.email = email
         self.password = password
     }
 }

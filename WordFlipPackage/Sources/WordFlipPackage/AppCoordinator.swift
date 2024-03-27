@@ -14,15 +14,15 @@ public final class AppCoordinator {
 
     public func start() {
         let navigationController = UINavigationController()
+        let mainView: UIViewController
 
         if Auth.auth().currentUser == nil {
-            let mainView = EnterViewController(nibName: nil, bundle: nil)
-            navigationController.viewControllers = [mainView]
+            mainView = EnterViewController(nibName: nil, bundle: nil)
         } else {
-            let mainView = CardsViewController(nibName: nil, bundle: nil)
-            navigationController.viewControllers = [mainView]
+            mainView = CardsViewController(nibName: nil, bundle: nil)
         }
 
+        navigationController.viewControllers = [mainView]
         window.makeKeyAndVisible()
         window.rootViewController = navigationController
     }
