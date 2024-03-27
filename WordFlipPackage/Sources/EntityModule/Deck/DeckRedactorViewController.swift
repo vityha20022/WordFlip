@@ -5,25 +5,25 @@ import Models
 public struct DeckRedactorConfiguration {
     let title: String
     let model: DeckModel
-    
+
     public init(title: String, model: DeckModel) {
         self.title = title
         self.model = model
     }
 }
 
-final public class DeckRedactorViewController: UIViewController{
+final public class DeckRedactorViewController: UIViewController {
     private let configuration: DeckRedactorConfiguration
-    
+
     private let deckView = DeckView()
-    
+
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let plusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -45,106 +45,106 @@ final public class DeckRedactorViewController: UIViewController{
         tableView.register(CardCell.self, forCellReuseIdentifier: CardCell.identifier)
         return tableView
     }()
-    
+
     public init(with configuration: DeckRedactorConfiguration) {
         self.configuration = configuration
-        
+
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
     }
-    
+
     private func setup() {
         cardsTableView.delegate = self
         cardsTableView.dataSource = self
-        
+
         hideKeyboardWhenTappedAround()
-        
+
         deckView.configure(with: configuration.model, isEditable: true)
-        
+
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
-        
+
         headerLabel.text = configuration.title
-        
+
         let safeArea = view.safeAreaLayoutGuide
-        
+
         view.addSubview(headerLabel)
         view.addSubview(plusButton)
         view.addSubview(cardsTableView)
         view.addSubview(deckView)
-        
+
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMargin),
             headerLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            
+
             plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
             plusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-            
+
             deckView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
             deckView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
             deckView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
             deckView.bottomAnchor.constraint(equalTo: cardsTableView.topAnchor, constant: 0),
-            
+
             cardsTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             cardsTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }
 
 extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
-    
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return configuration.model.cards.count
     }
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier, for: indexPath) as? CardCell else {
             fatalError("No cell with such identifier.")
         }
-        
+
         // TODO: Use model values
         let model = CardModel(frontText: "Animals", downText: "Shark", guessCounter: 0)
         cell.configure(with: model)
-        
+
         return cell
     }
-    
+
     public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
-    
+
     // MARK: - UITableViewDelegate
-    
+
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var actions = [UIContextualAction]()
 
-        let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
+        let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
             // TODO: Add functionality
         }
-        
-        let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
+
+        let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
             // TODO: Add functionality
         }
 
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold, scale: .large)
-        
+
         deleteAction.image = UIImage(systemName: "trash", withConfiguration: largeConfig)?.withTintColor(.white, renderingMode: .alwaysTemplate).addBackgroundCircle(.systemRed, 50)
         deleteAction.backgroundColor = BaseColorScheme.backgroundColor.resolve().withAlphaComponent(0)
 
         actions.append(deleteAction)
-        
+
         editAction.image = UIImage(systemName: "pencil", withConfiguration: largeConfig)?.withTintColor(.white, renderingMode: .alwaysTemplate).addBackgroundCircle(.systemOrange, 50)
         editAction.backgroundColor = BaseColorScheme.backgroundColor.resolve().withAlphaComponent(0)
 
@@ -162,13 +162,14 @@ extension UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
-    
-    @objc func dismissKeyboard() {
+
+    @objc
+    func dismissKeyboard() {
         view.endEditing(true)
     }
 }
 
-private extension UIImage {
+extension UIImage {
     func addBackgroundCircle(_ color: UIColor?, _ diameter: Double) -> UIImage? {
         let circleDiameter = diameter
         let circleRadius = circleDiameter * 0.5
@@ -183,7 +184,7 @@ private extension UIImage {
         UIGraphicsBeginImageContextWithOptions(circleSize, false, UIScreen.main.scale)
 
         let renderer = UIGraphicsImageRenderer(size: circleSize)
-        let circleImage = renderer.image { ctx in
+        let circleImage = renderer.image { _ in
             view.drawHierarchy(in: circleFrame, afterScreenUpdates: true)
         }
 

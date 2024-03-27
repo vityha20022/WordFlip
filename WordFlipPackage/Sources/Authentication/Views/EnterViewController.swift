@@ -2,7 +2,7 @@ import UIKit
 import SystemDesign
 
 public final class EnterViewController: UIViewController {
-    
+
     private let appTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "WordFlip"
@@ -11,7 +11,7 @@ public final class EnterViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let birdImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(named: "Bird")
@@ -19,9 +19,9 @@ public final class EnterViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let registerButton = DefaultButton(text: "Register", color: BaseColorScheme.accent)
-    
+
     private let signInButton: DefaultButton = {
         var button = DefaultButton(text: "Sign in", color: BaseColorScheme.black)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -30,13 +30,13 @@ public final class EnterViewController: UIViewController {
         button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
         setupButtons()
     }
-    
+
     private func setupAppTitleLabel() {
         NSLayoutConstraint.activate(
             [
@@ -48,13 +48,13 @@ public final class EnterViewController: UIViewController {
                     equalTo:
                         view.safeAreaLayoutGuide.centerYAnchor,
                     constant: -view.safeAreaLayoutGuide.layoutFrame.height * 0.3
-                )
+                ),
             ]
         )
     }
-    
+
     private func setupBirdImageView() {
-        
+
         NSLayoutConstraint.activate(
             [
                 birdImageView.centerXAnchor.constraint(
@@ -74,11 +74,11 @@ public final class EnterViewController: UIViewController {
                         appTitleLabel.safeAreaLayoutGuide.bottomAnchor,
                     constant:
                         20
-                )
+                ),
             ]
         )
     }
-    
+
     private func setupSignInButton() {
         NSLayoutConstraint.activate(
             [
@@ -107,11 +107,11 @@ public final class EnterViewController: UIViewController {
                         registerButton.safeAreaLayoutGuide.topAnchor,
                     constant:
                         -10
-                )
+                ),
             ]
         )
     }
-    
+
     private func setupRegisterButton() {
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(
@@ -137,23 +137,23 @@ public final class EnterViewController: UIViewController {
                 registerButton.heightAnchor.constraint(
                     equalToConstant:
                         65
-                )
+                ),
             ]
         )
     }
-    
+
     private func addSubviews() {
         view.addSubview(appTitleLabel)
         view.addSubview(signInButton)
         view.addSubview(registerButton)
         view.addSubview(birdImageView)
     }
-    
+
     private func setupButtons() {
         setupAppTitleLabel()
         setupSignInButton()
         setupRegisterButton()
         setupBirdImageView()
     }
-    
+
 }

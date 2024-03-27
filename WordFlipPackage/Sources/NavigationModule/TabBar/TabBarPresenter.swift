@@ -4,7 +4,7 @@ public protocol TabBarPresenterProtocol {
 
 public final class TabBarPresenter: TabBarPresenterProtocol {
     public weak var view: TabBarViewControllerProtocol?
-    
+
     public init(view: TabBarViewControllerProtocol? = nil) {
         self.view = view
     }

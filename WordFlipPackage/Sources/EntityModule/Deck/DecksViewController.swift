@@ -15,7 +15,7 @@ final public class DecksViewController: UIViewController {
         tableView.register(DeckCell.self, forCellReuseIdentifier: DeckCell.identifier)
         return tableView
     }()
-    
+
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
@@ -23,7 +23,7 @@ final public class DecksViewController: UIViewController {
         label.text = "Decks"
         return label
     }()
-    
+
     private let plusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -31,87 +31,94 @@ final public class DecksViewController: UIViewController {
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         return button
     }()
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setup()
     }
-    
+
     private func setup() {
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
-        
+
         let safeArea = view.safeAreaLayoutGuide
-        
+
         view.addSubview(headerLabel)
         view.addSubview(plusButton)
         view.addSubview(tableView)
-        
+
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMargin),
+            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor,
+                                             constant: ComponentMetrics.headerTitleTopMargin),
             headerLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            
+
             plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
             plusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-            
+
             tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
         ])
     }
 }
 
 extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
-    
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: Use model count
         5
     }
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.identifier, for: indexPath) as? DeckCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.identifier, for: indexPath)
+                as? DeckCell else {
             fatalError("No cell with such identifier.")
         }
-        
+
         // TODO: Use model values
-        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), wordCounter: Int.random(in: 0...100), learnedWordCounter: Int.random(in: 0...100), cards: [CardModel(frontText: "Animal", downText: "Shark", guessCounter: 0)])
+        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)),
+                              wordCounter: Int.random(in: 0...100),
+                              learnedWordCounter: Int.random(in: 0...100),
+                              cards: [
+                                CardModel(frontText: "Animal", downText: "Shark", guessCounter: 0)
+                              ])
         cell.configure(with: model)
-        
+
         return cell
     }
-    
+
     public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
-    
+
     // MARK: - UITableViewDelegate
-    
+
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
         var actions = [UIContextualAction]()
 
-        let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
+        let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
             // TODO: Add functionality
         }
-        
-        let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] (contextualAction, view, completion) in
+
+        let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
             // TODO: Add functionality
         }
 
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold, scale: .large)
-        
+
         deleteAction.image = UIImage(systemName: "trash", withConfiguration: largeConfig)?.withTintColor(.white, renderingMode: .alwaysTemplate).addBackgroundCircle(.systemRed, 50)
         deleteAction.backgroundColor = BaseColorScheme.backgroundColor.resolve().withAlphaComponent(0)
 
         actions.append(deleteAction)
-        
+
         editAction.image = UIImage(systemName: "pencil", withConfiguration: largeConfig)?.withTintColor(.white, renderingMode: .alwaysTemplate).addBackgroundCircle(.systemOrange, 50)
         editAction.backgroundColor = BaseColorScheme.backgroundColor.resolve().withAlphaComponent(0)
 
@@ -124,7 +131,7 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-private extension UIImage {
+/*extension UIImage {
     func addBackgroundCircle(_ color: UIColor?, _ diameter: Double) -> UIImage? {
         let circleDiameter = diameter
         let circleRadius = circleDiameter * 0.5
@@ -139,7 +146,7 @@ private extension UIImage {
         UIGraphicsBeginImageContextWithOptions(circleSize, false, UIScreen.main.scale)
 
         let renderer = UIGraphicsImageRenderer(size: circleSize)
-        let circleImage = renderer.image { ctx in
+        let circleImage = renderer.image { _ in
             view.drawHierarchy(in: circleFrame, afterScreenUpdates: true)
         }
 
@@ -152,4 +159,4 @@ private extension UIImage {
 
         return image
     }
-}
+}*/
