@@ -1,10 +1,3 @@
-//
-//  CardRedactorViewController.swift
-//  
-//
-//  Created by Виктор Борисовский on 25.03.2024.
-//
-
 import UIKit
 import SystemDesign
 import Models
@@ -30,13 +23,8 @@ final public class CardRedactorViewController: UIViewController {
         return label
     }()
     
-    private let frontSideCardView: CardView = {
-        return CardView(for: .front)
-    }()
-    
-    private let downSideCardView: CardView = {
-        return CardView(for: .down)
-    }()
+    private let frontSideCardView = CardView(for: .front)
+    private let downSideCardView = CardView(for: .down)
     
     private let translateButton: UIButton = {
         let button = UIButton()
@@ -58,7 +46,7 @@ final public class CardRedactorViewController: UIViewController {
         var menuActions = [UIAction]()
         
         for language in languageData {
-            let action = UIAction(title: "\(language)", handler: { [self] _ in
+            let action = UIAction(title: "\(language)", handler: { _ in
                 button.setTitle("\(language)", for: .normal)
             })
             menuActions.append(action)
@@ -83,7 +71,7 @@ final public class CardRedactorViewController: UIViewController {
         var menuActions = [UIAction]()
         
         for language in languageData {
-            let action = UIAction(title: "\(language)", handler: { [self] _ in
+            let action = UIAction(title: "\(language)", handler: { _ in
                 button.setTitle("\(language)", for: .normal)
             })
             menuActions.append(action)
@@ -112,7 +100,6 @@ final public class CardRedactorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -149,7 +136,6 @@ final public class CardRedactorViewController: UIViewController {
             sourceLanguageButton.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 20),
             sourceLanguageButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
             sourceLanguageButton.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -5),
-            
             
             arrowImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             arrowImageView.widthAnchor.constraint(equalToConstant: 30),

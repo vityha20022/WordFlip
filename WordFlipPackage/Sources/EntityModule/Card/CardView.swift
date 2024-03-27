@@ -1,10 +1,3 @@
-//
-//  CardView.swift
-//  
-//
-//  Created by Виктор Борисовский on 25.03.2024.
-//
-
 import UIKit
 import SystemDesign
 import Models
@@ -25,7 +18,6 @@ final class CardView: UIView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 25, weight: .bold)
-        //textView.isScrollEnabled = false
         textView.textAlignment = .center
         textView.autocorrectionType = .no
         textView.layer.cornerRadius = 15
@@ -63,17 +55,17 @@ final class CardView: UIView {
     }
     
     private func setup() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 35
-        self.layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
-        self.layer.shadowOffset = ComponentMetrics.shadowOffset
-        self.layer.shadowOpacity = ComponentMetrics.shadowOpacity
-        self.layer.shadowRadius = ComponentMetrics.shadowRadius
-        self.layer.masksToBounds = false
+        translatesAutoresizingMaskIntoConstraints = false
+        layer.cornerRadius = 35
+        layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
+        layer.shadowOffset = ComponentMetrics.shadowOffset
+        layer.shadowOpacity = ComponentMetrics.shadowOpacity
+        layer.shadowRadius = ComponentMetrics.shadowRadius
+        layer.masksToBounds = false
         
-        self.backgroundColor = cardColor
+        backgroundColor = cardColor
         
-        self.addSubview(textView)
+        addSubview(textView)
         
         NSLayoutConstraint.activate([
             textView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
@@ -89,9 +81,11 @@ final class CardView: UIView {
             case .front:
                 textView.text = model.frontText
                 textView.textColor = BaseColorScheme.downSideCardColor.resolve()
+                textView.tintColor = BaseColorScheme.downSideCardColor.resolve()
             case .down:
                 textView.text = model.downText
                 textView.textColor = BaseColorScheme.frontSideCardColor.resolve()
+                textView.tintColor = BaseColorScheme.frontSideCardColor.resolve()
         }
         
         textView.backgroundColor = cardColor
