@@ -10,7 +10,7 @@ final class DeckView: UIView {
     private let nameTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = .systemFont(ofSize: 25, weight: .bold)
+        textView.font = .systemFont(ofSize: 35, weight: .bold)
         textView.isScrollEnabled = false
         textView.autocorrectionType = .no
         textView.layer.cornerRadius = 8
@@ -21,7 +21,7 @@ final class DeckView: UIView {
     private let wordCounterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 20)
         label.numberOfLines = 0
         label.textColor = BaseColorScheme.buttonText.resolve()
         return label
@@ -30,7 +30,7 @@ final class DeckView: UIView {
     private let learnedWordCounterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 20)
         label.numberOfLines = 0
         label.textColor = BaseColorScheme.buttonText.resolve()
         return label
@@ -90,10 +90,18 @@ final class DeckView: UIView {
 
             if nameTextView.text.isEmpty {
                 nameTextView.text = deckNamePlaceholderText
-                nameTextView.font = .systemFont(ofSize: 25, weight: .regular)
+                nameTextView.font = .systemFont(ofSize: 35, weight: .regular)
                 nameTextView.textColor = deckNamePlaceholderColor
             }
         }
+    }
+    
+    func getDeckName() -> String {
+        if nameTextView.text == deckNamePlaceholderText {
+            return ""
+        }
+        
+        return nameTextView.text
     }
 }
 
@@ -101,7 +109,7 @@ extension DeckView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == deckNamePlaceholderColor {
             textView.text = ""
-            textView.font = .systemFont(ofSize: 25, weight: .bold)
+            textView.font = .systemFont(ofSize: 35, weight: .bold)
             textView.textColor = #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
         }
     }
@@ -109,7 +117,7 @@ extension DeckView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = deckNamePlaceholderText
-            textView.font = .systemFont(ofSize: 25, weight: .regular)
+            textView.font = .systemFont(ofSize: 35, weight: .regular)
             textView.textColor = deckNamePlaceholderColor
         }
     }
