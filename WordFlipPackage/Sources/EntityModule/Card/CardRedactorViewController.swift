@@ -161,7 +161,8 @@ final public class CardRedactorViewController: UIViewController {
         translateButton.addTarget(self, action: #selector(translateButtonTapped), for: .touchUpInside)
     }
 
-    @objc private func translateButtonTapped() {
+    @objc
+    private func translateButtonTapped() {
         let textToTranslate = "Привет Сириус! Привет кто-то"
 
         let apiKey = ""
