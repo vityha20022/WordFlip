@@ -13,7 +13,7 @@ final class CardView: UIView {
     private let cardTextColor: UIColor
     private let cardSide: CardSide
     private let cardNamePlaceholderColor = UIColor.lightGray
-    
+
     private let textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ final class CardView: UIView {
         textView.textColor = .white
         return textView
     }()
-    
+
     init(for side: CardSide) {
         switch side {
             case .front:
@@ -36,24 +36,24 @@ final class CardView: UIView {
                 cardColor = BaseColorScheme.downSideCardColor.resolve()
                 cardTextColor = BaseColorScheme.frontSideCardColor.resolve()
         }
-        
+
         cardSide = side
-        
+
         super.init(frame: .zero)
-        
+
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         textView.centerVertically()
     }
-    
+
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 35
@@ -62,20 +62,20 @@ final class CardView: UIView {
         layer.shadowOpacity = ComponentMetrics.shadowOpacity
         layer.shadowRadius = ComponentMetrics.shadowRadius
         layer.masksToBounds = false
-        
+
         backgroundColor = cardColor
-        
+
         addSubview(textView)
-        
+
         NSLayoutConstraint.activate([
             textView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
             textView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
             textView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             textView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
         ])
     }
-    
+
     func configure(with model: CardModel) {
         switch cardSide {
             case .front:
@@ -87,10 +87,10 @@ final class CardView: UIView {
                 textView.textColor = BaseColorScheme.frontSideCardColor.resolve()
                 textView.tintColor = BaseColorScheme.frontSideCardColor.resolve()
         }
-        
+
         textView.backgroundColor = cardColor
         textView.delegate = self
-        
+
         if textView.text.isEmpty {
             textView.text = cardNamePlaceholderText
             textView.textColor = cardNamePlaceholderColor
@@ -105,7 +105,7 @@ extension CardView: UITextViewDelegate {
             textView.textColor = cardTextColor
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = cardNamePlaceholderText
