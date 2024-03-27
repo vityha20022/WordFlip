@@ -111,6 +111,7 @@ public final class CardsViewController: UIViewController{
 
     // MARK: -  Properties
     private var viewIsRotate: Bool = true
+    
     var delegate: SwipeCardsDelegate?
     
     private var deck = DeckModel(
@@ -182,11 +183,12 @@ public final class CardsViewController: UIViewController{
     
     // MARK: -  Actions buttons
     private lazy var invertButtonAction = UIAction(handler: { [weak self] sender in
-        guard
+        guard 
             let self = self,
             let card = self.stackCardsView.visibleCards.last
         else {return}
         card.handleTapGesture()
+ 
     })
     
     private lazy var skipButtonAction = UIAction(handler: { [weak self] sender in
@@ -201,6 +203,9 @@ public final class CardsViewController: UIViewController{
         card.swipeRightAction()
     })
     private lazy var exitButtonAction = UIAction(handler: { [weak self] sender in
+//        guard let self = self else { return }
+//        guard let card = self.stackCardsView.visibleCards.last else {return}
+//        card.swipeRightAction()
         
     })
     

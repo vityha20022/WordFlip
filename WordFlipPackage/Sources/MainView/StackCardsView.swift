@@ -1,34 +1,6 @@
 import UIKit
 
-extension StackContainerView: SwipeCardsDelegate {
-    public func swipeDidEnd(on view: SwipeCardView) {
-        guard let datasource = dataSource else { return }
-        view.removeFromSuperview()
-        
-        if remainingcards > 0 {
-            let newIndex = datasource.numberOfCardsToShow() - remainingcards
-            addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
-            for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
-                UIView.animate(withDuration: 0.2, animations: {
-                cardView.center = self.center
-                  self.addCardFrame(index: cardIndex, cardView: cardView)
-                    self.layoutIfNeeded()
-                })
-            }
-
-        } else {
-            for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
-                UIView.animate(withDuration: 0.2, animations: {
-                    cardView.center = self.center
-                    self.addCardFrame(index: cardIndex, cardView: cardView)
-                    self.layoutIfNeeded()
-                })
-            }
-        }
-    }
-}
-
-public class StackContainerView: UIView{
+public class StackCardsView: UIView{
     //MARK: - Properties
     var numberOfCardsToShow: Int = 0
     var cardsToBeVisible: Int = 3
@@ -65,9 +37,6 @@ public class StackContainerView: UIView{
         numberOfCardsToShow = dataSource.numberOfCardsToShow()
         remainingcards = numberOfCardsToShow
         
-//        if (view.frame.height > 667) {
-//            
-//        }
         for i in 0..<min(numberOfCardsToShow, cardsToBeVisible) {
             addCardView(cardView: dataSource.card(at: i), atIndex: i )
         }
@@ -92,5 +61,34 @@ public class StackContainerView: UIView{
         cardViewFrame.origin.y += verticalInset
         
         cardView.frame = cardViewFrame
+    }
+}
+
+//MARK: - Extension
+extension StackCardsView: SwipeCardsDelegate {
+    public func swipeDidEnd(on view: SwipeCardView) {
+        guard let datasource = dataSource else { return }
+            
+            view.removeFromSuperview()
+            
+            if self.remainingcards > 0 {
+                let newIndex = datasource.numberOfCardsToShow() - self.remainingcards
+                self.addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
+                for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        cardView.center = self.center
+                        self.addCardFrame(index: cardIndex, cardView: cardView)
+                        self.layoutIfNeeded()
+                    })
+                }
+            } else {
+                for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        cardView.center = self.center
+                        self.addCardFrame(index: cardIndex, cardView: cardView)
+                        self.layoutIfNeeded()
+                    })
+                }
+            }
     }
 }

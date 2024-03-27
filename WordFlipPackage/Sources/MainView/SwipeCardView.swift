@@ -17,21 +17,26 @@ public class SwipeCardView: UIView{
         let make = UIView()
         make.contentMode = .scaleToFill
         make.layer.cornerRadius = 45
-        make.backgroundColor = BaseColorScheme.baseTint.resolve()
+        make.backgroundColor = BaseColorScheme.downSideCardColor.resolve()
         make.translatesAutoresizingMaskIntoConstraints = false
         return make
     }()
+    
+    var viewIsRotate: Bool = true
+    var cardViewFrontText: String = ""
+    var cardViewDownText: String = ""
     
     private var cardViewText: UILabel = {
         let make = UILabel()
         make.contentMode = .left
         make.text = ""
-        make.textColor = BaseColorScheme.cardText.resolve()
+        make.textColor = BaseColorScheme.frontSideCardColor.resolve()
         make.textAlignment = .center
         make.lineBreakMode = .byTruncatingTail
         make.baselineAdjustment = .alignBaselines
         make.adjustsFontSizeToFitWidth = false
         make.font = .systemFont(ofSize: 41)
+        make.numberOfLines = 4
         make.translatesAutoresizingMaskIntoConstraints = false
         return make
     }()
@@ -54,7 +59,9 @@ public class SwipeCardView: UIView{
     
     var dataSource: CardModel? {
         didSet {
-            cardViewText.text = dataSource?.frontText
+            cardViewFrontText = dataSource?.frontText ?? ""
+            cardViewDownText = dataSource?.downText ?? ""
+            cardViewText.text = cardViewFrontText
         }
     }
     
@@ -77,6 +84,7 @@ public class SwipeCardView: UIView{
         shadowView.addSubview(cardView)
         cardView.addSubview(cardViewText)
     }
+    
     func setConstrains() {
         NSLayoutConstraint.activate([
             cardView.leftAnchor.constraint(equalTo: shadowView.leftAnchor),
@@ -109,30 +117,35 @@ public class SwipeCardView: UIView{
     //MARK: - Handlers
     @objc func handlePanGesture(sender: UIPanGestureRecognizer){
         let card = sender.view as! SwipeCardView
+        let generator = UINotificationFeedbackGenerator()
+        let lightFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let point = sender.translation(in: self)
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
-//
-//        let distanceFromCenter = ((UIScreen.main.bounds.width / 2) - card.center.x)
         
         divisor = ((UIScreen.main.bounds.width / 2) / 0.61)
        
         switch sender.state {
         case .ended:
             if (card.center.x) > 300 {
-                delegate?.swipeDidEnd(on: card)
-                UIView.animate(withDuration: 0.2) {
+                UIView.animate(withDuration: 0.3) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x + 200, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
                     self.layoutIfNeeded()
+                } completion: { _ in
+                    generator.notificationOccurred(.success)
+                    self.delegate?.swipeDidEnd(on: card)
                 }
                 return
             }else if card.center.x < 100 {
-                delegate?.swipeDidEnd(on: card)
-                UIView.animate(withDuration: 0.2) {
+                UIView.animate(withDuration: 0.3) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x - 200, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
                     self.layoutIfNeeded()
+                } completion: { _ in
+                    lightFeedbackGenerator.impactOccurred()
+                    self.delegate?.swipeDidEnd(on: card)
+
                 }
                 return
             }
@@ -144,13 +157,92 @@ public class SwipeCardView: UIView{
         case .changed:
             let rotation = tan(point.x / (self.frame.width * 2.0))
             card.transform = CGAffineTransform(rotationAngle: rotation)
-            
+            self.cardViewText.transform = .identity
+
         default:
             break
         }
     }
     
-    @objc func handleTapGesture(sender: UITapGestureRecognizer){
+    @objc public func handleTapGesture(){
+        let card = self
+        let layer = card.layer
+        let mediumFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        let heavyFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        var rotationAndPerspectiveTransform = CATransform3DIdentity
         
+        if viewIsRotate {
+            mediumFeedbackGenerator.impactOccurred()
+            UIView.animate(withDuration: 0.2) {
+                rotationAndPerspectiveTransform.m34 = 1.0 / -300
+                rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, .pi, 0.0, 1.0, 0.0)
+                layer.zPosition = 1000
+                layer.transform = rotationAndPerspectiveTransform
+                rotationAndPerspectiveTransform.m34 = 1.0 / 300
+                self.cardView.backgroundColor = BaseColorScheme.frontSideCardColor.resolve()
+                self.cardViewText.textColor = BaseColorScheme.downSideCardColor.resolve()
+                self.cardViewText.layer.transform = rotationAndPerspectiveTransform
+                self.cardViewText.text = self.cardViewDownText
+            }
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+            viewIsRotate.toggle()
+            
+        } else {
+            heavyFeedbackGenerator.impactOccurred()
+            UIView.animate(withDuration: 0.2) {
+                card.transform = .identity
+                self.cardView.backgroundColor = BaseColorScheme.downSideCardColor.resolve()
+                self.cardViewText.textColor = BaseColorScheme.frontSideCardColor.resolve()
+                self.cardViewText.transform = .identity
+                self.cardViewText.text = self.cardViewFrontText
+            }
+            
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+            viewIsRotate.toggle()
+        }
+    }
+    
+    public func swipeRightAction() {
+        let generator = UINotificationFeedbackGenerator()
+        let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        self.center = CGPoint(x: centerOfParentContainer.x, y: centerOfParentContainer.y)
+        generator.notificationOccurred(.success)
+
+        UIView.animate(withDuration: 0.3) {
+            let rotation = tan((self.frame.width * 2.0))
+            self.transform = CGAffineTransform(rotationAngle: rotation)
+            self.cardViewText.transform = .identity
+
+            self.center = CGPoint(x: centerOfParentContainer.x + 500, y: centerOfParentContainer.y + 75)
+            self.alpha = 0
+            
+            self.layoutIfNeeded()
+        } completion: { _ in
+            self.delegate?.swipeDidEnd(on: self)
+        }
+        return
+    }
+    
+    public func swipeLeftAction() {
+        let lightFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        self.center = CGPoint(x: centerOfParentContainer.x, y: centerOfParentContainer.y)
+        lightFeedbackGenerator.impactOccurred()
+
+        UIView.animate(withDuration: 0.3) {
+            let rotation = tan((-self.frame.width * 2.0))
+            self.transform = CGAffineTransform(rotationAngle: rotation)
+            self.cardViewText.transform = .identity
+            
+            self.center = CGPoint(x: centerOfParentContainer.x - 500, y: centerOfParentContainer.y + 75)
+            self.alpha = 0
+            self.layoutIfNeeded()
+        } completion: { _ in
+            lightFeedbackGenerator.impactOccurred()
+            self.delegate?.swipeDidEnd(on: self)
+        }
+        return
     }
 }
