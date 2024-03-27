@@ -55,7 +55,7 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
 
         switchView.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
-            switchStateChangedHandler?(self.switchView.isOn ? 1 : 0)
+            self.switchStateChangedHandler?(self.switchView.isOn ? 1 : 0)
         }, for: .valueChanged)
     }
 }
