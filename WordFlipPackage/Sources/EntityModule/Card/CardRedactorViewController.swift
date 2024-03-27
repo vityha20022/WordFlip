@@ -5,8 +5,6 @@ import Models
 public struct CardRedactorConfiguration {
     let title: String
     let model: CardModel
-    /*let dataManager: EntityDataManager
-    let deckId: String*/
 
     public init(title: String, model: CardModel) {
         self.title = title
