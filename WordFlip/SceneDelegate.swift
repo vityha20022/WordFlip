@@ -9,6 +9,7 @@ import FirebaseStorage
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var coordinator: AppCoordinator?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -21,9 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         guard let window = window else { return }
 
-        let coordinator = AppCoordinator(window: window)
-        coordinator.start()
-
+        coordinator = AppCoordinator(window: window)
+        coordinator?.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

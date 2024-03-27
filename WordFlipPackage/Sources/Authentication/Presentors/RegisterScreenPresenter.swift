@@ -1,21 +1,42 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-class RegisterScreenPresenter: RegisterScreenPresenterProtocol {
+final class RegisterScreenPresenter: RegisterScreenPresenterProtocol {
 
-    weak var viewController: RegisterViewProtocol!
+    weak var viewController: RegisterViewProtocol?
 
     // MARK: Register User
 
-    func register(username: String, email: String, password: String) {
+    func register(username: String?, email: String?, password: String?) {
+        guard let username = username, let email = email, let password = password else {
+            viewController?.showErrorAlert(error: "Enter your email and password")
+            return
+        }
+
+        guard username != "", email != "", password != "" else {
+            viewController?.showErrorAlert(error: "Enter you email and password")
+            return
+        }
+
         let userRequest = RegisterUserRequest(username: username, eMail: email, password: password)
 
-        AuthService.shared.registerUser(with: userRequest) { _, error in
-            if let error = error {
-                self.viewController.showErrorAlert(error: error.localizedDescription)
+        AuthService.shared.registerUser(with: userRequest) { [weak self] _, error in
+            guard let strongSelf = self else {
                 return
             }
-            self.viewController.showNextScreen()
+
+            if let error = error {
+                strongSelf.viewController?.showErrorAlert(error: error.localizedDescription)
+                return
+            }
+            strongSelf.viewController?.showNextScreen()
         }
     }
+
+    //    func checkTextFields(username: String, email: String, password: String) {
+    //        guard username != "", email != "", password != "" else {
+    //            viewController?.showErrorAlert(error: "Enter you email and password")
+    //            return
+    //        }
+    //    }
 }

@@ -1,19 +1,31 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-class AuthScreenPresenter: AuthScreenPresenterProtocol {
+final class AuthScreenPresenter: AuthScreenPresenterProtocol {
 
-    var viewController: AuthViewProtocol!
+    weak var viewController: AuthViewProtocol?
 
-    public func auth(email: String, password: String) {
+    func auth(email: String?, password: String?) {
+        guard let email = email, let password = password else {
+            viewController?.showErrorAlert(error: "Enter you email and password")
+            return
+        }
+        guard email != "", password != "" else {
+            viewController?.showErrorAlert(error: "Enter you email and password")
+            return
+        }
+
         let userRequest = AuthUserRequest(email: email, password: password)
 
-        AuthService.shared.logInUser(with: userRequest) { error in
-            if let error = error {
-                self.viewController.showErrorAlert(error: error.localizedDescription)
+        AuthService.shared.logInUser(with: userRequest) { [weak self] error in
+            guard let strongSelf = self else {
                 return
             }
-            self.viewController.showNextScreen()
+            if let error = error {
+                strongSelf.viewController?.showErrorAlert(error: error.localizedDescription)
+                return
+            }
+            strongSelf.viewController?.showNextScreen()
         }
     }
 }

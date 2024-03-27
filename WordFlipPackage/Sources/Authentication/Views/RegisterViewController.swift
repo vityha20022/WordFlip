@@ -3,17 +3,11 @@ import EntityModule
 import SystemDesign
 import MainView
 
-public final class RegisterViewController: UIViewController, RegisterViewProtocol {
+final class RegisterViewController: UIViewController, RegisterViewProtocol {
 
     // MARK: Properties
 
-    var presenter: RegisterScreenPresenterProtocol?
-
-    private let scrollView: UIScrollView = {
-        var scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
+    let presenter: RegisterScreenPresenterProtocol
 
     private let contentView: UIView = {
         var view = UIView()
@@ -74,7 +68,7 @@ public final class RegisterViewController: UIViewController, RegisterViewProtoco
         textField.isSecureTextEntry = true
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.textContentType = .oneTimeCode
+        textField.textContentType = .password
         return textField
     }()
 
@@ -91,6 +85,7 @@ public final class RegisterViewController: UIViewController, RegisterViewProtoco
 
     init(presenter: RegisterScreenPresenterProtocol) {
         self.presenter = presenter
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -110,10 +105,21 @@ public final class RegisterViewController: UIViewController, RegisterViewProtoco
         setupViews()
         hideKeyboardWhenTappedAround()
         addObservers()
-        continueButton.addTarget(self, action: #selector(didTapContinueBtn), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(didTapContinueButton), for: .touchUpInside)
     }
 
     // MARK: Actions
+
+    public func showNextScreen() {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(CardsViewController(), animated: true)
+    }
+
+    public func showErrorAlert(error: String) {
+        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
 
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -147,82 +153,38 @@ public final class RegisterViewController: UIViewController, RegisterViewProtoco
     }
 
     @objc
-    private func didTapContinueBtn() {
-        guard usernameTextField.text != "", emailTextField.text != "", passwordTextField.text != "" else {
-            showNoTextAlert(error: "Enter your username, email and password")
-            return
-        }
-        presenter?.register(username: usernameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!)
+    private func didTapContinueButton() {
+        presenter.register(username: usernameTextField.text, email: emailTextField.text, password: passwordTextField.text)
     }
 
-    public func showNextScreen() {
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.pushViewController(CardsViewController(), animated: true)
-    }
-
-    private func showNoTextAlert(error: String) {
-        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    public func showErrorAlert(error: String) {
-        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    // MARK: setting contraints
-
-    private func setupScrollView() {
-        NSLayoutConstraint.activate(
-            [
-                scrollView.leadingAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.leadingAnchor
-                ),
-                scrollView.topAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.topAnchor
-                ),
-                scrollView.trailingAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.trailingAnchor
-                ),
-                scrollView.bottomAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.bottomAnchor
-                ),
-            ]
-        )
-    }
+  // MARK: setting contraints
 
     private func setupContentView() {
         NSLayoutConstraint.activate(
             [
                 contentView.leadingAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.leadingAnchor
+                        view.safeAreaLayoutGuide.leadingAnchor
                 ),
                 contentView.topAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.topAnchor
+                        view.safeAreaLayoutGuide.topAnchor
                 ),
                 contentView.trailingAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.trailingAnchor
+                        view.safeAreaLayoutGuide.trailingAnchor
                 ),
                 contentView.bottomAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.bottomAnchor
+                        view.safeAreaLayoutGuide.bottomAnchor
                 ),
                 contentView.widthAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.widthAnchor
+                        view.safeAreaLayoutGuide.widthAnchor
                 ),
                 contentView.heightAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.heightAnchor
+                        view.safeAreaLayoutGuide.heightAnchor
                 ),
             ]
         )
@@ -369,7 +331,6 @@ public final class RegisterViewController: UIViewController, RegisterViewProtoco
     }
 
     private func setupViews() {
-        setupScrollView()
         setupContentView()
         registerLabelSetup()
         additionalTextLabelSetup()
@@ -380,8 +341,7 @@ public final class RegisterViewController: UIViewController, RegisterViewProtoco
     }
 
     private func addSubviews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        view.addSubview(contentView)
         contentView.addSubview(registerLabel)
         contentView.addSubview(additionalTextLabel)
         contentView.addSubview(usernameTextField)

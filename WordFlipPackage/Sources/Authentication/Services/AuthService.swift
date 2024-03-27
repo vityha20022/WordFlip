@@ -3,7 +3,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseDatabase
 
-public class AuthService {
+public final class AuthService {
 
     public static let shared = AuthService()
 
@@ -19,7 +19,7 @@ public class AuthService {
     ///   - Error?: an optional error if Firebase provides one
     public func registerUser(with registerUserRequest: RegisterUserRequest, completion: @escaping (Bool, Error?) -> Void) {
         let username = registerUserRequest.username
-        let eMail = registerUserRequest.eMail
+        let eMail = registerUserRequest.email
         let password = registerUserRequest.password
         Database.database().isPersistenceEnabled = true
         Auth.auth().createUser(withEmail: eMail, password: password) { result, error in
@@ -71,12 +71,12 @@ public class AuthService {
     /// A method to sign in the user
     /// - Parameter completion: with one value
     /// - Error?: an optional error if Firebase provides one
-//    public func signOut(completion: @escaping (Error?) -> Void) {
-//        do {
-//            try Auth.auth().signOut()
-//        } catch let error {
-//            completion(error)
-//        }
-//    }
+    public func signOut(completion: @escaping (Error?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            completion(error)
+        }
+    }
 
 }

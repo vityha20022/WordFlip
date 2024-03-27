@@ -2,11 +2,11 @@ import UIKit
 import MainView
 import SystemDesign
 
-public final class AuthViewController: UIViewController, AuthViewProtocol {
+final class AuthViewController: UIViewController, AuthViewProtocol {
 
     // MARK: Properties
 
-    var presenter: AuthScreenPresenterProtocol?
+    let presenter: AuthScreenPresenterProtocol
 
     private let scrollView: UIScrollView = {
         var scrollView = UIScrollView()
@@ -62,7 +62,7 @@ public final class AuthViewController: UIViewController, AuthViewProtocol {
         textField.isSecureTextEntry = true
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.textContentType = .oneTimeCode
+        textField.textContentType = .password
         return textField
     }()
 
@@ -79,6 +79,7 @@ public final class AuthViewController: UIViewController, AuthViewProtocol {
 
     init(presenter: AuthScreenPresenterProtocol) {
         self.presenter = presenter
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -95,30 +96,14 @@ public final class AuthViewController: UIViewController, AuthViewProtocol {
         setupViews()
         hideKeyboardWhenTappedAround()
         addObservers()
-        continueButton.addTarget(self, action: #selector(didTapContinueBtn), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(didTapContinueButton), for: .touchUpInside)
     }
 
     // MARK: Actions
 
-    @objc
-    private func didTapContinueBtn() {
-        guard emailTextField.text != "", passwordTextField.text != "" else {
-            showNoTextAlert(error: "Enter you email and password")
-            return
-        }
-        presenter?.auth(email: emailTextField.text!, password: passwordTextField.text!)
-
-    }
-
     public func showNextScreen() {
         navigationController?.navigationBar.isHidden = true
         navigationController?.pushViewController(CardsViewController(), animated: true)
-    }
-
-    private func showNoTextAlert(error: String) {
-        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true, completion: nil)
     }
 
     public func showErrorAlert(error: String) {
@@ -152,6 +137,11 @@ public final class AuthViewController: UIViewController, AuthViewProtocol {
         self.topAnchorOfContinueButton?.constant = 60
         self.bottomAnchorofContinueButton?.constant = -150
         self.contentView.layoutIfNeeded()
+    }
+
+    @objc
+    private func didTapContinueButton() {
+        presenter.auth(email: emailTextField.text, password: passwordTextField.text)
     }
 
     private func hideKeyboard() {

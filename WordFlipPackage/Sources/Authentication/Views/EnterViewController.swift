@@ -39,18 +39,18 @@ public final class EnterViewController: UIViewController {
         super.viewDidLoad()
         addSubviews()
         setupButtons()
-        signInButton.addTarget(self, action: #selector(didTapSignInBtn), for: .touchUpInside)
-        registerButton.addTarget(self, action: #selector(didTapRegisterBtn), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
     }
 
     // MARK: Actions
 
     @objc
-    private func didTapSignInBtn() {
+    private func didTapSignInButton() {
         navigationController?.pushViewController(AuthBuilder().build(), animated: true)    }
 
     @objc
-    private func didTapRegisterBtn() {
+    private func didTapRegisterButton() {
         navigationController?.pushViewController(RegisterBuilder().build(), animated: true)
 
     }

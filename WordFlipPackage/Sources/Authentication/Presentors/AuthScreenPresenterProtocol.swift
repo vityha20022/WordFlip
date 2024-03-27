@@ -1,3 +1,3 @@
 protocol AuthScreenPresenterProtocol {
-    func auth(email: String, password: String)
+    func auth(email: String?, password: String?)
 }

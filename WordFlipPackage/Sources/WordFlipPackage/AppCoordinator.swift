@@ -4,30 +4,27 @@ import EntityModule
 import Authentication
 import MainView
 
-public class AppCoordinator {
-    
+public final class AppCoordinator {
+
     var window: UIWindow
-    
+
     public init(window: UIWindow) {
         self.window = window
     }
-    
+
     public func start() {
+        let navigationController = UINavigationController()
+
         if Auth.auth().currentUser == nil {
-            let nav = UINavigationController()
             let mainView = EnterViewController(nibName: nil, bundle: nil)
-            nav.viewControllers = [mainView]
-            window.makeKeyAndVisible()
-            window.rootViewController = nav
+            navigationController.viewControllers = [mainView]
         } else {
             let mainView = CardsViewController(nibName: nil, bundle: nil)
-            let nav = UINavigationController()
-            nav.viewControllers = [mainView]
-            window.makeKeyAndVisible()
-            window.rootViewController = nav
+            navigationController.viewControllers = [mainView]
         }
+
+        window.makeKeyAndVisible()
+        window.rootViewController = navigationController
     }
-    
+
 }
-
-

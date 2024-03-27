@@ -1,4 +1,4 @@
-public protocol AuthViewProtocol: AnyObject {
+protocol AuthViewProtocol: AnyObject {
     func showErrorAlert(error: String)
 
     func showNextScreen()
