@@ -5,7 +5,7 @@ import Models
 final class DeckView: UIView {
 
     private var deckNamePlaceholderText = "Type deck name..."
-    private var deckNamePlaceholderColor = UIColor.lightGray
+    private var deckNamePlaceholderColor = UIColor.lightGray.withAlphaComponent(0.4)
 
     private let nameTextView: UITextView = {
         let textView = UITextView()
@@ -13,7 +13,7 @@ final class DeckView: UIView {
         textView.font = .systemFont(ofSize: 25, weight: .bold)
         textView.isScrollEnabled = false
         textView.autocorrectionType = .no
-        textView.layer.cornerRadius = 15
+        textView.layer.cornerRadius = 8
         textView.textColor = .white
         return textView
     }()
@@ -55,25 +55,26 @@ final class DeckView: UIView {
         self.layer.shadowRadius = ComponentMetrics.shadowRadius
         self.layer.masksToBounds = false
 
-        self.backgroundColor = BaseColorScheme.accent.resolve()
+//        self.backgroundColor = BaseColorScheme.accent.resolve()
+        self.backgroundColor = #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
 
         self.addSubview(nameTextView)
         self.addSubview(wordCounterLabel)
         self.addSubview(learnedWordCounterLabel)
 
         NSLayoutConstraint.activate([
-            nameTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
-            nameTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
-            nameTextView.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
+            nameTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            nameTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            nameTextView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             nameTextView.bottomAnchor.constraint(equalTo: wordCounterLabel.topAnchor, constant: -5),
 
-            wordCounterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            wordCounterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 35),
             wordCounterLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             wordCounterLabel.bottomAnchor.constraint(equalTo: learnedWordCounterLabel.topAnchor),
 
-            learnedWordCounterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            learnedWordCounterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 35),
             learnedWordCounterLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            learnedWordCounterLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            learnedWordCounterLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
         ])
     }
 
@@ -82,13 +83,14 @@ final class DeckView: UIView {
         wordCounterLabel.text = "\(model.wordCounter) words"
         learnedWordCounterLabel.text = "Learned \(model.learnedWordCounter) words"
         nameTextView.isEditable = isEditable
-        nameTextView.backgroundColor = isEditable ? .white : BaseColorScheme.accent.resolve()
+        nameTextView.backgroundColor = isEditable ? #colorLiteral(red: 0.8634499907, green: 0.9234817028, blue: 0.9867377877, alpha: 1) : #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
         if isEditable {
             nameTextView.delegate = self
-            nameTextView.textColor = .black
+            nameTextView.textColor = #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
 
             if nameTextView.text.isEmpty {
                 nameTextView.text = deckNamePlaceholderText
+                nameTextView.font = .systemFont(ofSize: 25, weight: .regular)
                 nameTextView.textColor = deckNamePlaceholderColor
             }
         }
@@ -99,14 +101,16 @@ extension DeckView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == deckNamePlaceholderColor {
             textView.text = ""
-            textView.textColor = .white
+            textView.font = .systemFont(ofSize: 25, weight: .bold)
+            textView.textColor = #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
         }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = deckNamePlaceholderText
-            textView.textColor = .lightGray
+            textView.font = .systemFont(ofSize: 25, weight: .regular)
+            textView.textColor = deckNamePlaceholderColor
         }
     }
 }
