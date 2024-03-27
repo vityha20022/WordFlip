@@ -7,11 +7,6 @@ enum TranslationError: Error {
     case otherError(Error)
 }
 
-enum Language: String {
-    case english = "en"
-    case russian = "ru"
-}
-
 enum APIEndpoint {
     case translate(text: String, source: Language, target: Language, key: String)
     
@@ -38,7 +33,7 @@ enum APIEndpoint {
 }
 
 
-class GoogleTranslateManager {
+final class TranslateManager {
     let apiKey: String
     
     init(apiKey: String) {
@@ -70,7 +65,7 @@ class GoogleTranslateManager {
             
             do {
                 let decoder = JSONDecoder()
-                let translateResponse = try decoder.decode(GoogleTranslateResponse.self, from: data)
+                let translateResponse = try decoder.decode(TranslateResponse.self, from: data)
                 let translatedText = translateResponse.data.translations.first?.translatedText ?? ""
                 DispatchQueue.main.async {
                     completion(.success(translatedText))
