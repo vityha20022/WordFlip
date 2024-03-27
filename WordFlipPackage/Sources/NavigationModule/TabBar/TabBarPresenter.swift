@@ -11,6 +11,6 @@ public final class TabBarPresenter: TabBarPresenterProtocol {
 
     public func didTapButton(withTag tag: Int) {
         guard let view = view else {fatalError("No link to view is provided")}
-        view.updateSelected(index: tag)
+        view.updateSelectedView(at: tag)
     }
 }
