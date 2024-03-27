@@ -2,21 +2,21 @@ import UIKit
 import SystemDesign
 
 public final class RegisterViewController: UIViewController {
-    
+
     // MARK: initialising views
-    
+
     private let scrollView: UIScrollView = {
         var scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-    
+
     private let contentView: UIView = {
         var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private let registerLabel: UILabel = {
         var label = UILabel()
         label.text = "Registration"
@@ -25,7 +25,7 @@ public final class RegisterViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let additionalTextLabel: UILabel = {
         var label = UILabel()
         label.text = "Enter your username, email address and password"
@@ -36,7 +36,7 @@ public final class RegisterViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
+
     private let usernameTextField: UITextField = {
         var textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ public final class RegisterViewController: UIViewController {
         textField.placeholder = "Username"
         return textField
     }()
-    
+
     private let emailTextField: UITextField = {
         var textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ public final class RegisterViewController: UIViewController {
         textField.placeholder = "Email"
         return textField
     }()
-    
+
     private let passwordTextField: UITextField = {
         var textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -64,18 +64,18 @@ public final class RegisterViewController: UIViewController {
         textField.isSecureTextEntry = true
         return textField
     }()
-    
+
     private let continueButton: DefaultButton = {
         var button = DefaultButton(text: "Continue", color: BaseColorScheme.accent)
         return button
     }()
-    
+
     private var topAnchorOfRegisterLabel: NSLayoutConstraint?
     private var topAnchorOfAdditionalTextLabel: NSLayoutConstraint?
     private var topAnchorOfUsernameTextField: NSLayoutConstraint?
     private var topAnchorOfContinueButton: NSLayoutConstraint?
     private var bottomAnchorofContinueButton: NSLayoutConstraint?
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         passwordTextField.delegate = self
@@ -86,10 +86,11 @@ public final class RegisterViewController: UIViewController {
         hideKeyboardWhenTappedAround()
         addObservers()
     }
-    
+
     // MARK: Dynamic layout functions
-    
-    @objc private func keyboardWillShow(notification: NSNotification) {
+
+    @objc
+    private func keyboardWillShow(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {
             self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.4
             self.topAnchorOfAdditionalTextLabel?.constant = 10
@@ -99,8 +100,9 @@ public final class RegisterViewController: UIViewController {
             self.contentView.layoutIfNeeded()
         }
     }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
+
+    @objc
+    private func keyboardWillHide(notification: NSNotification) {
         self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3
         self.topAnchorOfAdditionalTextLabel?.constant = 40
         self.topAnchorOfUsernameTextField?.constant = 50
@@ -108,9 +110,9 @@ public final class RegisterViewController: UIViewController {
         self.bottomAnchorofContinueButton?.constant = -150
         self.contentView.layoutIfNeeded()
     }
-    
+
     // MARK: setting contraints
-    
+
     private func setupScrollView() {
         NSLayoutConstraint.activate(
             [
@@ -129,11 +131,11 @@ public final class RegisterViewController: UIViewController {
                 scrollView.bottomAnchor.constraint(
                     equalTo:
                         view.safeAreaLayoutGuide.bottomAnchor
-                )
+                ),
             ]
         )
     }
-    
+
     private func setupContentView() {
         NSLayoutConstraint.activate(
             [
@@ -160,11 +162,11 @@ public final class RegisterViewController: UIViewController {
                 contentView.heightAnchor.constraint(
                     equalTo:
                         scrollView.safeAreaLayoutGuide.heightAnchor
-                )
+                ),
             ]
         )
     }
-    
+
     private func registerLabelSetup() {
         registerLabel.centerXAnchor.constraint(
             equalTo:
@@ -178,7 +180,7 @@ public final class RegisterViewController: UIViewController {
         )
         topAnchorOfRegisterLabel?.isActive = true
     }
-    
+
     private func additionalTextLabelSetup() {
         NSLayoutConstraint.activate(
             [
@@ -191,10 +193,10 @@ public final class RegisterViewController: UIViewController {
                     equalTo:
                         contentView.safeAreaLayoutGuide.leadingAnchor,
                     constant: 20
-                )
+                ),
             ]
         )
-        
+
         topAnchorOfAdditionalTextLabel = additionalTextLabel.topAnchor.constraint(
             equalTo:
                 registerLabel.bottomAnchor,
@@ -202,7 +204,7 @@ public final class RegisterViewController: UIViewController {
         )
         topAnchorOfAdditionalTextLabel?.isActive = true
     }
-    
+
     private func usernameTextFieldSetup() {
         NSLayoutConstraint.activate(
             [
@@ -215,18 +217,18 @@ public final class RegisterViewController: UIViewController {
                     equalTo:
                         contentView.safeAreaLayoutGuide.leadingAnchor,
                     constant: 40
-                )
+                ),
             ]
         )
-        
-        topAnchorOfUsernameTextField =  usernameTextField.topAnchor.constraint(
+
+        topAnchorOfUsernameTextField = usernameTextField.topAnchor.constraint(
             equalTo:
                 additionalTextLabel.safeAreaLayoutGuide.bottomAnchor,
             constant: 50
         )
         topAnchorOfUsernameTextField?.isActive = true
     }
-    
+
     private func emailTextFieldSetup() {
         NSLayoutConstraint.activate(
             [
@@ -248,7 +250,7 @@ public final class RegisterViewController: UIViewController {
             ]
         )
     }
-    
+
     private func passwordTextFieldSetup() {
         NSLayoutConstraint.activate(
             [
@@ -270,7 +272,7 @@ public final class RegisterViewController: UIViewController {
             ]
         )
     }
-    
+
     private func continueButtonSetup() {
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(
@@ -304,7 +306,7 @@ public final class RegisterViewController: UIViewController {
         )
         topAnchorOfContinueButton?.isActive = true
     }
-    
+
     private func setupViews() {
         setupScrollView()
         setupContentView()
@@ -315,7 +317,7 @@ public final class RegisterViewController: UIViewController {
         passwordTextFieldSetup()
         continueButtonSetup()
     }
-    
+
     private func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -326,23 +328,23 @@ public final class RegisterViewController: UIViewController {
         contentView.addSubview(passwordTextField)
         contentView.addSubview(continueButton)
     }
-    
+
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     private func hideKeyboard() {
         view.endEditing(true)
     }
-    
+
 }
 
 extension RegisterViewController: UITextFieldDelegate {
-    
+
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         hideKeyboard()
         return true
     }
-    
+
 }
