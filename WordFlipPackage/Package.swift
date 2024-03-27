@@ -13,17 +13,49 @@ let package = Package(
             targets: ["WordFlipPackage"]),
     ],
     dependencies: [
+        .package(
+            url: "https://github.com/firebase/firebase-ios-sdk.git",
+            from: "10.0.0"),
     ],
     targets: [
         .target(
             name: "WordFlipPackage",
-            dependencies: ["Builder"]),
+            dependencies: [
+                "EntityModule",
+                "ProfilePackage",
+                "Authentication",
+                "NavigationModule",
+                "MainView",
+                .product(
+                    name: "FirebaseAuth",
+                    package: "firebase-ios-sdk"
+                ),
+                .product(
+                    name: "FirebaseDatabase",
+                    package: "firebase-ios-sdk"
+                ),
+                .product(
+                    name: "FirebaseStorage",
+                    package: "firebase-ios-sdk"
+                ),
+                .product(
+                    name: "FirebaseFirestore",
+                    package: "firebase-ios-sdk"
+                ),
+            ]
+        ),
         .target(
             name: "ProfilePackage",
-            dependencies: ["SystemDesign"]),
+            dependencies: ["SystemDesign"]
+        ),
+        .target(
+            name: "Models",
+            dependencies: []
+        ),
         .target(
             name: "SystemDesign",
-            dependencies: []),
+            dependencies: []
+        ),
         .target(
             name: "NavigationModule",
             dependencies: []),
@@ -32,17 +64,32 @@ let package = Package(
             dependencies: ["SystemDesign"]),
         .target(
             name: "Authentication",
-                dependencies: ["SystemDesign"]),
-         .target(
-            name: "EntityModule",
-            dependencies: ["SystemDesign", "Models"]),
-        .target(name: "Models",
-                dependencies: []),
+            dependencies: [
+                "SystemDesign",
+                .product(
+                    name: "FirebaseAuth",
+                    package: "firebase-ios-sdk"
+                ),
+                .product(
+                    name: "FirebaseFirestore",
+                    package: "firebase-ios-sdk"
+                ),
+                .product(
+                    name: "FirebaseDatabase",
+                    package: "firebase-ios-sdk"
+                ),
+            ]
+        ),
         .target(
-            name: "Builder",
-            dependencies: ["NavigationModule", "MainView", "EntityModule", "ProfilePackage", "Authentication"]),
+            name: "EntityModule",
+            dependencies: [
+                "SystemDesign",
+                "Models",
+            ]
+        ),
         .testTarget(
             name: "WordFlipPackageTests",
-            dependencies: ["WordFlipPackage"]),
+            dependencies: ["WordFlipPackage"]
+        ),
     ]
 )

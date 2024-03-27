@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC0TUsBlcRQtzoOafz5taA0ofU4n9KEWcs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>553023443</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>WordFlip.com.WordFlip</string>
+	<key>PROJECT_ID</key>
+	<string>wordflip-c554f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>wordflip-c554f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:553023443:ios:3a0c985b2572842420a126</string>
+</dict>
+</plist>
