@@ -1,13 +1,13 @@
 import Foundation
 
 public struct DeckModel {
-    public let id: String
-    public let name: String
-    public let wordCounter: Int
-    public let learnedWordCounter: Int
-    public let cards: [CardModel]
+    public var id: String
+    public var name: String
+    public var wordCounter: Int
+    public var learnedWordCounter: Int
+    public var cards: [CardModel]
 
-    public init(name: String, wordCounter: Int, learnedWordCounter: Int, cards: [CardModel]) {
+    public init(name: String = "", wordCounter: Int = 0, learnedWordCounter: Int = 0, cards: [CardModel] = []) {
         self.id = UUID().uuidString
         self.name = name
         self.wordCounter = wordCounter

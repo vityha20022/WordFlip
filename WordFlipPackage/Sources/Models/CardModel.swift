@@ -1,13 +1,15 @@
 import Foundation
 
 public struct CardModel {
-    public let id: String
-    public let frontText: String
-    public let downText: String
-    public let guessCounter: Int
+    public var id: String
+    public var deckId: String
+    public var frontText: String
+    public var downText: String
+    public var guessCounter: Int
 
-    public init(frontText: String, downText: String, guessCounter: Int) {
+    public init(deckId: String, frontText: String, downText: String, guessCounter: Int) {
         self.id = UUID().uuidString
+        self.deckId = deckId
         self.frontText = frontText
         self.downText = downText
         self.guessCounter = guessCounter
