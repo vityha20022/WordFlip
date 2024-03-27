@@ -157,5 +157,27 @@ final public class CardRedactorViewController: UIViewController {
 
             frontSideCardView.heightAnchor.constraint(equalTo: downSideCardView.heightAnchor),
         ])
+
+        translateButton.addTarget(self, action: #selector(translateButtonTapped), for: .touchUpInside)
+    }
+
+    @objc
+    private func translateButtonTapped() {
+        let textToTranslate = "Привет Сириус! Привет кто-то"
+
+        let apiKey = ""
+
+        let translator = TranslateManager(apiKey: apiKey)
+
+        let translateEndpoint = APIEndpoint.translate(text: textToTranslate, source: .russian, target: .english, key: apiKey)
+
+        translator.translate(endpoint: translateEndpoint) { result in
+            switch result {
+            case .success(let translatedText):
+                print("\(translatedText)")
+            case .failure(let error):
+                print("Translation failed with error: \(error)")
+            }
+        }
     }
 }
