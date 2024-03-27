@@ -2,7 +2,7 @@ import UIKit
 import SystemDesign
 
 public final class CardsViewController: UIViewController {
-    // MARK: -  UI Elements
+    // MARK: - UI Elements
     private lazy var exitButton: UIButton = {
         let make = UIButton()
         make.contentMode = .scaleToFill
@@ -27,7 +27,7 @@ public final class CardsViewController: UIViewController {
         make.font = .systemFont(ofSize: 15)
         return make
     }()
-    
+
     private lazy var learntWordsProgressView: UIProgressView = {
         let make = UIProgressView()
         make.progressViewStyle = .default
@@ -37,7 +37,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         return make
     }()
-    
+
     private lazy var favouritesButton: UIButton = {
         let make = UIButton()
         make.contentMode = .scaleToFill
@@ -49,7 +49,7 @@ public final class CardsViewController: UIViewController {
         make.setTitle("", for: .normal)
         return make
     }()
-    
+
     private lazy var deckNameLabel: UILabel = {
         let make = UILabel()
         make.contentMode = .left
@@ -62,7 +62,7 @@ public final class CardsViewController: UIViewController {
         make.font = .systemFont(ofSize: 41)
         return make
     }()
-    
+
     private lazy var cardView: UIView = {
         let make = UIView()
         make.contentMode = .scaleToFill
@@ -75,7 +75,7 @@ public final class CardsViewController: UIViewController {
         make.addSubview(cardViewText)
         return make
     }()
-    
+
     private lazy var cardViewText: UILabel = {
         let make = UILabel()
         make.contentMode = .left
@@ -89,7 +89,7 @@ public final class CardsViewController: UIViewController {
         make.font = .systemFont(ofSize: 41)
         return make
     }()
-    
+
     private lazy var invertButton: UIButton = {
         let make = UIButton()
         make.contentMode = .scaleToFill
@@ -113,7 +113,7 @@ public final class CardsViewController: UIViewController {
         make.setTitle("", for: .normal)
         return make
     }()
-    
+
     private lazy var acceptButton: UIButton = {
         let make = UIButton()
         make.contentMode = .scaleToFill
@@ -125,17 +125,17 @@ public final class CardsViewController: UIViewController {
         make.setTitle("", for: .normal)
         return make
     }()
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        // MARK: -  Base View Properties
+        // MARK: - Base View Properties
         view.backgroundColor = .systemBackground
-        
+
         setViewHierachy()
         setConstrains()
     }
-    
-    // MARK: -  View Hierachy
+
+    // MARK: - View Hierachy
     private func setViewHierachy() {
         view.addSubview(invertButton)
         view.addSubview(learntWordsProgressView)
@@ -147,8 +147,8 @@ public final class CardsViewController: UIViewController {
         view.addSubview(exitButton)
         view.addSubview(cardView)
     }
-    
-    // MARK: -  Constrains
+
+    // MARK: - Constrains
     private func setConstrains() {
         NSLayoutConstraint.activate([
             // - exitButton
@@ -156,29 +156,29 @@ public final class CardsViewController: UIViewController {
             exitButton.centerYAnchor.constraint(equalTo: learntWordsProgressView.centerYAnchor),
             exitButton.widthAnchor.constraint(equalToConstant: 40),
             exitButton.heightAnchor.constraint(equalToConstant: 40),
-            
+
             // - learntWordsProgressView
             learntWordsProgressView.heightAnchor.constraint(equalToConstant: 5),
             learntWordsProgressView.topAnchor.constraint(equalTo: learntWordsLabel.bottomAnchor, constant: 5),
             learntWordsProgressView.leadingAnchor.constraint(equalTo: exitButton.trailingAnchor, constant: 8),
             learntWordsProgressView.trailingAnchor.constraint(equalTo: favouritesButton.leadingAnchor, constant: -8),
-            
+
             // - learntWordsLabel
             learntWordsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             learntWordsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             learntWordsLabel.heightAnchor.constraint(equalToConstant: 18),
-            
+
             // - favouritesButton
             favouritesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
             favouritesButton.centerYAnchor.constraint(equalTo: learntWordsProgressView.centerYAnchor),
             favouritesButton.widthAnchor.constraint(equalToConstant: 40),
             favouritesButton.heightAnchor.constraint(equalToConstant: 40),
-            
+
             // - deckNameLabel
             deckNameLabel.topAnchor.constraint(equalTo: learntWordsProgressView.bottomAnchor, constant: 8),
             deckNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             deckNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             // - cardView
             cardView.topAnchor.constraint(equalTo: deckNameLabel.bottomAnchor, constant: 8),
             cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -186,7 +186,7 @@ public final class CardsViewController: UIViewController {
             cardView.trailingAnchor.constraint(equalTo: deckNameLabel.trailingAnchor),
             cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             cardView.heightAnchor.constraint(equalTo: cardView.widthAnchor),
-            
+
             // - cardViewText
             cardViewText.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 30),
             cardViewText.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -30),
@@ -198,7 +198,7 @@ public final class CardsViewController: UIViewController {
             skipButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             skipButton.widthAnchor.constraint(equalToConstant: 60),
             skipButton.heightAnchor.constraint(equalToConstant: 60),
-            
+
             // - invertButton
             invertButton.leadingAnchor.constraint(equalTo: skipButton.trailingAnchor, constant: 40),
             invertButton.centerYAnchor.constraint(equalTo: skipButton.centerYAnchor),

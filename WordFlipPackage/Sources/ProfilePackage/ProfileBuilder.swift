@@ -1,10 +1,10 @@
 import UIKit
 
 public struct ProfileBuilder {
-    
+
     public init() {
     }
-    
+
     public func build() -> UIViewController {
         let presentor = ProfilePresenter()
         let profileViewController = ProfileViewController(presenter: presentor)

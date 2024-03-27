@@ -11,7 +11,7 @@ public enum BaseColorScheme: CaseIterable {
     case black
     case frontSideCardColor
     case downSideCardColor
-  
+
     public func resolve() -> UIColor {
         switch self {
             case .accent:
