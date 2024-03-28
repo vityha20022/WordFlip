@@ -98,6 +98,7 @@ extension StackCardsView: SwipeCardsDelegate {
                     self.addCardFrame(index: cardIndex, cardView: cardView)
                     self.layoutIfNeeded()
                 })
+                visibleCards.last?.isCanFlip = true
             }
         }
     }
