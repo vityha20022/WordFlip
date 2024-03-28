@@ -1,4 +1,5 @@
 import UIKit
+//import Builder
 import EntityModule
 import SystemDesign
 import MainView
@@ -101,6 +102,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         passwordTextField.delegate = self
         usernameTextField.delegate = self
         emailTextField.delegate = self
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         addSubviews()
         setupViews()
         hideKeyboardWhenTappedAround()
@@ -109,11 +111,6 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     }
 
     // MARK: Actions
-
-    public func showNextScreen() {
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.pushViewController(CardsViewController(), animated: true)
-    }
 
     public func showErrorAlert(error: String) {
         let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)

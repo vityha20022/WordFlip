@@ -4,6 +4,12 @@ import FirebaseFirestore
 final class RegisterScreenPresenter: RegisterScreenPresenterProtocol {
 
     weak var viewController: RegisterViewProtocol?
+    
+    weak var delegate: NavigationProtocol?
+    
+    init(delegate: NavigationProtocol?) {
+        self.delegate = delegate
+    }
 
     // MARK: Register User
 
@@ -29,14 +35,7 @@ final class RegisterScreenPresenter: RegisterScreenPresenterProtocol {
                 strongSelf.viewController?.showErrorAlert(error: error.localizedDescription)
                 return
             }
-            strongSelf.viewController?.showNextScreen()
+            strongSelf.delegate?.goToMainView()
         }
     }
-
-    //    func checkTextFields(username: String, email: String, password: String) {
-    //        guard username != "", email != "", password != "" else {
-    //            viewController?.showErrorAlert(error: "Enter you email and password")
-    //            return
-    //        }
-    //    }
 }

@@ -1,9 +1,11 @@
 import UIKit
 import SystemDesign
 
-public final class EnterViewController: UIViewController {
+public final class EnterViewController: UIViewController, EnterViewProtocol {
 
     // MARK: Properties
+    
+    var presenter: EnterScreenPresenterProtocol?
 
     private let appTitleLabel: UILabel = {
         var label = UILabel()
@@ -34,9 +36,20 @@ public final class EnterViewController: UIViewController {
     }()
 
     // MARK: Lifecycle
+    
+    init(presenter: EnterScreenPresenterProtocol) {
+        self.presenter = presenter
 
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         addSubviews()
         setupButtons()
         signInButton.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
@@ -44,15 +57,23 @@ public final class EnterViewController: UIViewController {
     }
 
     // MARK: Actions
-
+    
+    func showAuthScreen(navDelegate: NavigationProtocol?) {
+        navigationController?.pushViewController(AuthBuilder().build(navDelegate: navDelegate), animated: true)
+    }
+    
+    func showRegisterScreen(navDelegate: NavigationProtocol?) {
+        navigationController?.pushViewController(RegisterBuilder().build(navDelegate: navDelegate), animated: true)
+    }
+    
     @objc
     private func didTapSignInButton() {
-        navigationController?.pushViewController(AuthBuilder().build(), animated: true)    }
+        presenter?.didTapSignInButton()
+    }
 
     @objc
     private func didTapRegisterButton() {
-        navigationController?.pushViewController(RegisterBuilder().build(), animated: true)
-
+        presenter?.didTapRegisterButton()
     }
 
     // MARK: Views setup

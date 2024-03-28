@@ -81,6 +81,17 @@ let package = Package(
                 ),
             ]
         ),
+        .target(name: "Builder",
+                dependencies: [
+                    "Authentication",
+                    "EntityModule",
+                    "MainView",
+                    "Models",
+                    "NavigationModule",
+                    "ProfilePackage",
+                    "SystemDesign",
+                ]
+               ),
         .target(
             name: "EntityModule",
             dependencies: [
@@ -88,9 +99,6 @@ let package = Package(
                 "Models",
             ]
         ),
-        .target(
-            name: "Builder",
-            dependencies: ["NavigationModule", "MainView", "EntityModule", "ProfilePackage", "Authentication"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]
