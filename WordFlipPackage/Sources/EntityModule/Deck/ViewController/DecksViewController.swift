@@ -21,6 +21,7 @@ final public class DecksViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
         tableView.register(DeckCell.self, forCellReuseIdentifier: DeckCell.identifier)
         return tableView
     }()
@@ -90,7 +91,7 @@ final public class DecksViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }
