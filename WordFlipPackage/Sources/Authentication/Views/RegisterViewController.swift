@@ -152,8 +152,6 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     @objc
     private func didTapContinueButton() {
         presenter.register(username: usernameTextField.text, email: emailTextField.text, password: passwordTextField.text)
-//        navigationController?.pushViewController( , animated: true)
-
     }
 
   // MARK: setting contraints
