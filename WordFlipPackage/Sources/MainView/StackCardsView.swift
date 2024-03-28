@@ -37,10 +37,17 @@ public class StackCardsView: UIView {
         numberOfCardsToShow = dataSource.numberOfCardsToShow()
         remainingcards = numberOfCardsToShow
 
+        for i in visibleCards {
+            i.removeFromSuperview()
+        }
+        
         for i in 0..<min(numberOfCardsToShow, cardsToBeVisible) {
-            addCardView(cardView: dataSource.card(at: i), atIndex: i )
+            let cardView = SwipeCardView()
+            cardView.dataSource = dataSource.currentCard()
+            addCardView(cardView: cardView, atIndex: i )
             visibleCards.last?.isCanFlip = true
         }
+        print("reloaded")
     }
 
     private func addCardView(cardView: SwipeCardView, atIndex index: Int) {
@@ -69,22 +76,12 @@ extension StackCardsView: SwipeCardsDelegate {
     public func swipeDidEnd(on view: SwipeCardView) {
         guard let datasource = dataSource else { return }
 
-            view.removeFromSuperview()
+        view.removeFromSuperview()
 
-            if self.remainingcards > 0 {
-                if visibleCards.count <= 2 {
-                    let newIndex = datasource.numberOfCardsToShow() - self.remainingcards
-                    self.addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
-                    for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
-                        UIView.animate(withDuration: 0.2, animations: {
-                            cardView.center = self.center
-                            self.addCardFrame(index: cardIndex, cardView: cardView)
-                            self.layoutIfNeeded()
-                        })
-                    }
-                    visibleCards.last?.isCanFlip = true
-                }
-            } else {
+        if self.remainingcards > 0 {
+            if visibleCards.count <= 2 {
+                let newIndex = datasource.numberOfCardsToShow() - self.remainingcards
+                self.addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
                 for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
                     UIView.animate(withDuration: 0.2, animations: {
                         cardView.center = self.center
@@ -92,6 +89,16 @@ extension StackCardsView: SwipeCardsDelegate {
                         self.layoutIfNeeded()
                     })
                 }
+                visibleCards.last?.isCanFlip = true
             }
+        } else {
+            for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
+                UIView.animate(withDuration: 0.2, animations: {
+                    cardView.center = self.center
+                    self.addCardFrame(index: cardIndex, cardView: cardView)
+                    self.layoutIfNeeded()
+                })
+            }
+        }
     }
 }

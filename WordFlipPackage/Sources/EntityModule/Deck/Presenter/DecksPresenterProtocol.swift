@@ -6,6 +6,7 @@ protocol DecksPresenterProtocol: AnyObject {
     func didTapDelete(index: Int)
     func didTapEdit(index: Int)
     func didTapAdd()
+    func didTapCell(index: Int)
 }
 
 final class DecksPrersenter: DecksPresenterProtocol {
@@ -34,5 +35,10 @@ final class DecksPrersenter: DecksPresenterProtocol {
     func didTapAdd() {
         let deckRedactorConfiguration = DeckRedactorConfiguration(title: "Add deck")
         decksView?.showDeckRedactor(with: deckRedactorConfiguration, dataManager: dataManager, deckId: "")
+    }
+    
+    func didTapCell(index: Int) {
+        dataManager.changeCurrentDeck(index: index)
+        NotificationCenter.default.post(name: .onDeckChange, object: nil)
     }
 }

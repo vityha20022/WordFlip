@@ -16,7 +16,7 @@ final public class DecksViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.allowsSelection = false
+        //tableView.allowsSelection = false
         tableView.estimatedRowHeight = 100
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
@@ -152,6 +152,10 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
         config.performsFirstActionWithFullSwipe = false
 
         return config
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.didTapCell(index: indexPath.row)
     }
 }
 

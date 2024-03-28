@@ -5,6 +5,7 @@ import Models
 public protocol SwipeCardsDataSource: AnyObject {
     func numberOfCardsToShow() -> Int
     func card(at index: Int) -> SwipeCardView
+    func currentCard() -> CardModel?
 }
 
 public protocol SwipeCardsDelegate: AnyObject {
@@ -60,8 +61,8 @@ public class SwipeCardView: UIView {
 
     var dataSource: CardModel? {
         didSet {
-            cardViewFrontText = dataSource?.frontText ?? "Pick your deck\n🤗"
-            cardViewDownText = dataSource?.downText ?? "Выбери колоду\n👇🏻"
+            cardViewFrontText = dataSource?.frontText ?? ""
+            cardViewDownText = dataSource?.downText ?? ""
             cardViewText.text = cardViewFrontText
         }
     }
