@@ -39,7 +39,6 @@ final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
         contentView.addSubview(label)
         contentView.addSubview(numberButton)
 
-        numberButton.setTitle("1", for: .normal)
         configureNumberButton()
 
         NSLayoutConstraint.activate([
@@ -70,8 +69,9 @@ final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
         numberButton.menu = menu
     }
 
-    func configure(image: UIImage?, text: String?, isOn: Bool, closureForAction: ((Int) -> Void)?) {
+    func configure(image: UIImage?, text: String?, isOn: Bool, selectedNumber: Int?, closureForAction: ((Int) -> Void)?) {
         label.text = text
+        numberButton.setTitle(String(selectedNumber ?? 0), for: .normal)
         menuActionClosure = closureForAction
     }
 }

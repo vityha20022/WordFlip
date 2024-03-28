@@ -113,7 +113,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath, model: SettingsModel) {
-        cell.configure(image: model.image, text: model.labelText, isOn: model.isOn, closureForAction: model.closureForAction)
+        cell.configure(image: model.image, text: model.labelText, isOn: model.isOn, selectedNumber: presenter.getSelectNumber(), closureForAction: model.closureForAction)
         cell.selectionStyle = .none
     }
 }
@@ -122,4 +122,12 @@ extension SettingsViewController: UITableViewDelegate {
 }
 
 extension SettingsViewController: SettingsViewProtocol {
+    func changeBackgroundColor(isDark: Bool) {
+        guard let window = view.window else {
+            return
+        }
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
+            self.view.window?.overrideUserInterfaceStyle = isDark ? .dark : .light
+        }
+    }
 }
