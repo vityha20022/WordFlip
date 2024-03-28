@@ -138,6 +138,6 @@ enum Language: String, CaseIterable {
     case zulu = "zu"
     
     var languageName: String {
-        String(reflecting: self).split(separator: ".").last!.capitalized
+        String(reflecting: self).split(separator: ".").last?.capitalized ?? ""
     }
 }

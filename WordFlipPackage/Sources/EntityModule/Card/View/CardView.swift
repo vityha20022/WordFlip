@@ -7,8 +7,6 @@ public enum CardSide {
     case down
 }
 
-
-
 final class CardView: UIView {
     private let cardNamePlaceholderText: String
     private let cardColor: UIColor

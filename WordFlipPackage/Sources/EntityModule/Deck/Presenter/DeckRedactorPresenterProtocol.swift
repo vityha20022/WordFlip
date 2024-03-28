@@ -11,7 +11,7 @@ protocol DeckRedactorPresenterProtocol: AnyObject {
     func didTapBack()
 }
 
-class DeckRedactorPresenter: DeckRedactorPresenterProtocol {
+final class DeckRedactorPresenter: DeckRedactorPresenterProtocol {
     private var deckId: String
     private let temporaryDeck: DeckModel
     private var isNewDeck = false

@@ -6,7 +6,17 @@ public final class EntityDataManager {
 
     public init() {
         // TODO: Get decks from firebase
-        var firstDeck = DeckModel(name: "Animals", cards: [])
+        decks = []
+        for i in 0...100 {
+            var deck = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), cards: [])
+            for i in 0...100 {
+                deck.cards.append(CardModel(deckId: deck.id, frontText: String(repeating: "A", count: Int.random(in: 0...100)), downText: String(repeating: "A", count: Int.random(in: 0...100)), guessCounter: 10))
+                deck.cards.append(CardModel(deckId: deck.id, frontText: String(repeating: "A", count: Int.random(in: 0...100)), downText: String(repeating: "A", count: Int.random(in: 0...100)), guessCounter: 1))
+            }
+            decks.append(deck)
+        }
+        
+        /*var firstDeck = DeckModel(name: "Animals", cards: [])
         firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Cat", downText: "Dog", guessCounter: 10))
         firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Mouse", downText: "Elephant", guessCounter: 1))
 
@@ -14,7 +24,7 @@ public final class EntityDataManager {
         secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Ferrari", downText: "Italian", guessCounter: 5))
         secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Germany", downText: "BMW", guessCounter: 7))
 
-        decks = [firstDeck, secondDeck]
+        decks = [firstDeck, secondDeck]*/
     }
 
     public func getDeck(by id: String) -> DeckModel? {

@@ -7,7 +7,7 @@ protocol CardRedactorPresenterProtocol: AnyObject {
     func didTapTranslaste(sourceLanguage: Language?, targetLanguage: Language?, text: String)
 }
 
-class CardRedactorPresenter: CardRedactorPresenterProtocol {
+final class CardRedactorPresenter: CardRedactorPresenterProtocol {
     private let cardId: String
     private let deckId: String
 
@@ -49,7 +49,11 @@ class CardRedactorPresenter: CardRedactorPresenterProtocol {
             return
         }
         
-        translateManager.translate(endpoint: .translate(text: text, source: sourceLanguage, target: targetLanguage, key: translateManager.apiKey)) { result in
+        translateManager.translate(endpoint: .translate(text: text, source: sourceLanguage, target: targetLanguage, key: translateManager.apiKey)) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
             switch result {
                 case .success(let translatedText):
                     var card = self.getCardData()
