@@ -2,7 +2,16 @@ import UIKit
 import SystemDesign
 import Models
 
+protocol DecksViewProtocol: AnyObject {
+    func removeCell(at index: Int)
+
+    func showDeckRedactor(with configuration: DeckRedactorConfiguration, dataManager: EntityDataManager, deckId: String)
+}
+
 final public class DecksViewController: UIViewController {
+
+    private let presenter: DecksPresenterProtocol
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
@@ -32,15 +41,35 @@ final public class DecksViewController: UIViewController {
         return button
     }()
 
+    init(presenter: DecksPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setup()
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
     }
 
     private func setup() {
         tableView.delegate = self
         tableView.dataSource = self
+
+        let tapPlusAction = UIAction {[weak self] _ in
+            self?.presenter.didTapAdd()
+        }
+        plusButton.addAction(tapPlusAction, for: .touchUpInside)
 
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
 
@@ -70,8 +99,7 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: Use model count
-        5
+        presenter.getData().count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,13 +108,7 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError("No cell with such identifier.")
         }
 
-        // TODO: Use model values
-        let model = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)),
-                              wordCounter: Int.random(in: 0...100),
-                              learnedWordCounter: Int.random(in: 0...100),
-                              cards: [
-                                CardModel(frontText: "Animal", downText: "Shark", guessCounter: 0)
-                              ])
+        let model = presenter.getData()[indexPath.row]
         cell.configure(with: model)
 
         return cell
@@ -104,12 +126,13 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
 
         let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
-            // TODO: Add functionality
+            self?.presenter.didTapDelete(index: indexPath.row)
+
         }
 
         let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
-            // TODO: Add functionality
+            self?.presenter.didTapEdit(index: indexPath.row)
         }
 
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold, scale: .large)
@@ -131,32 +154,13 @@ extension DecksViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-/*extension UIImage {
-    func addBackgroundCircle(_ color: UIColor?, _ diameter: Double) -> UIImage? {
-        let circleDiameter = diameter
-        let circleRadius = circleDiameter * 0.5
-        let circleSize = CGSize(width: circleDiameter, height: circleDiameter)
-        let circleFrame = CGRect(x: 0, y: 0, width: circleSize.width, height: circleSize.height)
-        let imageFrame = CGRect(x: circleRadius - (size.width * 0.5), y: circleRadius - (size.height * 0.5), width: size.width, height: size.height)
-
-        let view = UIView(frame: circleFrame)
-        view.backgroundColor = color ?? .systemRed
-        view.layer.cornerRadius = circleDiameter * 0.5
-
-        UIGraphicsBeginImageContextWithOptions(circleSize, false, UIScreen.main.scale)
-
-        let renderer = UIGraphicsImageRenderer(size: circleSize)
-        let circleImage = renderer.image { _ in
-            view.drawHierarchy(in: circleFrame, afterScreenUpdates: true)
-        }
-
-        circleImage.draw(in: circleFrame, blendMode: .normal, alpha: 1.0)
-        draw(in: imageFrame, blendMode: .normal, alpha: 1.0)
-
-        let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-
-        UIGraphicsEndImageContext()
-
-        return image
+extension DecksViewController: DecksViewProtocol {
+    func removeCell(at index: Int) {
+        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .left)
     }
-}*/
+
+    func showDeckRedactor(with configuration: DeckRedactorConfiguration, dataManager: EntityDataManager, deckId: String) {
+        let deckRedactorVC = DeckRedactorBuilder(dataManager: dataManager, configuration: configuration, deckId: deckId).build()
+        navigationController?.pushViewController(deckRedactorVC, animated: true)
+    }
+}

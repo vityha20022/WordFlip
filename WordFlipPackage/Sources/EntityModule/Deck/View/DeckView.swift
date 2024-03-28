@@ -47,20 +47,19 @@ final class DeckView: UIView {
     }
 
     private func setup() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 15
-        self.layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
-        self.layer.shadowOffset = ComponentMetrics.shadowOffset
-        self.layer.shadowOpacity = ComponentMetrics.shadowOpacity
-        self.layer.shadowRadius = ComponentMetrics.shadowRadius
-        self.layer.masksToBounds = false
+        translatesAutoresizingMaskIntoConstraints = false
+        layer.cornerRadius = 15
+        layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
+        layer.shadowOffset = ComponentMetrics.shadowOffset
+        layer.shadowOpacity = ComponentMetrics.shadowOpacity
+        layer.shadowRadius = ComponentMetrics.shadowRadius
+        layer.masksToBounds = false
 
-//        self.backgroundColor = BaseColorScheme.accent.resolve()
-        self.backgroundColor = #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
 
-        self.addSubview(nameTextView)
-        self.addSubview(wordCounterLabel)
-        self.addSubview(learnedWordCounterLabel)
+        addSubview(nameTextView)
+        addSubview(wordCounterLabel)
+        addSubview(learnedWordCounterLabel)
 
         NSLayoutConstraint.activate([
             nameTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),

@@ -2,12 +2,6 @@ import UIKit
 import SystemDesign
 import Models
 
-struct DeckCellModel {
-    let titleText: String
-    let wordCounterText: String
-    let wordsLearnedText: String
-}
-
 final class DeckCell: UITableViewCell {
     static let identifier = "DeckCell"
 
