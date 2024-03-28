@@ -24,9 +24,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         coordinator = AppCoordinator(window: window)
         coordinator?.start()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        // TODO: delete the method signOut
+//        AuthService.shared.signOut { error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

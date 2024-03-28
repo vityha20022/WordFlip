@@ -2,7 +2,7 @@ import UIKit
 import MainView
 import SystemDesign
 
-final class AuthViewController: UIViewController, AuthViewProtocol {
+final class AuthViewController: UIViewController, AuthViewProtocol {    
 
     // MARK: Properties
 
@@ -91,7 +91,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         addSubViews()
         setupViews()
         hideKeyboardWhenTappedAround()
@@ -100,11 +100,6 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     }
 
     // MARK: Actions
-
-    public func showNextScreen() {
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.pushViewController(CardsViewController(), animated: true)
-    }
 
     public func showErrorAlert(error: String) {
         let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)

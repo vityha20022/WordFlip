@@ -3,8 +3,9 @@ import UIKit
 import EntityModule
 import Authentication
 import MainView
+import Builder
 
-public final class AppCoordinator {
+public final class AppCoordinator: NavigationProtocol {
 
     var window: UIWindow
 
@@ -17,14 +18,18 @@ public final class AppCoordinator {
         let mainView: UIViewController
 
         if Auth.auth().currentUser == nil {
-            mainView = EnterViewController(nibName: nil, bundle: nil)
+            mainView = EnterBuilder().build(navDelegate: self)
         } else {
-            mainView = CardsViewController(nibName: nil, bundle: nil)
+            mainView = Builder(entityDataManager: EntityDataManager()).createTabBar()
         }
 
         navigationController.viewControllers = [mainView]
-        window.makeKeyAndVisible()
         window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+    
+    public func goToMainView() {
+        window.rootViewController = Builder(entityDataManager: EntityDataManager()).createTabBar()
     }
 
 }

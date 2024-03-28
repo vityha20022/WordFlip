@@ -79,4 +79,19 @@ public final class AuthService {
         }
     }
 
+    ///  A method to delete the user
+    /// - Parameter completion: with one value
+    /// - Error?: an optional error if Firebase provides one
+    public func deleteUser(completion: @escaping (Error?) -> Void) {
+        let user = Auth.auth().currentUser
+
+        user?.delete { error in
+            if let error = error {
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+
 }
