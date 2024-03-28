@@ -1,4 +1,4 @@
-enum Language: String {
+enum Language: String, CaseIterable {
     case afrikaans = "af"
     case akan = "ak"
     case amharic = "am"
@@ -136,4 +136,8 @@ enum Language: String {
     case chineseSimplified = "zh-CN"
     case chineseTraditional = "zh-TW"
     case zulu = "zu"
+    
+    var languageName: String {
+        String(reflecting: self).split(separator: ".").last!.capitalized
+    }
 }

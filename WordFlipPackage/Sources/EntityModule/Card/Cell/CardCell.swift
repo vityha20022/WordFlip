@@ -22,7 +22,7 @@ final class CardCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         label.font = .systemFont(ofSize: 25, weight: .bold)
         label.textColor = BaseColorScheme.downSideCardColor.resolve()
         return label
@@ -54,7 +54,7 @@ final class CardCell: UITableViewCell {
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
 
             titleLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 25),
-            titleLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -25),
             titleLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 25),
             titleLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -25),
         ])
