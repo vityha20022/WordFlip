@@ -67,7 +67,7 @@ final class UserTableViewCell: UITableViewCell, CustomCellProtocoll {
         pictureImageView.layer.cornerRadius = pictureImageView.layer.frame.width / 2
     }
 
-    func configure(image: UIImage?, text: String?, isOn: Bool, closureForAction: ((Int) -> Void)?) {
+    func configure(image: UIImage?, text: String?, isOn: Bool, selectedNumber: Int?, closureForAction: ((Int) -> Void)?) {
         pictureImageView.image = image
         usernameLabel.text = text
 

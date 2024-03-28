@@ -45,7 +45,7 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
         ])
     }
 
-    func configure(image: UIImage?, text: String?, isOn: Bool, closureForAction: ((Int) -> Void)?) {
+    func configure(image: UIImage?, text: String?, isOn: Bool, selectedNumber: Int?, closureForAction: ((Int) -> Void)?) {
         label.text = text
         switchView.isOn = isOn
 
