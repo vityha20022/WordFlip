@@ -32,6 +32,7 @@ public final class EnterViewController: UIViewController, EnterViewProtocol {
         button.layer.borderWidth = 1
         button.setTitleColor(.white, for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
+        button.accessibilityIdentifier = "SignInButtonIdentifier"
         return button
     }()
 

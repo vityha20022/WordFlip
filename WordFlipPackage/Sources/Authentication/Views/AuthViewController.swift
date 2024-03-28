@@ -92,6 +92,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
+        view.accessibilityIdentifier = "AuthViewControllerIdentifier"
         addSubViews()
         setupViews()
         hideKeyboardWhenTappedAround()
