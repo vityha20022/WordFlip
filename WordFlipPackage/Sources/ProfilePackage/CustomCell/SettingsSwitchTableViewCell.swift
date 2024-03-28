@@ -1,4 +1,5 @@
 import UIKit
+import SystemDesign
 
 final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
 
@@ -29,6 +30,7 @@ final class SettingsSwitchTableViewCell: UITableViewCell, CustomCellProtocoll {
     }
 
     private func configureView() {
+        contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         contentView.addSubview(label)
         contentView.addSubview(switchView)
 

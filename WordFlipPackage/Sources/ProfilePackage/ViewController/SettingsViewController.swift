@@ -1,4 +1,5 @@
 import UIKit
+import SystemDesign
 
 public final class SettingsViewController: UIViewController {
 
@@ -42,7 +43,7 @@ public final class SettingsViewController: UIViewController {
     }
 
     private func configureView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
     }
 
     private func configureTitleLable() {
@@ -59,7 +60,7 @@ public final class SettingsViewController: UIViewController {
 
     private func configureTableView() {
         settingsTableView.translatesAutoresizingMaskIntoConstraints = false
-        settingsTableView.backgroundColor = .systemBackground
+        settingsTableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
 

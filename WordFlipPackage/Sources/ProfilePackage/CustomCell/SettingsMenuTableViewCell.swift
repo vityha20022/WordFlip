@@ -36,6 +36,7 @@ final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
     }
 
     private func configureView() {
+        contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         contentView.addSubview(label)
         contentView.addSubview(numberButton)
 

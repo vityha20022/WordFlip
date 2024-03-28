@@ -11,7 +11,6 @@ public final class EnterViewController: UIViewController, EnterViewProtocol {
         var label = UILabel()
         label.text = "WordFlip"
         label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -29,9 +28,7 @@ public final class EnterViewController: UIViewController, EnterViewProtocol {
     private let signInButton: DefaultButton = {
         var button = DefaultButton(text: "Log in", color: BaseColorScheme.black)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.borderWidth = 1
         button.setTitleColor(.white, for: .normal)
-        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
 

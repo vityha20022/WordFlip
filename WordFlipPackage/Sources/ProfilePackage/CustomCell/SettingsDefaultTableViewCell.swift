@@ -1,4 +1,5 @@
 import UIKit
+import SystemDesign
 
 final class SettingsDefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
 
@@ -28,6 +29,7 @@ final class SettingsDefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
     }
 
     private func configureView() {
+        contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         contentView.addSubview(label)
         contentView.addSubview(rightImageView)
 

@@ -1,4 +1,5 @@
 import UIKit
+import SystemDesign
 
 public protocol TabBarViewControllerProtocol: AnyObject {
     func updateSelected(index: Int)
@@ -25,7 +26,8 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
         make.axis = .horizontal
         make.distribution = .equalSpacing
         make.alignment = .center
-        make.backgroundColor = .white
+        make.backgroundColor = BaseColorScheme.backgroundColor.resolve()
+        make.layer.shadowColor = BaseColorScheme.shadowColor.resolve().cgColor
         make.layer.shadowOffset = CGSize(width: 0, height: 0)
         make.layer.shadowOpacity = 0.35
         make.layer.shadowRadius = 20
@@ -73,7 +75,6 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
     private func getButton(icon: String, tag: Int, action: UIAction, opacity: Float = 0.5) -> UIButton {
         let make = UIButton(primaryAction: action)
         make.setImage(UIImage(systemName: icon), for: .normal)
-        make.tintColor = .black
         make.layer.opacity = opacity
         make.tag = tag
         return make

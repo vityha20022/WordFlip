@@ -11,6 +11,8 @@ public enum BaseColorScheme: CaseIterable {
     case black
     case frontSideCardColor
     case downSideCardColor
+    case textColor
+    case profileButtonColor
 
     public func resolve() -> UIColor {
         switch self {
@@ -34,6 +36,10 @@ public enum BaseColorScheme: CaseIterable {
                 return UIColor(named: "FrontSideCardColor")!
             case .downSideCardColor:
                 return UIColor(named: "DownSideCardColor")!
+            case .textColor:
+                return UIColor(named: "TextColor")!
+            case .profileButtonColor:
+                return UIColor(named: "ProfileButtonColor")!
         }
     }
 }
