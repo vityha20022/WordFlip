@@ -1,15 +1,13 @@
 import UIKit
+import EntityModule
 import SystemDesign
+import MainView
 
-public final class RegisterViewController: UIViewController {
+final class RegisterViewController: UIViewController, RegisterViewProtocol {
 
-    // MARK: initialising views
+    // MARK: Properties
 
-    private let scrollView: UIScrollView = {
-        var scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
+    let presenter: RegisterScreenPresenterProtocol
 
     private let contentView: UIView = {
         var view = UIView()
@@ -19,7 +17,7 @@ public final class RegisterViewController: UIViewController {
 
     private let registerLabel: UILabel = {
         var label = UILabel()
-        label.text = "Registration"
+        label.text = "Sign up"
         label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +41,8 @@ public final class RegisterViewController: UIViewController {
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
         textField.placeholder = "Username"
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         return textField
     }()
 
@@ -52,6 +52,10 @@ public final class RegisterViewController: UIViewController {
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
         textField.placeholder = "Email"
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
+        textField.textContentType = .emailAddress
         return textField
     }()
 
@@ -62,6 +66,9 @@ public final class RegisterViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.textContentType = .password
         return textField
     }()
 
@@ -76,8 +83,21 @@ public final class RegisterViewController: UIViewController {
     private var topAnchorOfContinueButton: NSLayoutConstraint?
     private var bottomAnchorofContinueButton: NSLayoutConstraint?
 
+    init(presenter: RegisterScreenPresenterProtocol) {
+        self.presenter = presenter
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Lifecycle
+
     public override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         passwordTextField.delegate = self
         usernameTextField.delegate = self
         emailTextField.delegate = self
@@ -85,14 +105,35 @@ public final class RegisterViewController: UIViewController {
         setupViews()
         hideKeyboardWhenTappedAround()
         addObservers()
+        continueButton.addTarget(self, action: #selector(didTapContinueButton), for: .touchUpInside)
     }
 
-    // MARK: Dynamic layout functions
+    // MARK: Actions
+
+    public func showNextScreen() {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(CardsViewController(), animated: true)
+    }
+
+    public func showErrorAlert(error: String) {
+        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func hideKeyboard() {
+        view.endEditing(true)
+    }
 
     @objc
     private func keyboardWillShow(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {
-            self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.4
+            self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.48
             self.topAnchorOfAdditionalTextLabel?.constant = 10
             self.topAnchorOfUsernameTextField?.constant = 30
             self.topAnchorOfContinueButton?.constant = 30
@@ -111,57 +152,39 @@ public final class RegisterViewController: UIViewController {
         self.contentView.layoutIfNeeded()
     }
 
-    // MARK: setting contraints
-
-    private func setupScrollView() {
-        NSLayoutConstraint.activate(
-            [
-                scrollView.leadingAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.leadingAnchor
-                ),
-                scrollView.topAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.topAnchor
-                ),
-                scrollView.trailingAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.trailingAnchor
-                ),
-                scrollView.bottomAnchor.constraint(
-                    equalTo:
-                        view.safeAreaLayoutGuide.bottomAnchor
-                ),
-            ]
-        )
+    @objc
+    private func didTapContinueButton() {
+        presenter.register(username: usernameTextField.text, email: emailTextField.text, password: passwordTextField.text)
     }
+
+  // MARK: setting contraints
 
     private func setupContentView() {
         NSLayoutConstraint.activate(
             [
                 contentView.leadingAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.leadingAnchor
+                        view.safeAreaLayoutGuide.leadingAnchor
                 ),
                 contentView.topAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.topAnchor
+                        view.safeAreaLayoutGuide.topAnchor
                 ),
                 contentView.trailingAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.trailingAnchor
+                        view.safeAreaLayoutGuide.trailingAnchor
                 ),
                 contentView.bottomAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.bottomAnchor
+                        view.safeAreaLayoutGuide.bottomAnchor
                 ),
                 contentView.widthAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.widthAnchor
+                        view.safeAreaLayoutGuide.widthAnchor
                 ),
                 contentView.heightAnchor.constraint(
                     equalTo:
-                        scrollView.safeAreaLayoutGuide.heightAnchor
+                        view.safeAreaLayoutGuide.heightAnchor
                 ),
             ]
         )
@@ -308,7 +331,6 @@ public final class RegisterViewController: UIViewController {
     }
 
     private func setupViews() {
-        setupScrollView()
         setupContentView()
         registerLabelSetup()
         additionalTextLabelSetup()
@@ -319,8 +341,7 @@ public final class RegisterViewController: UIViewController {
     }
 
     private func addSubviews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        view.addSubview(contentView)
         contentView.addSubview(registerLabel)
         contentView.addSubview(additionalTextLabel)
         contentView.addSubview(usernameTextField)
@@ -328,16 +349,6 @@ public final class RegisterViewController: UIViewController {
         contentView.addSubview(passwordTextField)
         contentView.addSubview(continueButton)
     }
-
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    private func hideKeyboard() {
-        view.endEditing(true)
-    }
-
 }
 
 extension RegisterViewController: UITextFieldDelegate {

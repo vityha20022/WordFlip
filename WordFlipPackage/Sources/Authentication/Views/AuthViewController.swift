@@ -1,7 +1,12 @@
 import UIKit
+import MainView
 import SystemDesign
 
-public final class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController, AuthViewProtocol {
+
+    // MARK: Properties
+
+    let presenter: AuthScreenPresenterProtocol
 
     private let scrollView: UIScrollView = {
         var scrollView = UIScrollView()
@@ -17,7 +22,7 @@ public final class AuthViewController: UIViewController {
 
     private let authLabel: UILabel = {
         var label = UILabel()
-        label.text = "Authorization"
+        label.text = "Log in"
         label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +46,10 @@ public final class AuthViewController: UIViewController {
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
         textField.placeholder = "Email"
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
+        textField.textContentType = .emailAddress
         return textField
     }()
 
@@ -51,6 +60,9 @@ public final class AuthViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.textContentType = .password
         return textField
     }()
 
@@ -65,6 +77,18 @@ public final class AuthViewController: UIViewController {
     private var topAnchorOfContinueButton: NSLayoutConstraint?
     private var bottomAnchorofContinueButton: NSLayoutConstraint?
 
+    init(presenter: AuthScreenPresenterProtocol) {
+        self.presenter = presenter
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Lifecycle
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -72,6 +96,25 @@ public final class AuthViewController: UIViewController {
         setupViews()
         hideKeyboardWhenTappedAround()
         addObservers()
+        continueButton.addTarget(self, action: #selector(didTapContinueButton), for: .touchUpInside)
+    }
+
+    // MARK: Actions
+
+    public func showNextScreen() {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(CardsViewController(), animated: true)
+    }
+
+    public func showErrorAlert(error: String) {
+        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     @objc
@@ -95,6 +138,17 @@ public final class AuthViewController: UIViewController {
         self.bottomAnchorofContinueButton?.constant = -150
         self.contentView.layoutIfNeeded()
     }
+
+    @objc
+    private func didTapContinueButton() {
+        presenter.auth(email: emailTextField.text, password: passwordTextField.text)
+    }
+
+    private func hideKeyboard() {
+        view.endEditing(true)
+    }
+
+    // MARK: Views setup
 
     private func setupScrollView() {
         NSLayoutConstraint.activate(
@@ -297,16 +351,6 @@ public final class AuthViewController: UIViewController {
         contentView.addSubview(passwordTextField)
         contentView.addSubview(continueButton)
     }
-
-    private func hideKeyboard() {
-        view.endEditing(true)
-    }
-
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
 }
 
 extension AuthViewController: UITextFieldDelegate {
@@ -322,7 +366,6 @@ extension UIViewController {
 
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 

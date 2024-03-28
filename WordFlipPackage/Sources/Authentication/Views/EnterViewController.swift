@@ -3,6 +3,8 @@ import SystemDesign
 
 public final class EnterViewController: UIViewController {
 
+    // MARK: Properties
+
     private let appTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "WordFlip"
@@ -20,10 +22,10 @@ public final class EnterViewController: UIViewController {
         return imageView
     }()
 
-    private let registerButton = DefaultButton(text: "Register", color: BaseColorScheme.accent)
+    private let registerButton = DefaultButton(text: "Sign up", color: BaseColorScheme.accent)
 
     private let signInButton: DefaultButton = {
-        var button = DefaultButton(text: "Sign in", color: BaseColorScheme.black)
+        var button = DefaultButton(text: "Log in", color: BaseColorScheme.black)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1
         button.setTitleColor(.white, for: .normal)
@@ -31,11 +33,29 @@ public final class EnterViewController: UIViewController {
         return button
     }()
 
+    // MARK: Lifecycle
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
         setupButtons()
+        signInButton.addTarget(self, action: #selector(didTapSignInButton), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
     }
+
+    // MARK: Actions
+
+    @objc
+    private func didTapSignInButton() {
+        navigationController?.pushViewController(AuthBuilder().build(), animated: true)    }
+
+    @objc
+    private func didTapRegisterButton() {
+        navigationController?.pushViewController(RegisterBuilder().build(), animated: true)
+
+    }
+
+    // MARK: Views setup
 
     private func setupAppTitleLabel() {
         NSLayoutConstraint.activate(
