@@ -16,7 +16,7 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
     })
 
     // MARK: - UI Elements
-    private lazy var decksButton = getButton(icon: "doc.questionmark.fill.rtl", tag: 0, action: action)
+    private lazy var decksButton = getButton(icon: "menucard.fill", tag: 0, action: action)
     private lazy var cardsButton = getButton(icon: "graduationcap.fill", tag: 1, action: action, opacity: 1)
     private lazy var userButton = getButton(icon: "person.fill", tag: 2, action: action)
 

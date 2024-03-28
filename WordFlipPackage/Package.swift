@@ -26,6 +26,7 @@ let package = Package(
                 "Authentication",
                 "NavigationModule",
                 "MainView",
+                "Builder",
                 .product(
                     name: "FirebaseAuth",
                     package: "firebase-ios-sdk"
@@ -87,6 +88,9 @@ let package = Package(
                 "Models",
             ]
         ),
+        .target(
+            name: "Builder",
+            dependencies: ["NavigationModule", "MainView", "EntityModule", "ProfilePackage", "Authentication"]),
         .testTarget(
             name: "WordFlipPackageTests",
             dependencies: ["WordFlipPackage"]

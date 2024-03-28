@@ -2,14 +2,8 @@ import UIKit
 import SystemDesign
 import Models
 
-struct DeckCellModel {
-    let titleText: String
-    let wordCounterText: String
-    let wordsLearnedText: String
-}
-
-final class DeckCell: UITableViewCell {
-    static let identifier = "DeckCell"
+final class CardCell: UITableViewCell {
+    static let identifier = "CardCell"
 
     private let cellView: UIView = {
         let view = UIView()
@@ -21,29 +15,18 @@ final class DeckCell: UITableViewCell {
         view.layer.shadowRadius = ComponentMetrics.shadowRadius
         view.layer.masksToBounds = false
 
-        view.backgroundColor = BaseColorScheme.accent.resolve()
+        view.backgroundColor = BaseColorScheme.frontSideCardColor.resolve()
         return view
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         label.font = .systemFont(ofSize: 25, weight: .bold)
-        label.textColor = .white
+        label.textColor = BaseColorScheme.downSideCardColor.resolve()
         return label
     }()
-
-    private let wordCounterLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18)
-        label.numberOfLines = 0
-        label.textColor = BaseColorScheme.buttonText.resolve()
-        return label
-    }()
-
-    private let deckView = DeckView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,20 +37,27 @@ final class DeckCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with model: DeckModel) {
-        deckView.configure(with: model)
+    func configure(with model: CardModel) {
+        titleLabel.text = model.frontText
     }
 
     private func setup() {
         contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
 
-        contentView.addSubview(deckView)
+        contentView.addSubview(cellView)
+        cellView.addSubview(titleLabel)
 
         NSLayoutConstraint.activate([
-            deckView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            deckView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            deckView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            deckView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+
+            titleLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 25),
+            titleLabel.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -25),
+            titleLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 25),
+            titleLabel.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -25),
         ])
     }
+
 }

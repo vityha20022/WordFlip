@@ -2,19 +2,27 @@ import UIKit
 import SystemDesign
 import Models
 
+protocol CardRedactorViewProtocol: AnyObject {
+    func showPreviousController()
+    func showWarningAlert(title: String, message: String)
+    func updateDownSideCardView(cardModel: CardModel)
+}
+
 public struct CardRedactorConfiguration {
     let title: String
-    let model: CardModel
 
-    public init(title: String, model: CardModel) {
+    public init(title: String) {
         self.title = title
-        self.model = model
     }
 }
 
 final public class CardRedactorViewController: UIViewController {
+    
+    private let presenter: CardRedactorPresenterProtocol
+    
     private let configuration: CardRedactorConfiguration
-    private let languageData = ["English", "Russian", "Germany"]
+    
+    private var languageDict = [String: String]()
 
     private let headerLabel: UILabel = {
         let label = UILabel()
@@ -45,16 +53,17 @@ final public class CardRedactorViewController: UIViewController {
 
         var menuActions = [UIAction]()
 
-        for language in languageData {
-            let action = UIAction(title: "\(language)", handler: { _ in
-                button.setTitle("\(language)", for: .normal)
+        for language in Language.allCases {
+            languageDict[language.languageName] = language.rawValue
+            let action = UIAction(title: "\(language.languageName)", handler: { _ in
+                button.setTitle("\(language.languageName)", for: .normal)
             })
             menuActions.append(action)
         }
 
         let menu = UIMenu(title: "Source language:", children: menuActions)
         button.menu = menu
-        button.setTitle(languageData[0], for: .normal)
+        button.setTitle(Language.english.languageName, for: .normal)
 
         return button
     }()
@@ -70,16 +79,17 @@ final public class CardRedactorViewController: UIViewController {
 
         var menuActions = [UIAction]()
 
-        for language in languageData {
-            let action = UIAction(title: "\(language)", handler: { _ in
-                button.setTitle("\(language)", for: .normal)
+        for language in Language.allCases {
+            languageDict[language.languageName] = language.rawValue
+            let action = UIAction(title: "\(language.languageName)", handler: { _ in
+                button.setTitle("\(language.languageName)", for: .normal)
             })
             menuActions.append(action)
         }
 
         let menu = UIMenu(title: "Target language:", children: menuActions)
         button.menu = menu
-        button.setTitle(languageData[1], for: .normal)
+        button.setTitle(Language.russian.languageName, for: .normal)
 
         return button
     }()
@@ -90,9 +100,9 @@ final public class CardRedactorViewController: UIViewController {
         return imageView
     }()
 
-    public init(with configuration: CardRedactorConfiguration) {
+    init(presenter: CardRedactorPresenterProtocol, configuration: CardRedactorConfiguration) {
+        self.presenter = presenter
         self.configuration = configuration
-
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -105,12 +115,28 @@ final public class CardRedactorViewController: UIViewController {
 
         setup()
     }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
 
     private func setup() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        
+        translateButton.addTarget(self, action: #selector(translateButtonTapped), for: .touchUpInside)
+        
         hideKeyboardWhenTappedAround()
 
-        frontSideCardView.configure(with: configuration.model)
-        downSideCardView.configure(with: configuration.model)
+        frontSideCardView.configure(with: presenter.getCardData())
+        downSideCardView.configure(with: presenter.getCardData())
 
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
 
@@ -157,27 +183,38 @@ final public class CardRedactorViewController: UIViewController {
 
             frontSideCardView.heightAnchor.constraint(equalTo: downSideCardView.heightAnchor),
         ])
-
-        translateButton.addTarget(self, action: #selector(translateButtonTapped), for: .touchUpInside)
     }
 
     @objc
     private func translateButtonTapped() {
-        let textToTranslate = "Привет Сириус! Привет кто-то"
+        let sourceLanguage = Language(rawValue: languageDict[sourceLanguageButton.titleLabel?.text ?? ""] ?? "")
+        let targetLanguage = Language(rawValue: languageDict[targetLanguageButton.titleLabel?.text ?? ""] ?? "")
+        presenter.didTapTranslaste(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage, text: frontSideCardView.getCardText())
+    }
+    
+    @objc
+    private func doneButtonTapped() {
+        presenter.didTapDone(frontSideText: frontSideCardView.getCardText(), downSideText: downSideCardView.getCardText())
+    }
+    
+    @objc
+    private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+}
 
-        let apiKey = ""
-
-        let translator = TranslateManager(apiKey: apiKey)
-
-        let translateEndpoint = APIEndpoint.translate(text: textToTranslate, source: .russian, target: .english, key: apiKey)
-
-        translator.translate(endpoint: translateEndpoint) { result in
-            switch result {
-            case .success(let translatedText):
-                print("\(translatedText)")
-            case .failure(let error):
-                print("Translation failed with error: \(error)")
-            }
-        }
+extension CardRedactorViewController: CardRedactorViewProtocol {
+    func showPreviousController() {
+        navigationController?.popViewController(animated: true)
+    }
+        
+    func showWarningAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func updateDownSideCardView(cardModel: CardModel) {
+        downSideCardView.configure(with: cardModel)
     }
 }
