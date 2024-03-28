@@ -47,6 +47,7 @@ public final class ProfileViewController: UIViewController {
     }
 
     private func configureView() {
+        view.accessibilityIdentifier = "ProfileViewControllerIdentifier"
         view.backgroundColor = .systemBackground
     }
 

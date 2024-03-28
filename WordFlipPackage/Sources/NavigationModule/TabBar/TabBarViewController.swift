@@ -66,6 +66,7 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
 
     // MARK: - Setup Base UI
     private func setupControllers() {
+        userButton.accessibilityIdentifier = "TabbarProfileButtonIdentifier"
         setViewControllers(tabBarViewControllers, animated: false)
         selectedIndex = 1
     }
