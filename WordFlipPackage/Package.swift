@@ -63,7 +63,7 @@ let package = Package(
             dependencies: []),
         .target(
             name: "MainView",
-            dependencies: ["SystemDesign", "Models"]),
+            dependencies: ["SystemDesign", "Models", "EntityModule"]),
         .target(
             name: "Authentication",
             dependencies: [

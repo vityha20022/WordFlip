@@ -94,6 +94,8 @@ final class DeckView: UIView {
                 nameTextView.font = .systemFont(ofSize: 35, weight: .regular)
                 nameTextView.textColor = deckNamePlaceholderColor
             }
+        } else {
+            nameTextView.isUserInteractionEnabled = false
         }
     }
     

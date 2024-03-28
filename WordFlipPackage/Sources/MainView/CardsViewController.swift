@@ -22,8 +22,8 @@ public final class CardsViewController: UIViewController {
     private lazy var learntWordsLabel: UILabel = {
         let make = UILabel()
         make.contentMode = .left
-        let learnedWords = String(deck?.learnedWordCounter ?? 4)
-        let allWords = String(deck?.wordCounter ?? 20)
+        let learnedWords = String(deck?.learnedWordCounter ?? 0)
+        let allWords = String(deck?.wordCounter ?? 0)
         make.text = "\(learnedWords)/\(allWords)"
         make.textAlignment = .natural
         make.lineBreakMode = .byTruncatingTail
@@ -118,13 +118,16 @@ public final class CardsViewController: UIViewController {
 
     private var presenter: CardsPresenterProtocol
 
-    private var deck: DeckModel?
+    private var deck: DeckModel? {
+        return presenter.getDeck()
+    }
+    
+    private var currentCardIndex = 0
 
     var delegate: SwipeCardsDelegate?
 
     public init(presenter: CardsPresenterProtocol) {
         self.presenter = presenter
-        self.deck = presenter.model
         super.init(nibName: .none, bundle: .none)
     }
 
@@ -144,6 +147,12 @@ public final class CardsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         stackCardsView.dataSource = self
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        stackCardsView.reloadData()
     }
 
     func setCountCardsFor(_ stackContainer: StackCardsView) {
@@ -268,5 +277,9 @@ extension CardsViewController: SwipeCardsDataSource {
         let card = SwipeCardView()
         card.dataSource = deck?.cards[index]
         return card
+    }
+    
+    public func currentCard() -> CardModel? {
+        return presenter.getDeck()?.cards[currentCardIndex]
     }
 }

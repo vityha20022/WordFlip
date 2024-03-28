@@ -1,5 +1,6 @@
 import Foundation
 import Models
+import EntityModule
 
 public enum SwipeDirection {
     case right, left
@@ -8,56 +9,22 @@ public enum SwipeDirection {
 public protocol CardsPresenterProtocol: AnyObject {
     var model: DeckModel? { get }
     func handleCardSwipe(at card: CardModel, to direction: SwipeDirection)
+    func getDeck() -> DeckModel?
 }
 
 public class CardsPresenter: CardsPresenterProtocol {
+    public func getDeck() -> DeckModel?{
+        guard let deck = dataManager.getCurrentDeck() else {return nil}
+        return deck
+    }
+
+    private var dataManager: EntityDataManager
     public var model: DeckModel?
     private weak var view: CardsPresenterProtocol?
 
-    public init() {
-        model = nil
-//        model = DeckModel(
-//            name: "Животные",
-//            wordCounter: 36,
-//            learnedWordCounter: 2,
-//            cards: [
-//                CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-//                CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-//                CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-//                CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-//                CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-//                CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-//                CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-//                CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-//                CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-//                CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-//                CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-//                CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-//                CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-//                CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-//                CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-//                CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-//                CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-//                CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-//                CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-//                CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-//                CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-//                CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-//                CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-//                CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-//                CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-//                CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-//                CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-//                CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-//                CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-//                CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-//                CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-//                CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-//                CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-//                CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-//                CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-//                CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-//            ])
+    public init(dataManager: EntityDataManager) {
+        self.dataManager = dataManager
+        
     }
 
     //TODO: - Обработка смахивания карты

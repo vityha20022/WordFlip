@@ -5,13 +5,14 @@ import Models
 
 public final class EntityDataManager {
     private var decks: [DeckModel]
+    private var currentDeckId: String = ""
 
     public init() {
         // TODO: Get decks from firebase
         decks = []
-        for _ in 0...100 {
+        for i in 0...5 {
             var deck = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), cards: [])
-            for _ in 0...100 {
+            for i in 0...1 {
                 deck.cards.append(CardModel(deckId: deck.id, frontText: String(repeating: "A", count: Int.random(in: 0...100)), downText: String(repeating: "A", count: Int.random(in: 0...100)), guessCounter: 10))
                 deck.cards.append(CardModel(deckId: deck.id, frontText: String(repeating: "A", count: Int.random(in: 0...100)), downText: String(repeating: "A", count: Int.random(in: 0...100)), guessCounter: 1))
             }
@@ -98,4 +99,18 @@ public final class EntityDataManager {
     public func save() {
         // TODO: Save state in firebase
     }
+    
+    public func changeCurrentDeck(index: Int) {
+        currentDeckId = decks[index].id
+    }
+    
+    public func getCurrentDeck() -> DeckModel? {
+        return decks.first(where: { $0.id == currentDeckId })
+    }
+}
+
+
+
+extension NSNotification.Name {
+    static let onDeckChange = Notification.Name("on-deck-change")
 }
