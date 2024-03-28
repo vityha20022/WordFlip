@@ -23,8 +23,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     private let authLabel: UILabel = {
         var label = UILabel()
         label.text = "Log in"
-        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,7 +32,6 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         var label = UILabel()
         label.text = "Enter your email and password"
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -50,6 +48,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         textField.autocapitalizationType = .none
         textField.keyboardType = .emailAddress
         textField.textContentType = .emailAddress
+        textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         return textField
     }()
 
@@ -63,6 +62,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.textContentType = .password
+        textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         return textField
     }()
 

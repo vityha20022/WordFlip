@@ -19,8 +19,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     private let registerLabel: UILabel = {
         var label = UILabel()
         label.text = "Sign up"
-        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -29,7 +28,6 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         var label = UILabel()
         label.text = "Enter your username, email address and password"
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -42,6 +40,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
         textField.placeholder = "Username"
+        textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         return textField
@@ -53,6 +52,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
         textField.placeholder = "Email"
+        textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.keyboardType = .emailAddress
@@ -67,6 +67,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         textField.borderStyle = .roundedRect
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
+        textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.textContentType = .password

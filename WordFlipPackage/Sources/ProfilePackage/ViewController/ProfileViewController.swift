@@ -47,7 +47,7 @@ public final class ProfileViewController: UIViewController {
     }
 
     private func configureView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
     }
 
     private func configureExitButton() {
@@ -91,7 +91,7 @@ public final class ProfileViewController: UIViewController {
 
     private func configureTableView() {
         profileTableView.translatesAutoresizingMaskIntoConstraints = false
-        profileTableView.backgroundColor = .systemBackground
+        profileTableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView.separatorStyle = .none

@@ -11,6 +11,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.setImage(UIImage(systemName: "xmark"), for: .normal)
         make.configuration = .plain()
+        make.isHidden = true
         make.setTitle("", for: .normal)
         return make
     }()
@@ -46,6 +47,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.setImage(UIImage(systemName: "star"), for: .normal)
         make.configuration = .plain()
+        make.isHidden = true
         make.setTitle("", for: .normal)
         return make
     }()
@@ -98,6 +100,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
         make.configuration = .tinted()
+        make.layer.cornerRadius = 10
         make.setTitle("", for: .normal)
         return make
     }()
@@ -110,6 +113,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.setImage(UIImage(systemName: "xmark"), for: .normal)
         make.configuration = .tinted()
+        make.layer.cornerRadius = 10
         make.setTitle("", for: .normal)
         return make
     }()
@@ -122,6 +126,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.setImage(UIImage(systemName: "checkmark"), for: .normal)
         make.configuration = .tinted()
+        make.layer.cornerRadius = 10
         make.setTitle("", for: .normal)
         return make
     }()
@@ -129,7 +134,7 @@ public final class CardsViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         // MARK: - Base View Properties
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
 
         setViewHierachy()
         setConstrains()

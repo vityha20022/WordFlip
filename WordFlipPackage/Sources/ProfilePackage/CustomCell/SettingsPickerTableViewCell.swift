@@ -1,4 +1,5 @@
 import UIKit
+import SystemDesign
 
 final class SettingsPickerTableViewCell: UITableViewCell, CustomCellProtocoll {
 
@@ -29,6 +30,7 @@ final class SettingsPickerTableViewCell: UITableViewCell, CustomCellProtocoll {
     }
 
     private func configureView() {
+        contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         contentView.addSubview(label)
         contentView.addSubview(pickerView)
 
