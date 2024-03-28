@@ -3,8 +3,8 @@ import SystemDesign
 import NavigationModule
 import Models
 
-public final class CardsViewController: UIViewController{
-    // MARK: -  UI Elements
+public final class CardsViewController: UIViewController {
+    // MARK: - UI Elements
     private lazy var exitButton: UIButton = {
         let make = UIButton(primaryAction: exitButtonAction)
         make.contentMode = .scaleToFill
@@ -22,7 +22,9 @@ public final class CardsViewController: UIViewController{
     private lazy var learntWordsLabel: UILabel = {
         let make = UILabel()
         make.contentMode = .left
-        make.text = "\(deck.learnedWordCounter)/\(deck.wordCounter)"
+        let learnedWords = String(deck?.learnedWordCounter ?? 4)
+        let allWords = String(deck?.wordCounter ?? 20)
+        make.text = "\(learnedWords)/\(allWords)"
         make.textAlignment = .natural
         make.lineBreakMode = .byTruncatingTail
         make.baselineAdjustment = .alignBaselines
@@ -31,19 +33,21 @@ public final class CardsViewController: UIViewController{
         make.font = .systemFont(ofSize: 15)
         return make
     }()
-    
+
     private lazy var learntWordsProgressView: UIProgressView = {
         let make = UIProgressView()
         make.progressViewStyle = .default
-        make.setProgress(Float(deck.learnedWordCounter) / Float(deck.wordCounter), animated: true)
+        let learnedWords = deck?.learnedWordCounter ?? 4
+        let allWords = deck?.wordCounter ?? 20
+        make.setProgress(Float(learnedWords) / Float(allWords), animated: true)
         make.trackTintColor = BaseColorScheme.baseTint.resolve()
         make.progressTintColor = BaseColorScheme.accent.resolve()
         make.translatesAutoresizingMaskIntoConstraints = false
         return make
     }()
-    
+
     private lazy var favouritesButton: UIButton = {
-        let make = UIButton()
+        let make = UIButton(primaryAction: favouritesButtonAction)
         make.contentMode = .scaleToFill
         make.contentHorizontalAlignment = .center
         make.contentVerticalAlignment = .center
@@ -54,11 +58,11 @@ public final class CardsViewController: UIViewController{
         make.setTitle("", for: .normal)
         return make
     }()
-    
+
     private lazy var deckNameLabel: UILabel = {
         let make = UILabel()
         make.contentMode = .left
-        make.text = deck.name
+        make.text = deck?.name ?? "Your deck name"
         make.textAlignment = .center
         make.lineBreakMode = .byTruncatingTail
         make.baselineAdjustment = .alignBaselines
@@ -67,7 +71,7 @@ public final class CardsViewController: UIViewController{
         make.font = .systemFont(ofSize: 41)
         return make
     }()
-    
+
     private lazy var invertButton: UIButton = {
         let make = UIButton(configuration: .tinted(), primaryAction: invertButtonAction)
         make.contentMode = .scaleToFill
@@ -89,7 +93,7 @@ public final class CardsViewController: UIViewController{
         make.setTitle("", for: .normal)
         return make
     }()
-    
+
     private lazy var acceptButton: UIButton = {
         let make = UIButton(configuration: .tinted(), primaryAction: acceptButtonAction)
         make.contentMode = .scaleToFill
@@ -102,62 +106,33 @@ public final class CardsViewController: UIViewController{
         make.setTitle("", for: .normal)
         return make
     }()
-    
+
     public var stackCardsView: StackCardsView = {
         let make = StackCardsView()
         make.translatesAutoresizingMaskIntoConstraints = false
         return make
     }()
 
-    // MARK: -  Properties
+    // MARK: - Properties
     private var viewIsRotate: Bool = true
-    
+
+    private var presenter: CardsPresenterProtocol
+
+    private var deck: DeckModel?
+
     var delegate: SwipeCardsDelegate?
-    
-    private var deck = DeckModel(
-        name: "Животные",
-        wordCounter: 36,
-        learnedWordCounter: 2,
-        cards: [
-            CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-            CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-            CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-            CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-            CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-            CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-            CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-            CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-            CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-            CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-            CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-            CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-            CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-            CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-            CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-            CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-            CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-            CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-            CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-            CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-            CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-            CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-            CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-            CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-            CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-            CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-            CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-            CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-            CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-            CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-            CardModel(frontText: "Animal", downText: "Жывотнае", guessCounter: 1),
-            CardModel(frontText: "Dog", downText: "Собаке", guessCounter: 1),
-            CardModel(frontText: "Cat", downText: "Кошкотакбас", guessCounter: 1),
-            CardModel(frontText: "Bat", downText: "Man", guessCounter: 1),
-            CardModel(frontText: "Elephant", downText: "Слоняра", guessCounter: 1),
-            CardModel(frontText: "Chicken", downText: "И картофель фри пожалуйста", guessCounter: 1),
-        ])
-    
-    // MARK: -  Base View Properties
+
+    public init(presenter: CardsPresenterProtocol) {
+        self.presenter = presenter
+        self.deck = presenter.model
+        super.init(nibName: .none, bundle: .none)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Base View Properties
     public override func loadView() {
         setCountCardsFor(stackCardsView)
         view = UIView()
@@ -170,47 +145,47 @@ public final class CardsViewController: UIViewController{
         view.backgroundColor = .systemBackground
         stackCardsView.dataSource = self
     }
-    
+
     func setCountCardsFor(_ stackContainer: StackCardsView) {
-        if (UIScreen.main.bounds.height) <= 667.0{
+        if (UIScreen.main.bounds.height) <= 667.0 {
             stackContainer.cardsToBeVisible = 2
         } else {
             stackContainer.cardsToBeVisible = 3
         }
     }
-    
-    
-    
-    // MARK: -  Actions buttons
-    private lazy var invertButtonAction = UIAction(handler: { [weak self] sender in
-        guard 
+
+    // MARK: - Actions buttons
+    private lazy var invertButtonAction = UIAction(handler: { [weak self] _ in
+        guard
             let self = self,
             let card = self.stackCardsView.visibleCards.last
         else {return}
         card.handleTapGesture()
- 
+
     })
-    
-    private lazy var skipButtonAction = UIAction(handler: { [weak self] sender in
+
+    private lazy var skipButtonAction = UIAction(handler: { [weak self] _ in
         guard let self = self else { return }
-        guard let card = self.stackCardsView.visibleCards.last else {return}
+        guard let card = self.stackCardsView.visibleCards.last else { return }
         card.swipeLeftAction()
-        
     })
-    private lazy var acceptButtonAction = UIAction(handler: { [weak self] sender in
+
+    private lazy var acceptButtonAction = UIAction(handler: { [weak self] _ in
         guard let self = self else { return }
         guard let card = self.stackCardsView.visibleCards.last else {return}
         card.swipeRightAction()
     })
-    private lazy var exitButtonAction = UIAction(handler: { [weak self] sender in
-//        guard let self = self else { return }
-//        guard let card = self.stackCardsView.visibleCards.last else {return}
-//        card.swipeRightAction()
-        
+
+    private lazy var exitButtonAction = UIAction(handler: { [weak self] _ in
+
     })
-    
-    
-    // MARK: -  View Hierachy
+
+    private lazy var favouritesButtonAction = UIAction(handler: { [weak self] sender in
+        guard let sender = sender.sender as? UIButton else { return }
+
+    })
+
+    // MARK: - View Hierachy
     private func setViewHierachy() {
         view.addSubview(invertButton)
         view.addSubview(learntWordsProgressView)
@@ -222,8 +197,8 @@ public final class CardsViewController: UIViewController{
         view.addSubview(exitButton)
         view.addSubview(stackCardsView)
     }
-    
-    // MARK: -  Constrains
+
+    // MARK: - Constrains
     private func setConstrains() {
         NSLayoutConstraint.activate([
             // - exitButton
@@ -231,24 +206,24 @@ public final class CardsViewController: UIViewController{
             exitButton.centerYAnchor.constraint(equalTo: learntWordsProgressView.centerYAnchor),
             exitButton.widthAnchor.constraint(equalToConstant: 40),
             exitButton.heightAnchor.constraint(equalToConstant: 40),
-            
+
             // - learntWordsProgressView
             learntWordsProgressView.heightAnchor.constraint(equalToConstant: 5),
             learntWordsProgressView.topAnchor.constraint(equalTo: learntWordsLabel.bottomAnchor, constant: 5),
             learntWordsProgressView.leadingAnchor.constraint(equalTo: exitButton.trailingAnchor, constant: 8),
             learntWordsProgressView.trailingAnchor.constraint(equalTo: favouritesButton.leadingAnchor, constant: -8),
-            
+
             // - learntWordsLabel
             learntWordsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             learntWordsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             learntWordsLabel.heightAnchor.constraint(equalToConstant: 18),
-            
+
             // - favouritesButton
             favouritesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
             favouritesButton.centerYAnchor.constraint(equalTo: learntWordsProgressView.centerYAnchor),
             favouritesButton.widthAnchor.constraint(equalToConstant: 40),
             favouritesButton.heightAnchor.constraint(equalToConstant: 40),
-            
+
             // - deckNameLabel
             deckNameLabel.topAnchor.constraint(equalTo: learntWordsProgressView.bottomAnchor, constant: 8),
             deckNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -259,7 +234,7 @@ public final class CardsViewController: UIViewController{
             skipButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             skipButton.widthAnchor.constraint(equalToConstant: 60),
             skipButton.heightAnchor.constraint(equalToConstant: 60),
-            
+
             // - invertButton
             invertButton.leadingAnchor.constraint(equalTo: skipButton.trailingAnchor, constant: 40),
             invertButton.centerYAnchor.constraint(equalTo: skipButton.centerYAnchor),
@@ -272,7 +247,7 @@ public final class CardsViewController: UIViewController{
             acceptButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             acceptButton.widthAnchor.constraint(equalToConstant: 60),
             acceptButton.heightAnchor.constraint(equalToConstant: 60),
-            
+
             // - stackContainer
             stackCardsView.heightAnchor.constraint(equalToConstant: 350),
             stackCardsView.widthAnchor.constraint(equalToConstant: 350),
@@ -283,19 +258,15 @@ public final class CardsViewController: UIViewController{
     }
 }
 
-// MARK: -  Extension
-extension CardsViewController: SwipeCardsDataSource{
+// MARK: - Extension
+extension CardsViewController: SwipeCardsDataSource {
     public func numberOfCardsToShow() -> Int {
-        return deck.wordCounter
+        return deck?.wordCounter ?? 1
     }
-    
+
     public func card(at index: Int) -> SwipeCardView {
         let card = SwipeCardView()
-        card.dataSource = deck.cards[index]
+        card.dataSource = deck?.cards[index]
         return card
     }
 }
-
-
-
-
