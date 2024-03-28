@@ -11,10 +11,13 @@ public class Builder {
         self.entityDataManager = entityDataManager
     }
 
-    public func createTabBar(navDelegate: ProfileNavigationProtocol?) -> UIViewController {
+    public func createTabBar() -> UIViewController {
+        let cardsPresenter = CardsPresenter()
+        let cardsView = CardsViewController(presenter: cardsPresenter)
+
+        let view = TabBarViewController(decksVC: DecksBuilder(dataManager: entityDataManager).build(), cardsVC: cardsView, userVC: ProfileBuilder().build(navDelegate: navDelegate), presenter: presenter)
         let presenter = TabBarPresenter()
-        let view = TabBarViewController(decksVC: DecksBuilder(dataManager: entityDataManager).build(), cardsVC: CardsViewController(), userVC: ProfileBuilder().build(navDelegate: navDelegate), presenter: presenter)
-        presenter.view = view
+		presenter.view = view
         return view
     }
 }
