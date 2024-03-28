@@ -47,7 +47,8 @@ let package = Package(
         ),
         .target(
             name: "ProfilePackage",
-            dependencies: ["SystemDesign"]
+            dependencies: ["SystemDesign",
+                          "Authentication"]
         ),
         .target(
             name: "Models",

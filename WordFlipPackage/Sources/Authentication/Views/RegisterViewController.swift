@@ -84,6 +84,8 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     private var topAnchorOfContinueButton: NSLayoutConstraint?
     private var bottomAnchorofContinueButton: NSLayoutConstraint?
 
+    // MARK: Lifecycle
+    
     init(presenter: RegisterScreenPresenterProtocol) {
         self.presenter = presenter
 
@@ -93,8 +95,6 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    // MARK: Lifecycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +141,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
 
     @objc
     private func keyboardWillHide(notification: NSNotification) {
-        self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3
+        self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.34
         self.topAnchorOfAdditionalTextLabel?.constant = 40
         self.topAnchorOfUsernameTextField?.constant = 50
         self.topAnchorOfContinueButton?.constant = 60
