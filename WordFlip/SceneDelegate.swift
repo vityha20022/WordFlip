@@ -21,7 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         guard let window = window else { return }
-
+        if UserDefaults.standard.bool(forKey: "NightThemeSwitchState") {
+            window.overrideUserInterfaceStyle = .dark
+        } else {
+            window.overrideUserInterfaceStyle = .light
+        }
         coordinator = AppCoordinator(window: window)
         coordinator?.start()
     }
