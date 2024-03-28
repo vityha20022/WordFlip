@@ -5,11 +5,21 @@ import ProfilePackage
 import EntityModule
 
 public class Builder {
-    public init(){}
+    public init() {}
     public func createTabBar() -> UIViewController {
-        let presenter = TabBarPresenter()
-        let view = TabBarViewController(decksVC: DecksViewController(), cardsVC: CardsViewController(), userVC: ProfileBuilder().build(), presenter: presenter)
-        presenter.view = view
+        let taBarPresenter = TabBarPresenter()
+
+        let cardsPresenter = CardsPresenter()
+        let cardsView = CardsViewController(presenter: cardsPresenter)
+
+        let view = TabBarViewController(
+            decksVC: DecksViewController(),
+            cardsVC: cardsView,
+            userVC: ProfileBuilder().build(),
+            presenter: taBarPresenter
+        )
+//        cardsPresenter.view = cardsView as! any TabBarViewControllerProtocol
+        taBarPresenter.view = view
         return view
     }
 }
