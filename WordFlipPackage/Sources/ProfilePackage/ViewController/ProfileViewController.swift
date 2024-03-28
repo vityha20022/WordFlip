@@ -131,7 +131,7 @@ extension ProfileViewController: UITableViewDataSource {
 
     private func configureCell(cell: CustomCellProtocoll, for indexPath: IndexPath) {
         let model = presenter.getDataArray()[indexPath.row]
-        cell.configure(image: model.image, text: model.labelText, isOn: model.isOn, closureForAction: model.closureForAction)
+        cell.configure(image: model.image, text: model.labelText, isOn: model.isOn, selectedNumber: nil, closureForAction: model.closureForAction)
         cell.selectionStyle = .none
     }
 
