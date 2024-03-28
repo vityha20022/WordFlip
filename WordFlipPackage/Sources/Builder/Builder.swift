@@ -11,9 +11,9 @@ public class Builder {
         self.entityDataManager = entityDataManager
     }
 
-    public func createTabBar() -> UIViewController {
+    public func createTabBar(navDelegate: ProfileNavigationProtocol?) -> UIViewController {
         let presenter = TabBarPresenter()
-        let view = TabBarViewController(decksVC: DecksBuilder(dataManager: entityDataManager).build(), cardsVC: CardsViewController(), userVC: ProfileBuilder().build(), presenter: presenter)
+        let view = TabBarViewController(decksVC: DecksBuilder(dataManager: entityDataManager).build(), cardsVC: CardsViewController(), userVC: ProfileBuilder().build(navDelegate: navDelegate), presenter: presenter)
         presenter.view = view
         return view
     }
