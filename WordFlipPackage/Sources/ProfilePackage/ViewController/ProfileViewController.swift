@@ -4,7 +4,7 @@ import SystemDesign
 public final class ProfileViewController: UIViewController {
 
     private let profileTableView: UITableView = UITableView()
-    private let exitButton = DefaultButton(text: "Exit", color: BaseColorScheme.red)
+    private let exitButton = DefaultButton(text: "Sign out", color: BaseColorScheme.red)
     private let deleteButton = UIButton()
     private let titleLabel = UILabel()
     private let presenter: ProfilePresenterProtocol
@@ -37,6 +37,13 @@ public final class ProfileViewController: UIViewController {
         configureDeleteButton()
         configureTableView()
         configureTitleLable()
+        
+        exitButton.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    func exitButtonTapped() {
+        presenter.didTapSignOutButton()
     }
 
     private func configureView() {

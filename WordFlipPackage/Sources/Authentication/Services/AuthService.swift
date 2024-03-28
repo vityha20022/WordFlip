@@ -78,5 +78,4 @@ public final class AuthService {
             completion(error)
         }
     }
-
 }

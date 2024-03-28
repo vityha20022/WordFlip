@@ -2,17 +2,25 @@ import UIKit
 import SystemDesign
 import Models
 
+protocol DeckRedactorViewProtocol: AnyObject {
+    func showPreviousController()
+    func showCardRedactorController(with configuration: CardRedactorConfiguration, dataManager: EntityDataManager, cardId: String, deckId: String)
+    func removeCell(at index: Int)
+    func showWarningAlert(message: String)
+}
+
 public struct DeckRedactorConfiguration {
     let title: String
-    let model: DeckModel
 
-    public init(title: String, model: DeckModel) {
+    public init(title: String) {
         self.title = title
-        self.model = model
     }
 }
 
 final public class DeckRedactorViewController: UIViewController {
+
+    private let presenter: DeckRedactorPresenterProtocol
+
     private let configuration: DeckRedactorConfiguration
 
     private let deckView = DeckView()
@@ -46,9 +54,9 @@ final public class DeckRedactorViewController: UIViewController {
         return tableView
     }()
 
-    public init(with configuration: DeckRedactorConfiguration) {
+    init(presenter: DeckRedactorPresenterProtocol, configuration: DeckRedactorConfiguration) {
+        self.presenter = presenter
         self.configuration = configuration
-
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -62,13 +70,37 @@ final public class DeckRedactorViewController: UIViewController {
         setup()
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = false
+        
+        cardsTableView.reloadData()
+        deckView.configure(with: presenter.getDeckData(), isEditable: true)
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+    }
+
     private func setup() {
         cardsTableView.delegate = self
         cardsTableView.dataSource = self
-
+        
+        let tapPlusAction = UIAction {[weak self] _ in
+            self?.presenter.didTapAdd()
+        }
+        plusButton.addAction(tapPlusAction, for: .touchUpInside)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        
         hideKeyboardWhenTappedAround()
 
-        deckView.configure(with: configuration.model, isEditable: true)
+        deckView.configure(with: presenter.getDeckData(), isEditable: true)
 
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
 
@@ -82,7 +114,7 @@ final public class DeckRedactorViewController: UIViewController {
         view.addSubview(deckView)
 
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMargin),
+            headerLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: ComponentMetrics.headerTitleTopMarginWithNavBar),
             headerLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
 
             plusButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
@@ -98,13 +130,24 @@ final public class DeckRedactorViewController: UIViewController {
             cardsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
+    @objc
+    private func doneButtonTapped() {
+        presenter.didTapDone(deckName: deckView.getDeckName())
+    }
+    
+    @objc
+    private func backButtonTapped() {
+        presenter.didTapBack()
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return configuration.model.cards.count
+        return presenter.getCardsData().count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,8 +155,7 @@ extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource
             fatalError("No cell with such identifier.")
         }
 
-        // TODO: Use model values
-        let model = CardModel(frontText: "Animals", downText: "Shark", guessCounter: 0)
+        let model = presenter.getCardsData()[indexPath.row]
         cell.configure(with: model)
 
         return cell
@@ -130,12 +172,12 @@ extension DeckRedactorViewController: UITableViewDelegate, UITableViewDataSource
 
         let deleteAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
-            // TODO: Add functionality
+            self?.presenter.didTapDelete(index: indexPath.row)
         }
 
         let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
             completion(true)
-            // TODO: Add functionality
+            self?.presenter.didTapEdit(index: indexPath.row)
         }
 
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold, scale: .large)
@@ -196,5 +238,27 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         return image
+    }
+}
+
+extension DeckRedactorViewController: DeckRedactorViewProtocol {
+    func showPreviousController() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func showCardRedactorController(with configuration: CardRedactorConfiguration, dataManager: EntityDataManager, cardId: String, deckId: String) {
+        let cardRedactorVC = CardRedactorBuilder(dataManager: dataManager, configuration: configuration, cardId: cardId, deckId: deckId).build()
+        navigationController?.pushViewController(cardRedactorVC, animated: true)
+    }
+    
+    func removeCell(at index: Int) {
+        cardsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .left)
+        deckView.configure(with: presenter.getDeckData(), isEditable: true)
+    }
+    
+    func showWarningAlert(message: String) {
+        let alert = UIAlertController(title: "Empty deck name", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
 }

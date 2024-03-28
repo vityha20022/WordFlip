@@ -69,7 +69,7 @@ final class CardView: UIView {
 
         NSLayoutConstraint.activate([
             textView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
-            textView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
+            textView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -35),
             textView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             textView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             textView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
@@ -95,6 +95,12 @@ final class CardView: UIView {
             textView.text = cardNamePlaceholderText
             textView.textColor = cardNamePlaceholderColor
         }
+        
+        textView.centerVertically()
+    }
+    
+    func getCardText() -> String {
+        return textView.text == cardNamePlaceholderText ? "" : textView.text
     }
 }
 

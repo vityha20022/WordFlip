@@ -4,6 +4,12 @@ import FirebaseFirestore
 final class AuthScreenPresenter: AuthScreenPresenterProtocol {
 
     weak var viewController: AuthViewProtocol?
+    
+    weak var delegate: NavigationProtocol?
+    
+    init(delegate: NavigationProtocol?) {
+        self.delegate = delegate
+    }
 
     func auth(email: String?, password: String?) {
         guard let email = email, let password = password else {
@@ -25,7 +31,8 @@ final class AuthScreenPresenter: AuthScreenPresenterProtocol {
                 strongSelf.viewController?.showErrorAlert(error: error.localizedDescription)
                 return
             }
-            strongSelf.viewController?.showNextScreen()
+            strongSelf.delegate?.goToMainView()
         }
     }
+    
 }

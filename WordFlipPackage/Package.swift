@@ -26,6 +26,7 @@ let package = Package(
                 "Authentication",
                 "NavigationModule",
                 "MainView",
+                "Builder",
                 .product(
                     name: "FirebaseAuth",
                     package: "firebase-ios-sdk"
@@ -46,7 +47,8 @@ let package = Package(
         ),
         .target(
             name: "ProfilePackage",
-            dependencies: ["SystemDesign"]
+            dependencies: ["SystemDesign",
+                          "Authentication"]
         ),
         .target(
             name: "Models",
@@ -80,6 +82,17 @@ let package = Package(
                 ),
             ]
         ),
+        .target(name: "Builder",
+                dependencies: [
+                    "Authentication",
+                    "EntityModule",
+                    "MainView",
+                    "Models",
+                    "NavigationModule",
+                    "ProfilePackage",
+                    "SystemDesign",
+                ]
+               ),
         .target(
             name: "EntityModule",
             dependencies: [

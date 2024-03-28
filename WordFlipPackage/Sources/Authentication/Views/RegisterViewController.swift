@@ -1,4 +1,5 @@
 import UIKit
+//import Builder
 import EntityModule
 import SystemDesign
 import MainView
@@ -83,6 +84,8 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     private var topAnchorOfContinueButton: NSLayoutConstraint?
     private var bottomAnchorofContinueButton: NSLayoutConstraint?
 
+    // MARK: Lifecycle
+    
     init(presenter: RegisterScreenPresenterProtocol) {
         self.presenter = presenter
 
@@ -93,14 +96,13 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Lifecycle
-
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         passwordTextField.delegate = self
         usernameTextField.delegate = self
         emailTextField.delegate = self
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         addSubviews()
         setupViews()
         hideKeyboardWhenTappedAround()
@@ -109,11 +111,6 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     }
 
     // MARK: Actions
-
-    public func showNextScreen() {
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.pushViewController(CardsViewController(), animated: true)
-    }
 
     public func showErrorAlert(error: String) {
         let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
@@ -144,7 +141,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
 
     @objc
     private func keyboardWillHide(notification: NSNotification) {
-        self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.3
+        self.topAnchorOfRegisterLabel?.constant = -self.contentView.safeAreaLayoutGuide.layoutFrame.height * 0.34
         self.topAnchorOfAdditionalTextLabel?.constant = 40
         self.topAnchorOfUsernameTextField?.constant = 50
         self.topAnchorOfContinueButton?.constant = 60
