@@ -96,7 +96,7 @@ final public class DeckRedactorViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done".localized, style: .done, target: self, action: #selector(doneButtonTapped))
         
         hideKeyboardWhenTappedAround()
 
@@ -257,7 +257,7 @@ extension DeckRedactorViewController: DeckRedactorViewProtocol {
     }
     
     func showWarningAlert(message: String) {
-        let alert = UIAlertController(title: "Empty deck name", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "EmptyDeckName".localized, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }

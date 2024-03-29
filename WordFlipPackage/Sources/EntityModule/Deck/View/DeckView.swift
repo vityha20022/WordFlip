@@ -4,7 +4,7 @@ import Models
 
 final class DeckView: UIView {
 
-    private var deckNamePlaceholderText = "Type deck name..."
+    private var deckNamePlaceholderText = "TypeDeckName...".localized
     private var deckNamePlaceholderColor = UIColor.lightGray.withAlphaComponent(0.4)
 
     private let nameTextView: UITextView = {
@@ -78,9 +78,11 @@ final class DeckView: UIView {
     }
 
     func configure(with model: DeckModel, isEditable: Bool = false) {
+        var learned = "Learned".localized
+        var words = "words".localized
         nameTextView.text = model.name
-        wordCounterLabel.text = "\(model.wordCounter) words"
-        learnedWordCounterLabel.text = "Learned \(model.learnedWordCounter) words"
+        wordCounterLabel.text = "\(model.wordCounter) \(words)"
+        learnedWordCounterLabel.text = "\(learned) \(model.learnedWordCounter) \(words)"
         nameTextView.isEditable = isEditable
         nameTextView.backgroundColor = isEditable ? #colorLiteral(red: 0.8634499907, green: 0.9234817028, blue: 0.9867377877, alpha: 1) : #colorLiteral(red: 0.1850751638, green: 0.4414822459, blue: 0.742457211, alpha: 1)
         if isEditable {

@@ -27,12 +27,12 @@ final class DecksPrersenter: DecksPresenterProtocol {
 
     func didTapEdit(index: Int) {
         let model = dataManager.getDecks()[index]
-        let deckRedactorConfiguration = DeckRedactorConfiguration(title: "Edit deck")
+        let deckRedactorConfiguration = DeckRedactorConfiguration(title: "Edit Deck".localized)
         decksView?.showDeckRedactor(with: deckRedactorConfiguration, dataManager: dataManager, deckId: model.id)
     }
 
     func didTapAdd() {
-        let deckRedactorConfiguration = DeckRedactorConfiguration(title: "Add deck")
+        let deckRedactorConfiguration = DeckRedactorConfiguration(title: "AddDeck".localized)
         decksView?.showDeckRedactor(with: deckRedactorConfiguration, dataManager: dataManager, deckId: "")
     }
 }

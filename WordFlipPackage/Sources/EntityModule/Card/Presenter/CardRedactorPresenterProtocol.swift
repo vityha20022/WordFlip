@@ -32,7 +32,7 @@ final class CardRedactorPresenter: CardRedactorPresenterProtocol {
     
     func didTapDone(frontSideText: String, downSideText: String) {
         guard !frontSideText.isEmpty, !downSideText.isEmpty else {
-            cardRedactorView?.showWarningAlert(title: "Empty card fields", message: "Card with empty fields is not allowed")
+            cardRedactorView?.showWarningAlert(title: "Emptycardfield".localized , message: "Cardwithemptyfields".localized)
             return
         }
         
@@ -60,7 +60,7 @@ final class CardRedactorPresenter: CardRedactorPresenterProtocol {
                     card.downText = translatedText
                     self.cardRedactorView?.updateDownSideCardView(cardModel: card)
                 case .failure(let error):
-                    self.cardRedactorView?.showWarningAlert(title: "Translate error", message: error.localizedDescription)
+                self.cardRedactorView?.showWarningAlert(title: "TranslateError".localized, message: error.localizedDescription)
             }
         }
     }

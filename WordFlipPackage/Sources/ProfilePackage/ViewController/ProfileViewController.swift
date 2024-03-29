@@ -4,7 +4,7 @@ import SystemDesign
 public final class ProfileViewController: UIViewController {
 
     private let profileTableView: UITableView = UITableView()
-    private let exitButton = DefaultButton(text: "Sign out", color: BaseColorScheme.red)
+    private let exitButton = DefaultButton(text: "Sign out".localized, color: BaseColorScheme.red)
     private let deleteButton = UIButton()
     private let titleLabel = UILabel()
     private let presenter: ProfilePresenterProtocol
@@ -30,7 +30,7 @@ public final class ProfileViewController: UIViewController {
         view.addSubview(profileTableView)
         view.addSubview(titleLabel)
 
-        navigationItem.title = "Profile"
+        navigationItem.title = "Profile".localized
 
         configureView()
         configureExitButton()
@@ -65,7 +65,8 @@ public final class ProfileViewController: UIViewController {
 
     private func configureDeleteButton() {
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setTitle("Delete account", for: .normal)
+        
+        deleteButton.setTitle("Delete Account".localized, for: .normal)
         deleteButton.setTitleColor(BaseColorScheme.red.resolve(), for: .normal)
         deleteButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
 
@@ -79,7 +80,7 @@ public final class ProfileViewController: UIViewController {
 
     private func configureTitleLable() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Profile"
+        titleLabel.text = "Profile".localized
         titleLabel.textAlignment = .left
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
 
@@ -158,7 +159,7 @@ extension ProfileViewController: ProfileViewProtocol {
 
     func showAppInfoAlert() {
         let alertController = UIAlertController(
-            title: "О приложении",
+            title: "About the program".localized,
             message: """
             "WordFlip" - это приложение для изучения языков с помощью карточек. Это эффективный и удобный способ улучшить свои навыки, независимо от вашего уровня владения языком.
             Наше приложение поможет достичь ваших языковых целей, обогатить словарный

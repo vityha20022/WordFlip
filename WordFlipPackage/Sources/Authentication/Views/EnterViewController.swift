@@ -23,10 +23,10 @@ public final class EnterViewController: UIViewController, EnterViewProtocol {
         return imageView
     }()
 
-    private let registerButton = DefaultButton(text: "Sign up", color: BaseColorScheme.accent)
+    private let registerButton = DefaultButton(text: "SignUpButton".localized, color: BaseColorScheme.accent)
 
     private let signInButton: DefaultButton = {
-        var button = DefaultButton(text: "Log in", color: BaseColorScheme.black)
+        var button = DefaultButton(text: "LogInLabel".localized, color: BaseColorScheme.black)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
         button.accessibilityIdentifier = "SignInButtonIdentifier"

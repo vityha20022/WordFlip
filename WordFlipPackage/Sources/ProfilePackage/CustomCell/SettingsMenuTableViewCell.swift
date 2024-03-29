@@ -66,7 +66,7 @@ final class SettingsMenuTableViewCell: UITableViewCell, CustomCellProtocoll {
             menuActions.append(action)
         }
 
-        let menu = UIMenu(title: "Number of words:", children: menuActions)
+        let menu = UIMenu(title: "NumberOfWords".localized, children: menuActions)
         numberButton.menu = menu
     }
 

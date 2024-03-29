@@ -48,7 +48,7 @@ public final class SettingsViewController: UIViewController {
 
     private func configureTitleLable() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Settings"
+        titleLabel.text = "Settings".localized
         titleLabel.textAlignment = .left
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
 
