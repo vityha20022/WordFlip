@@ -17,16 +17,16 @@ public final class EntityDataManager {
         firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Leon", downText: "Лев", guessCounter: 0))
         
         var secondDeck = DeckModel(name: "Sport", cards: [])
-        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Footbal", downText: "Футбол", guessCounter: 0))
-        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Hockey", downText: "Хоккей", guessCounter: 0))
-        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Basketball", downText: "Баскетбол", guessCounter: 0))
-        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Golf", downText: "Гольф", guessCounter: 1))
+        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Footbal", downText: "Футбол", guessCounter: 0))
+        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Hockey", downText: "Хоккей", guessCounter: 0))
+        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Basketball", downText: "Баскетбол", guessCounter: 0))
+        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Golf", downText: "Гольф", guessCounter: 0))
         
         var thirdDeck = DeckModel(name: "Phrases", cards: [])
-        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Go shopping", downText: "Идти в магазин", guessCounter: 1))
-        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "What a good weather", downText: "Какая прекрасная погода", guessCounter: 0))
-        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "I have no money", downText: "У меня нет денег", guessCounter: 1))
-        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Hello World", downText: "Привет Мир", guessCounter: 0))
+        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "Go shopping", downText: "Идти в магазин", guessCounter: 0))
+        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "What a good weather", downText: "Какая прекрасная погода", guessCounter: 0))
+        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "I have no money", downText: "У меня нет денег", guessCounter: 0))
+        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "Hello World", downText: "Привет Мир", guessCounter: 0))
         
         
         
