@@ -28,11 +28,11 @@ final class CardView: UIView {
     init(for side: CardSide) {
         switch side {
             case .front:
-                cardNamePlaceholderText = "Type word..."
+            cardNamePlaceholderText = "TypeWord".localized
                 cardColor = BaseColorScheme.frontSideCardColor.resolve()
                 cardTextColor = BaseColorScheme.downSideCardColor.resolve()
             case .down:
-                cardNamePlaceholderText = "Type tip..."
+            cardNamePlaceholderText = "TypeTip".localized
                 cardColor = BaseColorScheme.downSideCardColor.resolve()
                 cardTextColor = BaseColorScheme.frontSideCardColor.resolve()
         }

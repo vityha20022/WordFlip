@@ -38,7 +38,7 @@ final public class CardRedactorViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .tinted()
-        button.setTitle("Translate", for: .normal)
+        button.setTitle("Translate".localized, for: .normal)
         return button
     }()
 
@@ -61,7 +61,7 @@ final public class CardRedactorViewController: UIViewController {
             menuActions.append(action)
         }
 
-        let menu = UIMenu(title: "Source language:", children: menuActions)
+        let menu = UIMenu(title: "Sourcelanguage".localized, children: menuActions)
         button.menu = menu
         button.setTitle(Language.english.languageName, for: .normal)
 
@@ -87,7 +87,7 @@ final public class CardRedactorViewController: UIViewController {
             menuActions.append(action)
         }
 
-        let menu = UIMenu(title: "Target language:", children: menuActions)
+        let menu = UIMenu(title: "Targetlanguage".localized, children: menuActions)
         button.menu = menu
         button.setTitle(Language.russian.languageName, for: .normal)
 
@@ -127,7 +127,7 @@ final public class CardRedactorViewController: UIViewController {
     }
 
     private func setup() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done".localized, style: .done, target: self, action: #selector(doneButtonTapped))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
         
