@@ -64,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F1D59892BB5F1F200422B37 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				6F10A2D62BB62D5C00A394C2 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		5526F9232BB5A78200B29B64 /* WordFlipUITests */ = {
 			isa = PBXGroup;
 			children = (
