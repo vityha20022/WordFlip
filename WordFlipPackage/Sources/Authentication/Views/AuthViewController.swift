@@ -22,7 +22,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
 
     private let authLabel: UILabel = {
         var label = UILabel()
-        label.text = "Log in"
+        label.text = "LogInLabel".localized
         label.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -30,7 +30,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
 
     private let additionalTextLabel: UILabel = {
         var label = UILabel()
-        label.text = "Enter your email and password"
+        label.text = "EnterYourDataLogIn".localized
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -57,7 +57,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Password"
+        textField.placeholder = "TextFieldPassword".localized
         textField.isSecureTextEntry = true
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -67,7 +67,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     }()
 
     private let continueButton: DefaultButton = {
-        var button = DefaultButton(text: "Continue", color: BaseColorScheme.accent)
+        var button = DefaultButton(text: "ContinueButton".localized, color: BaseColorScheme.accent)
         return button
     }()
 
@@ -102,7 +102,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     // MARK: Actions
 
     public func showErrorAlert(error: String) {
-        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
+        let alert = UIAlertController(title: "smthWrong".localized, message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }

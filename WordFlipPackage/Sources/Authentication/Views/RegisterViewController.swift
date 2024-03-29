@@ -18,7 +18,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
 
     private let registerLabel: UILabel = {
         var label = UILabel()
-        label.text = "Sign up"
+        label.text = "SignUpButton".localized
         label.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -26,7 +26,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
 
     private let additionalTextLabel: UILabel = {
         var label = UILabel()
-        label.text = "Enter your username, email address and password"
+        label.text = "SignUpEnterYourData".localized
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -39,8 +39,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Username"
-        textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
+        textField.placeholder = "UsernameTextLabel".localized
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         return textField
@@ -65,7 +64,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Password"
+        textField.placeholder = "TextFieldPassword".localized
         textField.isSecureTextEntry = true
         textField.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         textField.autocorrectionType = .no
@@ -75,7 +74,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     }()
 
     private let continueButton: DefaultButton = {
-        var button = DefaultButton(text: "Continue", color: BaseColorScheme.accent)
+        var button = DefaultButton(text: "ContinueButton".localized, color: BaseColorScheme.accent)
         return button
     }()
 
@@ -114,7 +113,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     // MARK: Actions
 
     public func showErrorAlert(error: String) {
-        let alert = UIAlertController(title: "Something went wrong", message: error, preferredStyle: .alert)
+        let alert = UIAlertController(title: "smthWrong".localized, message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }

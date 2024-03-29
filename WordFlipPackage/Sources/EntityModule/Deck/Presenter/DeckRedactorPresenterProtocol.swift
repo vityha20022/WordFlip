@@ -52,7 +52,7 @@ final class DeckRedactorPresenter: DeckRedactorPresenterProtocol {
     
     func didTapDone(deckName: String) {
         guard !deckName.isEmpty else {
-            deckRedactorView?.showWarningAlert(message: "Deck with empty name is not allowed")
+            deckRedactorView?.showWarningAlert(message: "Deck with empty name".localized)
             return
         }
         
@@ -75,12 +75,12 @@ final class DeckRedactorPresenter: DeckRedactorPresenterProtocol {
             return
         }
         
-        let cardRedactorConfiguration = CardRedactorConfiguration(title: "Edit card")
+        let cardRedactorConfiguration = CardRedactorConfiguration(title: "EditCard".localized)
         deckRedactorView?.showCardRedactorController(with: cardRedactorConfiguration, dataManager: dataManager, cardId: model.id, deckId: deckId)
     }
     
     func didTapAdd() {
-        let cardRedactorConfiguration = CardRedactorConfiguration(title: "Add card")
+        let cardRedactorConfiguration = CardRedactorConfiguration(title: "AddCard".localized)
         deckRedactorView?.showCardRedactorController(with: cardRedactorConfiguration, dataManager: dataManager, cardId: "", deckId: deckId)
     }
     

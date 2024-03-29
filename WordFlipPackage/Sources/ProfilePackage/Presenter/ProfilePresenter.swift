@@ -11,9 +11,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     weak var profileView: ProfileViewProtocol!
     var arrayProfile = [
-        ProfileModel(image: UIImage(systemName: "person.crop.circle"), labelText: "username", isOn: false, closureForAction: nil),
-        ProfileModel(image: UIImage(systemName: "gear"), labelText: "Settings", isOn: false, closureForAction: nil),
-        ProfileModel(image: UIImage(systemName: "info.circle"), labelText: "About the program", isOn: false, closureForAction: nil),
+        ProfileModel(image: UIImage(systemName: "person.crop.circle"), labelText: "UsernameTextLabel".localized, isOn: false, closureForAction: nil),
+        ProfileModel(image: UIImage(systemName: "gear"), labelText: "Settings".localized, isOn: false, closureForAction: nil),
+        ProfileModel(image: UIImage(systemName: "info.circle"), labelText: "About the program".localized, isOn: false, closureForAction: nil),
     ]
     
     func getDataArray() -> [ProfileModel] {

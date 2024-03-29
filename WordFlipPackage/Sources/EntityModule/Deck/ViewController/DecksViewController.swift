@@ -30,7 +30,7 @@ final public class DecksViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Decks"
+        label.text = "Decks".localized
         return label
     }()
 
