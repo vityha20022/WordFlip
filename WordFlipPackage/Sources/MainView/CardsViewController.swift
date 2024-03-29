@@ -11,11 +11,11 @@ public final class CardsViewController: UIViewController {
         make.contentHorizontalAlignment = .center
         make.contentVerticalAlignment = .center
         make.translatesAutoresizingMaskIntoConstraints = false
-        make.setImage(UIImage(systemName: "xmark"), for: .normal)
+        make.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
         make.configuration = .plain()
-        make.isHidden = true
+        //make.isHidden = true
         make.setTitle("", for: .normal)
-        make.isHidden = true
+        //make.isHidden = true
         return make
     }()
 
@@ -115,6 +115,8 @@ public final class CardsViewController: UIViewController {
 
     // MARK: - Properties
     private var viewIsRotate: Bool = true
+    
+    var currentDeckId = ""
 
     var presenter: CardsPresenterProtocol
 
@@ -152,7 +154,12 @@ public final class CardsViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        stackCardsView.reloadData()
+        let deckId = getPresenter().getDeck()?.id ?? ""
+        if deckId != currentDeckId {
+            stackCardsView.reloadData()
+            currentDeckId = deckId
+        }
+        
         setup()
     }
 
@@ -195,7 +202,24 @@ public final class CardsViewController: UIViewController {
     })
 
     private lazy var exitButtonAction = UIAction(handler: { [weak self] _ in
-
+        guard let self = self else {
+            return
+        }
+        let learnedWords = self.deck?.learnedWordCounter ?? 0
+        let allWords = self.deck?.wordCounter ?? 0
+    
+        if learnedWords == allWords {
+            if let deck = self.presenter.getDeck() {
+                for i in deck.cards {
+                    var i = i
+                    i.guessCounter = 0
+                    self.getPresenter().saveCard(cardModel: i)
+                }
+            }
+        }
+        
+        self.stackCardsView.reloadData()
+        self.setup()
     })
 
     private lazy var favouritesButtonAction = UIAction(handler: { [weak self] sender in
@@ -279,12 +303,17 @@ public final class CardsViewController: UIViewController {
 // MARK: - Extension
 extension CardsViewController: SwipeCardsDataSource {
     public func numberOfCardsToShow() -> Int {
-        return deck?.wordCounter ?? 0
+        guard let deck = deck else {
+            return 0
+        }
+        
+        return deck.wordCounter - deck.learnedWordCounter
     }
 
     public func card(at index: Int) -> SwipeCardView {
+        let successesForRememberCount = max(UserDefaults.standard.integer(forKey: "SelectedNumberOfWords"), 1)
         let card = SwipeCardView()
-        card.dataSource = deck?.cards[index]
+        card.dataSource = deck?.cards.filter({ $0.guessCounter < successesForRememberCount })[index]
         return card
     }
     
