@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DeckModel {
+public struct DeckModel: Codable {
     public var id: String
     public var name: String
     public var cards: [CardModel]
