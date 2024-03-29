@@ -29,6 +29,7 @@ public final class EnterViewController: UIViewController, EnterViewProtocol {
         var button = DefaultButton(text: "LogInLabel".localized, color: BaseColorScheme.black)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
+        button.accessibilityIdentifier = "SignInButtonIdentifier"
         return button
     }()
 

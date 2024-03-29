@@ -48,6 +48,7 @@ public final class ProfileViewController: UIViewController {
 
     private func configureView() {
         view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
+        view.accessibilityIdentifier = "ProfileViewControllerIdentifier"
     }
 
     private func configureExitButton() {
