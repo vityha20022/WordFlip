@@ -61,7 +61,7 @@ public class StackCardsView: UIView {
         
         if visibleCards.isEmpty {
             let cardView = SwipeCardView()
-            let cardModel = CardModel(deckId: "", frontText: "Choose deck", downText: "Choose deck")
+            let cardModel = CardModel(deckId: "", frontText: "Choose deck or reload", downText: "Choose deck or reload")
             cardView.dataSource = cardModel
             addCardView(cardView: cardView, atIndex: 0)
             visibleCards.last?.isCanFlip = true
@@ -138,6 +138,14 @@ extension StackCardsView: SwipeCardsDelegate {
                     self.addCardFrame(index: cardIndex, cardView: cardView)
                     self.layoutIfNeeded()
                 })
+                visibleCards.last?.isCanFlip = true
+            }
+            
+            if visibleCards.isEmpty {
+                let cardView = SwipeCardView()
+                let cardModel = CardModel(deckId: "", frontText: "Choose deck or reload", downText: "Choose deck or reload")
+                cardView.dataSource = cardModel
+                addCardView(cardView: cardView, atIndex: 0)
                 visibleCards.last?.isCanFlip = true
             }
         }
