@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5526F9252BB5A78200B29B64 /* WordFlipUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5526F9242BB5A78200B29B64 /* WordFlipUITests.swift */; };
-		5526F9272BB5A78200B29B64 /* WordFlipUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5526F9262BB5A78200B29B64 /* WordFlipUITestsLaunchTests.swift */; };
 		5526F92E2BB5A87800B29B64 /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 5526F92D2BB5A87800B29B64 /* WordFlipPackage */; };
 		555ADE2B2BB58298003A80E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 555ADE2A2BB58298003A80E0 /* GoogleService-Info.plist */; };
 		6FBEA9482BB18B3700040759 /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 6FBEA9472BB18B3700040759 /* WordFlipPackage */; };
@@ -31,7 +30,6 @@
 /* Begin PBXFileReference section */
 		5526F9222BB5A78200B29B64 /* WordFlipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordFlipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5526F9242BB5A78200B29B64 /* WordFlipUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordFlipUITests.swift; sourceTree = "<group>"; };
-		5526F9262BB5A78200B29B64 /* WordFlipUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordFlipUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		555ADE2A2BB58298003A80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97BB1C172BA9D7220050302D /* WordFlip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordFlip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97BB1C1A2BA9D7220050302D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				5526F9242BB5A78200B29B64 /* WordFlipUITests.swift */,
-				5526F9262BB5A78200B29B64 /* WordFlipUITestsLaunchTests.swift */,
 			);
 			path = WordFlipUITests;
 			sourceTree = "<group>";
@@ -240,7 +237,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5526F9272BB5A78200B29B64 /* WordFlipUITestsLaunchTests.swift in Sources */,
 				5526F9252BB5A78200B29B64 /* WordFlipUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
