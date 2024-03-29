@@ -5,10 +5,10 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
     private let viewAtCell: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = BaseColorScheme.profileButtonColor.resolve()
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1 / UIScreen.main.scale
         view.layer.cornerRadius = 15
-        view.backgroundColor = .white
         view.layer.shadowRadius = 3
         view.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         view.layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
@@ -34,7 +34,8 @@ final class DefaultTableViewCell: UITableViewCell, CustomCellProtocoll {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
+        contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         contentView.addSubview(viewAtCell)
 
         NSLayoutConstraint.activate([

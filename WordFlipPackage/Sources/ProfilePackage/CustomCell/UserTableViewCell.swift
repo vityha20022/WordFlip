@@ -1,11 +1,12 @@
 import UIKit
+import SystemDesign
 
 final class UserTableViewCell: UITableViewCell, CustomCellProtocoll {
     private let viewAtCell: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
-        view.backgroundColor = .white
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         return view
     }()
 
@@ -30,6 +31,7 @@ final class UserTableViewCell: UITableViewCell, CustomCellProtocoll {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(viewAtCell)
+        contentView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
 
         NSLayoutConstraint.activate([
             viewAtCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -70,11 +72,5 @@ final class UserTableViewCell: UITableViewCell, CustomCellProtocoll {
     func configure(image: UIImage?, text: String?, isOn: Bool, selectedNumber: Int?, closureForAction: ((Int) -> Void)?) {
         pictureImageView.image = image
         usernameLabel.text = text
-
-        if traitCollection.userInterfaceStyle == .light {
-            usernameLabel.textColor = .black
-        } else {
-            usernameLabel.textColor = .white
-        }
     }
 }
