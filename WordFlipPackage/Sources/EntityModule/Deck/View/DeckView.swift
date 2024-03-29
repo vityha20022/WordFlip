@@ -78,8 +78,8 @@ final class DeckView: UIView {
     }
 
     func configure(with model: DeckModel, isEditable: Bool = false) {
-        var learned = "Learned".localized
-        var words = "words".localized
+        let learned = "Learned".localized
+        let words = "words".localized
         nameTextView.text = model.name
         wordCounterLabel.text = "\(model.wordCounter) \(words)"
         learnedWordCounterLabel.text = "\(learned) \(model.learnedWordCounter) \(words)"
