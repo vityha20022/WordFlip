@@ -66,7 +66,7 @@ public final class ProfileViewController: UIViewController {
     private func configureDeleteButton() {
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         
-        deleteButton.setTitle("Delete Account".localized, for: .normal)
+        deleteButton.setTitle("DeleteAccount".localized, for: .normal)
         deleteButton.setTitleColor(BaseColorScheme.red.resolve(), for: .normal)
         deleteButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
 

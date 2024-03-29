@@ -39,6 +39,7 @@ final class DecksPrersenter: DecksPresenterProtocol {
     
     func didTapCell(index: Int) {
         dataManager.changeCurrentDeck(index: index)
-        NotificationCenter.default.post(name: .onDeckChange, object: nil)
+        decksView?.getTabBar()?.selectedIndex = 1
+        decksView?.getTabBar()?.setOpacity(tag: 1)
     }
 }

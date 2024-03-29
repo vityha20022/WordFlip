@@ -6,10 +6,12 @@ public protocol SwipeCardsDataSource: AnyObject {
     func numberOfCardsToShow() -> Int
     func card(at index: Int) -> SwipeCardView
     func currentCard() -> CardModel?
+    func getPresenter() -> CardsPresenterProtocol
+    func updateLabels()
 }
 
 public protocol SwipeCardsDelegate: AnyObject {
-    func swipeDidEnd(on view: SwipeCardView)
+    func swipeDidEnd(on view: SwipeCardView, swipeDirection: SwipeDirection)
 }
 
 public class SwipeCardView: UIView {
@@ -136,7 +138,7 @@ public class SwipeCardView: UIView {
                     self.layoutIfNeeded()
                 } completion: { _ in
                     generator.notificationOccurred(.success)
-                    self.delegate?.swipeDidEnd(on: card)
+                    self.delegate?.swipeDidEnd(on: card, swipeDirection: .right)
                 }
                 return
             } else if card.center.x < 100 {
@@ -146,7 +148,7 @@ public class SwipeCardView: UIView {
                     self.layoutIfNeeded()
                 } completion: { _ in
                     lightFeedbackGenerator.impactOccurred()
-                    self.delegate?.swipeDidEnd(on: card)
+                    self.delegate?.swipeDidEnd(on: card, swipeDirection: .left)
 
                 }
                 return
@@ -222,7 +224,7 @@ public class SwipeCardView: UIView {
             self.alpha = 0
             self.layoutIfNeeded()
         } completion: { _ in
-            self.delegate?.swipeDidEnd(on: self)
+            self.delegate?.swipeDidEnd(on: self, swipeDirection: .right)
         }
         return
     }
@@ -243,7 +245,7 @@ public class SwipeCardView: UIView {
             self.layoutIfNeeded()
         } completion: { _ in
             lightFeedbackGenerator.impactOccurred()
-            self.delegate?.swipeDidEnd(on: self)
+            self.delegate?.swipeDidEnd(on: self, swipeDirection: .left)
         }
         return
     }

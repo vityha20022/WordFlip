@@ -7,7 +7,7 @@
 "SignUpLabel" = "Регистрация";
 "smthWrong" = "Ошибка";
 "SignUpEnterYourData" = "Введите имя профиля, электронную почту и пароль";
-"UsernameTextLabel" = "Имя пользователя";
+"UsernameTextLabel" = "test";
 "Profile" = "Профиль" ;
 "Settings" = "Настройки";
 "About the program" = "О приложении";
@@ -32,6 +32,6 @@
 "TranslateError" = "Ошибка перевода";
 "Sourcelanguage" = "С языка";
 "Targetlanguage" = "На язык";
-"EditCard" = "Редактировать карту";
-"Edit Deck" = "Редактировать колоду";
+"EditCard" = "Редактировать";
+"Edit Deck" = "Редактировать";
 "Sign out" = "Выйти";

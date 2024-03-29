@@ -116,7 +116,7 @@ public final class CardsViewController: UIViewController {
     // MARK: - Properties
     private var viewIsRotate: Bool = true
 
-    private var presenter: CardsPresenterProtocol
+    var presenter: CardsPresenterProtocol
 
     private var deck: DeckModel? {
         return presenter.getDeck()
@@ -145,7 +145,7 @@ public final class CardsViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         stackCardsView.dataSource = self
     }
     
@@ -153,6 +153,7 @@ public final class CardsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         stackCardsView.reloadData()
+        setup()
     }
 
     func setCountCardsFor(_ stackContainer: StackCardsView) {
@@ -161,6 +162,14 @@ public final class CardsViewController: UIViewController {
         } else {
             stackContainer.cardsToBeVisible = 3
         }
+    }
+    
+    func setup() {
+        deckNameLabel.text = deck?.name ?? ""
+        let learnedWords = deck?.learnedWordCounter ?? 0
+        let allWords = deck?.wordCounter ?? 0
+        learntWordsProgressView.setProgress(Float(learnedWords) / Float(allWords), animated: true)
+        learntWordsLabel.text = "\(learnedWords)/\(allWords)"
     }
 
     // MARK: - Actions buttons
@@ -270,7 +279,7 @@ public final class CardsViewController: UIViewController {
 // MARK: - Extension
 extension CardsViewController: SwipeCardsDataSource {
     public func numberOfCardsToShow() -> Int {
-        return deck?.wordCounter ?? 1
+        return deck?.wordCounter ?? 0
     }
 
     public func card(at index: Int) -> SwipeCardView {
@@ -281,5 +290,13 @@ extension CardsViewController: SwipeCardsDataSource {
     
     public func currentCard() -> CardModel? {
         return presenter.getDeck()?.cards[currentCardIndex]
+    }
+    
+    public func getPresenter() -> CardsPresenterProtocol {
+        return presenter
+    }
+    
+    public func updateLabels() {
+        setup()
     }
 }

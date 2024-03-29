@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		5526F9252BB5A78200B29B64 /* WordFlipUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5526F9242BB5A78200B29B64 /* WordFlipUITests.swift */; };
 		5526F92E2BB5A87800B29B64 /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 5526F92D2BB5A87800B29B64 /* WordFlipPackage */; };
-		555ADE2B2BB58298003A80E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 555ADE2A2BB58298003A80E0 /* GoogleService-Info.plist */; };
 		6F10A2D82BB62D5C00A394C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F10A2D62BB62D5C00A394C2 /* Localizable.strings */; };
 		6FBEA9482BB18B3700040759 /* WordFlipPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 6FBEA9472BB18B3700040759 /* WordFlipPackage */; };
+		97206DAA2BB6B2D40091E215 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97206DA92BB6B2D40091E215 /* GoogleService-Info.plist */; };
+		977656CC2BB625C20086A165 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		97BB1C1B2BA9D7220050302D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1A2BA9D7220050302D /* AppDelegate.swift */; };
 		97BB1C1D2BA9D7220050302D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */; };
 		97BB1C242BA9D7240050302D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97BB1C232BA9D7240050302D /* Assets.xcassets */; };
@@ -31,10 +32,10 @@
 /* Begin PBXFileReference section */
 		5526F9222BB5A78200B29B64 /* WordFlipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordFlipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5526F9242BB5A78200B29B64 /* WordFlipUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordFlipUITests.swift; sourceTree = "<group>"; };
-		555ADE2A2BB58298003A80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55B445982BB65CE600D504FE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6F10A2D42BB6264900A394C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6F10A2D72BB62D5C00A394C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		97206DA92BB6B2D40091E215 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97BB1C172BA9D7220050302D /* WordFlip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordFlip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97BB1C1A2BA9D7220050302D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,14 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6F1D59892BB5F1F200422B37 /* Localization */ = {
-			isa = PBXGroup;
-			children = (
-				6F10A2D62BB62D5C00A394C2 /* Localizable.strings */,
-			);
-			path = Localization;
-			sourceTree = "<group>";
-		};
 		5526F9232BB5A78200B29B64 /* WordFlipUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,8 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				6F10A2D62BB62D5C00A394C2 /* Localizable.strings */,
-				555ADE2A2BB58298003A80E0 /* GoogleService-Info.plist */,
 				97BB1C1A2BA9D7220050302D /* AppDelegate.swift */,
+				97206DA92BB6B2D40091E215 /* GoogleService-Info.plist */,
 				97BB1C1C2BA9D7220050302D /* SceneDelegate.swift */,
 				97BB1C232BA9D7240050302D /* Assets.xcassets */,
 				97BB1C252BA9D7240050302D /* LaunchScreen.storyboard */,
@@ -219,8 +212,9 @@
 			files = (
 				97BB1C272BA9D7240050302D /* LaunchScreen.storyboard in Resources */,
 				6F10A2D82BB62D5C00A394C2 /* Localizable.strings in Resources */,
+				97206DAA2BB6B2D40091E215 /* GoogleService-Info.plist in Resources */,
 				97BB1C242BA9D7240050302D /* Assets.xcassets in Resources */,
-				555ADE2B2BB58298003A80E0 /* GoogleService-Info.plist in Resources */,
+				977656CC2BB625C20086A165 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +459,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V6AGP9CVHG;
+				DEVELOPMENT_TEAM = S466GHR688;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordFlip/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -478,7 +472,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = WordFlip.com.WordFlip.1;
+				PRODUCT_BUNDLE_IDENTIFIER = WordFlip.com.WordFlip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -497,7 +491,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V6AGP9CVHG;
+				DEVELOPMENT_TEAM = S466GHR688;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordFlip/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -510,7 +504,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = WordFlip.com.WordFlip.1;
+				PRODUCT_BUNDLE_IDENTIFIER = WordFlip.com.WordFlip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -36,7 +36,7 @@ final class TranslateManager {
     let apiKey: String
 
     init(apiKey: String) {
-        self.apiKey = apiKey
+        self.apiKey = ""
     }
 
     func translate(endpoint: APIEndpoint, completion: @escaping (Result<String, Error>) -> Void) {

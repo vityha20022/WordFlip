@@ -91,7 +91,7 @@ public final class TabBarViewController: UITabBarController, TabBarViewControlle
         setOpacity(tag: index)
     }
 
-    private func setOpacity(tag: Int) {
+    public func setOpacity(tag: Int) {
         [decksButton, cardsButton, userButton] .forEach { button in
             if button.tag != tag {
                 button.layer.opacity = 0.5

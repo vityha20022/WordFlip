@@ -1,4 +1,5 @@
 import UIKit
+import NavigationModule
 import SystemDesign
 import Models
 
@@ -6,6 +7,8 @@ protocol DecksViewProtocol: AnyObject {
     func removeCell(at index: Int)
 
     func showDeckRedactor(with configuration: DeckRedactorConfiguration, dataManager: EntityDataManager, deckId: String)
+    
+    func getTabBar() -> TabBarViewController?
 }
 
 final public class DecksViewController: UIViewController {
@@ -167,5 +170,9 @@ extension DecksViewController: DecksViewProtocol {
     func showDeckRedactor(with configuration: DeckRedactorConfiguration, dataManager: EntityDataManager, deckId: String) {
         let deckRedactorVC = DeckRedactorBuilder(dataManager: dataManager, configuration: configuration, deckId: deckId).build()
         navigationController?.pushViewController(deckRedactorVC, animated: true)
+    }
+    
+    func getTabBar() -> TabBarViewController? {
+        return self.tabBarController as? TabBarViewController
     }
 }

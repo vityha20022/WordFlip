@@ -1,4 +1,5 @@
 import UIKit
+import Models
 
 public class StackCardsView: UIView {
     // MARK: - Properties
@@ -42,15 +43,33 @@ public class StackCardsView: UIView {
         }
         
         for i in 0..<min(numberOfCardsToShow, cardsToBeVisible) {
+            print(i)
             let cardView = SwipeCardView()
-            cardView.dataSource = dataSource.currentCard()
-            addCardView(cardView: cardView, atIndex: i )
+            let cardModel = dataSource.card(at: i).dataSource
+            cardView.dataSource = cardModel
+
+            let successesForRememberCount = max(UserDefaults.standard.integer(forKey: "SelectedNumberOfWords"), 1)
+
+            if cardModel?.guessCounter ?? 0 >= successesForRememberCount {
+                continue
+            }
+            
+            addCardView(cardView: cardView, atIndex: i)
+            visibleCards.last?.isCanFlip = true
+        }
+        
+        if visibleCards.isEmpty {
+            let cardView = SwipeCardView()
+            let cardModel = CardModel(deckId: "", frontText: "Choose deck", downText: "Choose deck")
+            cardView.dataSource = cardModel
+            addCardView(cardView: cardView, atIndex: 0)
             visibleCards.last?.isCanFlip = true
         }
         print("reloaded")
     }
 
     private func addCardView(cardView: SwipeCardView, atIndex index: Int) {
+        print("Add \(cardView.dataSource?.id) view: \(cardView.dataSource?.guessCounter)")
         cardView.delegate = self
         addCardFrame(index: index, cardView: cardView)
         cardViews.append(cardView)
@@ -73,23 +92,42 @@ public class StackCardsView: UIView {
 
 // MARK: - Extension
 extension StackCardsView: SwipeCardsDelegate {
-    public func swipeDidEnd(on view: SwipeCardView) {
+    public func swipeDidEnd(on view: SwipeCardView, swipeDirection: SwipeDirection) {
         guard let datasource = dataSource else { return }
 
         view.removeFromSuperview()
+        
+        var cardModel = view.dataSource
+        
+        switch swipeDirection {
+            case .right:
+                cardModel?.guessCounter += 1
+            case .left:
+                cardModel?.guessCounter = 0
+        }
+        
+        if let cardModel = cardModel {
+            self.dataSource?.getPresenter().saveCard(cardModel: cardModel)
+        }
 
         if self.remainingcards > 0 {
             if visibleCards.count <= 2 {
                 let newIndex = datasource.numberOfCardsToShow() - self.remainingcards
-                self.addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
-                for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        cardView.center = self.center
-                        self.addCardFrame(index: cardIndex, cardView: cardView)
-                        self.layoutIfNeeded()
-                    })
+                let cardModel = datasource.card(at: newIndex).dataSource
+
+                let successesForRememberCount = max(UserDefaults.standard.integer(forKey: "SelectedNumberOfWords"), 1)
+
+                if cardModel?.guessCounter ?? 0 < successesForRememberCount {
+                    self.addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
+                    for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
+                        UIView.animate(withDuration: 0.2, animations: {
+                            cardView.center = self.center
+                            self.addCardFrame(index: cardIndex, cardView: cardView)
+                            self.layoutIfNeeded()
+                        })
+                    }
+                    visibleCards.last?.isCanFlip = true
                 }
-                visibleCards.last?.isCanFlip = true
             }
         } else {
             for (cardIndex, cardView) in self.visibleCards.reversed().enumerated() {
@@ -101,5 +139,7 @@ extension StackCardsView: SwipeCardsDelegate {
                 visibleCards.last?.isCanFlip = true
             }
         }
+        
+        self.dataSource?.updateLabels()
     }
 }

@@ -10,6 +10,7 @@ public protocol CardsPresenterProtocol: AnyObject {
     var model: DeckModel? { get }
     func handleCardSwipe(at card: CardModel, to direction: SwipeDirection)
     func getDeck() -> DeckModel?
+    func saveCard(cardModel: CardModel)
 }
 
 public class CardsPresenter: CardsPresenterProtocol {
@@ -41,5 +42,9 @@ public class CardsPresenter: CardsPresenterProtocol {
             // TODO: - Удаляем смахнутую карту из модели
             // model.cards.remove(at: index)
         }
+    }
+    
+    public func saveCard(cardModel: CardModel) {
+        dataManager.addOrUpdateCard(cardModel: cardModel)
     }
 }

@@ -3,21 +3,42 @@ import Models
 
 
 
+
 public final class EntityDataManager {
     private var decks: [DeckModel]
     private var currentDeckId: String = ""
-
+    
     public init() {
         // TODO: Get decks from firebase
-        decks = []
-        for i in 0...5 {
+        var firstDeck = DeckModel(name: "Animals", cards: [])
+        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Dog", downText: "Собака", guessCounter: 0))
+        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Cat", downText: "Кошка", guessCounter: 0))
+        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Elephant", downText: "Cлон", guessCounter: 0))
+        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Leon", downText: "Лев", guessCounter: 0))
+        
+        var secondDeck = DeckModel(name: "Sport", cards: [])
+        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Footbal", downText: "Футбол", guessCounter: 0))
+        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Hockey", downText: "Хоккей", guessCounter: 0))
+        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Basketball", downText: "Баскетбол", guessCounter: 0))
+        secondDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Golf", downText: "Гольф", guessCounter: 1))
+        
+        var thirdDeck = DeckModel(name: "Phrases", cards: [])
+        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Go shopping", downText: "Идти в магазин", guessCounter: 1))
+        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "What a good weather", downText: "Какая прекрасная погода", guessCounter: 0))
+        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "I have no money", downText: "У меня нет денег", guessCounter: 1))
+        thirdDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Hello World", downText: "Привет Мир", guessCounter: 0))
+        
+        
+        
+        decks = [firstDeck, secondDeck, thirdDeck]
+        currentDeckId = firstDeck.id
+        /*for i in 0...5 {
             var deck = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), cards: [])
             for i in 0...1 {
-                deck.cards.append(CardModel(deckId: deck.id, frontText: String(repeating: "A", count: Int.random(in: 0...100)), downText: String(repeating: "A", count: Int.random(in: 0...100)), guessCounter: 10))
-                deck.cards.append(CardModel(deckId: deck.id, frontText: String(repeating: "A", count: Int.random(in: 0...100)), downText: String(repeating: "A", count: Int.random(in: 0...100)), guessCounter: 1))
+                deck.cards.append(CardModel(deckId: deck.id, frontText: String(i), downText: String(i + 1), guessCounter: 0))
             }
             decks.append(deck)
-        }
+        }*/
         
         /*var firstDeck = DeckModel(name: "Animals", cards: [])
         firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Cat", downText: "Dog", guessCounter: 10))

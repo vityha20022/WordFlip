@@ -9,7 +9,7 @@ public struct DeckModel {
     }
     public var learnedWordCounter: Int {
         // TODO: Get from app settings
-        let successesForRememberCount = 3
+        let successesForRememberCount = max(UserDefaults.standard.integer(forKey: "SelectedNumberOfWords"), 1)
         return cards.filter({ $0.guessCounter >= successesForRememberCount }).count
     }
 
