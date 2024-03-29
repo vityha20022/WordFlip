@@ -19,8 +19,7 @@ final class RegisterViewController: UIViewController, RegisterViewProtocol {
     private let registerLabel: UILabel = {
         var label = UILabel()
         label.text = "SignUpButton".localized
-        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
