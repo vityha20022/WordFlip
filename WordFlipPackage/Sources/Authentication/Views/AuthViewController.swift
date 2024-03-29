@@ -23,7 +23,7 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     private let authLabel: UILabel = {
         var label = UILabel()
         label.text = "LogInLabel".localized
-        label.font = UIFont.systemFont(ofSize: 45, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 45, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
