@@ -87,7 +87,6 @@ public final class EntityDataManager {
     }
 
     public func save() {
-        // TODO: Save state in firebase
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(decks) {
             UserDefaults.standard.set(encoded, forKey: "DataDecks")
