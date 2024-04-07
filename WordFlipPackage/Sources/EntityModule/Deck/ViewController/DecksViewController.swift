@@ -19,7 +19,6 @@ final public class DecksViewController: UIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = BaseColorScheme.backgroundColor.resolve()
         tableView.rowHeight = UITableView.automaticDimension
-        //tableView.allowsSelection = false
         tableView.estimatedRowHeight = 100
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none

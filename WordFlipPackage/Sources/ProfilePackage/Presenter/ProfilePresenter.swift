@@ -30,10 +30,10 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func didTapSignOutButton() {
         AuthService.shared.signOut { error in
-            guard let error = error else {
+            guard error != nil else {
+                print(error?.localizedDescription ?? "error tap sign out button")
                 return
             }
-            print("success")
         }
         delegate?.goToEnterScreen()
     }

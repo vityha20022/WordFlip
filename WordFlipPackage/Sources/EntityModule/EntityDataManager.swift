@@ -1,16 +1,11 @@
 import Foundation
 import Models
 
-
-
-
 public final class EntityDataManager {
     private var decks: [DeckModel] = []
     private var currentDeckId: String = ""
     
     public init() {
-        // TODO: Get decks from firebase
-        
         if let savedData = UserDefaults.standard.data(forKey: "DataDecks") {
             let decoder = JSONDecoder()
             if let loadedDecks = try? decoder.decode([DeckModel].self, from: savedData) {
@@ -18,51 +13,11 @@ public final class EntityDataManager {
             }
         }
         
-//        var firstDeck = DeckModel(name: "Animals", cards: [])
-//        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Dog", downText: "Собака", guessCounter: 0))
-//        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Cat", downText: "Кошка", guessCounter: 0))
-//        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Elephant", downText: "Cлон", guessCounter: 0))
-//        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Leon", downText: "Лев", guessCounter: 0))
-//        
-//        var secondDeck = DeckModel(name: "Sport", cards: [])
-//        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Footbal", downText: "Футбол", guessCounter: 0))
-//        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Hockey", downText: "Хоккей", guessCounter: 0))
-//        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Basketball", downText: "Баскетбол", guessCounter: 0))
-//        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Golf", downText: "Гольф", guessCounter: 0))
-//        
-//        var thirdDeck = DeckModel(name: "Phrases", cards: [])
-//        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "Go shopping", downText: "Идти в магазин", guessCounter: 0))
-//        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "What a good weather", downText: "Какая прекрасная погода", guessCounter: 0))
-//        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "I have no money", downText: "У меня нет денег", guessCounter: 0))
-//        thirdDeck.cards.append(CardModel(deckId: thirdDeck.id, frontText: "Hello World", downText: "Привет Мир", guessCounter: 0))
-        
-        
-        
-//        decks = [firstDeck, secondDeck, thirdDeck]
-//        decks.append(firstDeck)
-//        currentDeckId = firstDeck.id
         if let savedDeckId = UserDefaults.standard.string(forKey: "CurrentDeckId") {
             currentDeckId = savedDeckId
         } else {
             currentDeckId = decks.first?.id ?? ""
         }
-        /*for i in 0...5 {
-            var deck = DeckModel(name: String(repeating: "A", count: Int.random(in: 0...100)), cards: [])
-            for i in 0...1 {
-                deck.cards.append(CardModel(deckId: deck.id, frontText: String(i), downText: String(i + 1), guessCounter: 0))
-            }
-            decks.append(deck)
-        }*/
-        
-        /*var firstDeck = DeckModel(name: "Animals", cards: [])
-        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Cat", downText: "Dog", guessCounter: 10))
-        firstDeck.cards.append(CardModel(deckId: firstDeck.id, frontText: "Mouse", downText: "Elephant", guessCounter: 1))
-
-        var secondDeck = DeckModel(name: "Cars", cards: [])
-        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Ferrari", downText: "Italian", guessCounter: 5))
-        secondDeck.cards.append(CardModel(deckId: secondDeck.id, frontText: "Germany", downText: "BMW", guessCounter: 7))
-
-        decks = [firstDeck, secondDeck]*/
     }
 
     public func getDeck(by id: String) -> DeckModel? {

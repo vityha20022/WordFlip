@@ -43,9 +43,7 @@ public class StackCardsView: UIView {
         }
         
         for i in 0..<min(numberOfCardsToShow, cardsToBeVisible) {
-            print(i)
             let cardView = SwipeCardView()
-            print(dataSource.currentCard()?.deckId)
             let cardModel = dataSource.card(at: i).dataSource
             cardView.dataSource = cardModel
 
@@ -66,11 +64,9 @@ public class StackCardsView: UIView {
             addCardView(cardView: cardView, atIndex: 0)
             visibleCards.last?.isCanFlip = true
         }
-        print("reloaded")
     }
 
     private func addCardView(cardView: SwipeCardView, atIndex index: Int) {
-        //print("Add \(cardView.dataSource?.id) view: \(cardView.dataSource?.guessCounter)")
         cardView.delegate = self
         addCardFrame(index: index, cardView: cardView)
         cardViews.append(cardView)
@@ -109,7 +105,6 @@ extension StackCardsView: SwipeCardsDelegate {
         
         if let cardModel = cardModel {
             self.dataSource?.getPresenter().saveCard(cardModel: cardModel)
-            print("deckID: \(cardModel.deckId)")
         }
 
         if self.remainingcards > 0 {

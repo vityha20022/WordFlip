@@ -16,7 +16,6 @@ public final class DefaultButton: UIButton {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         setTitle(self.text, for: .normal)
-        // TODO: set settings size
         titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         backgroundColor = self.color
         layer.cornerRadius = 30

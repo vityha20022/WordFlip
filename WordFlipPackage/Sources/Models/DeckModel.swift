@@ -8,7 +8,6 @@ public struct DeckModel: Codable {
         return cards.count
     }
     public var learnedWordCounter: Int {
-        // TODO: Get from app settings
         let successesForRememberCount = max(UserDefaults.standard.integer(forKey: "SelectedNumberOfWords"), 1)
         return cards.filter({ $0.guessCounter >= successesForRememberCount }).count
     }

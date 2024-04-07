@@ -72,6 +72,5 @@ extension SettingsPickerTableViewCell: UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("Selected option: \(pickerData[row])")
     }
 }

@@ -28,20 +28,7 @@ public class CardsPresenter: CardsPresenterProtocol {
         
     }
 
-    //TODO: - Обработка смахивания карты
     public func handleCardSwipe(at card: CardModel, to direction: SwipeDirection) {
-        // например, если карта смахнута вправо, увеличиваем счетчик угаданных слов
-        //        if direction == .right {
-        //            model.cards[index].guessCounter += 1
-        //        } else if direction == .left {
-        //            model.cards[index].guessCounter = 0
-        //        }
-//    }
-
-        if card.guessCounter > 5 {
-            // TODO: - Удаляем смахнутую карту из модели
-            // model.cards.remove(at: index)
-        }
     }
     
     public func saveCard(cardModel: CardModel) {
