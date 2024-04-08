@@ -4,7 +4,7 @@ import Models
 protocol CardRedactorPresenterProtocol: AnyObject {
     func getCardData() -> CardModel
     func didTapDone(frontSideText: String, downSideText: String)
-    func didTapTranslaste(sourceLanguage: Language?, targetLanguage: Language?, text: String)
+    func didTapTranslate(sourceLanguage: Language?, targetLanguage: Language?, text: String)
 }
 
 final class CardRedactorPresenter: CardRedactorPresenterProtocol {
@@ -44,7 +44,7 @@ final class CardRedactorPresenter: CardRedactorPresenterProtocol {
         cardRedactorView?.showPreviousController()
     }
     
-    func didTapTranslaste(sourceLanguage: Language?, targetLanguage: Language?, text: String) {
+    func didTapTranslate(sourceLanguage: Language?, targetLanguage: Language?, text: String) {
         guard let sourceLanguage = sourceLanguage, let targetLanguage = targetLanguage else {
             return
         }

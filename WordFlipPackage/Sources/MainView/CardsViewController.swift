@@ -13,9 +13,7 @@ public final class CardsViewController: UIViewController {
         make.translatesAutoresizingMaskIntoConstraints = false
         make.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
         make.configuration = .plain()
-        //make.isHidden = true
         make.setTitle("", for: .normal)
-        //make.isHidden = true
         return make
     }()
 

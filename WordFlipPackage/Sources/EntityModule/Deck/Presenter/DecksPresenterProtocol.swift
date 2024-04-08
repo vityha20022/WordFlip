@@ -9,7 +9,7 @@ protocol DecksPresenterProtocol: AnyObject {
     func didTapCell(index: Int)
 }
 
-final class DecksPrersenter: DecksPresenterProtocol {
+final class DecksPresenter: DecksPresenterProtocol {
     private let dataManager: EntityDataManager
     weak var decksView: DecksViewProtocol?
 

@@ -36,3 +36,16 @@
 "EditCard" = "Edit card";
 "Edit Deck" = "Edit deck";
 "Sign out" = "Sign out";
+"CardEnd" = "Choose deck or reload";
+"DescriptionApp" = "
+WordFlip is an effective and convenient way to improve your skills, regardless of your level of language proficiency.
+Learning with flashcards will allow you to enrich your vocabulary, regardless of your level of language proficiency.
+
+Developers:
+    - Borisovsky Victor
+    - Zakhar Bryukhanov
+    - Nikita Kislyakov
+    - Pavel Simonenko
+Special thanks:
+    - Snitsaryuk Roman
+";

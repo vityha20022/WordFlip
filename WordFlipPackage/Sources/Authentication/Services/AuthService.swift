@@ -21,7 +21,6 @@ public final class AuthService {
         let username = registerUserRequest.username
         let email = registerUserRequest.email
         let password = registerUserRequest.password
-        Database.database().isPersistenceEnabled = true
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(false, error)

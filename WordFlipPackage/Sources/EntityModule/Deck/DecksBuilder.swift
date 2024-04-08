@@ -8,7 +8,7 @@ public struct DecksBuilder {
     }
 
     public func build() -> UIViewController {
-        let presenter = DecksPrersenter(dataManager: dataManager)
+        let presenter = DecksPresenter(dataManager: dataManager)
         let decksViewController = DecksViewController(presenter: presenter)
         presenter.decksView = decksViewController
         let navigationController = UINavigationController(rootViewController: decksViewController)

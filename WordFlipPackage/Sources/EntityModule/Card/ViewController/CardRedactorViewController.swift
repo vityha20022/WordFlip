@@ -189,7 +189,7 @@ final public class CardRedactorViewController: UIViewController {
     private func translateButtonTapped() {
         let sourceLanguage = Language(rawValue: languageDict[sourceLanguageButton.titleLabel?.text ?? ""] ?? "")
         let targetLanguage = Language(rawValue: languageDict[targetLanguageButton.titleLabel?.text ?? ""] ?? "")
-        presenter.didTapTranslaste(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage, text: frontSideCardView.getCardText())
+        presenter.didTapTranslate(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage, text: frontSideCardView.getCardText())
     }
     
     @objc

@@ -160,18 +160,7 @@ extension ProfileViewController: ProfileViewProtocol {
     func showAppInfoAlert() {
         let alertController = UIAlertController(
             title: "About the program".localized,
-            message: """
-            WordFlip - эффективный и удобный способ улучшить свои навыки, независимо от вашего уровня владения языком.
-            Обучение с помощью карточек позволит вам обогатить словарный запас независимо от вашего уровня владения языком.
-
-            Разработчики:
-                - Борисовский Виктор
-                - Брюханов Захар
-                - Кисляков Никита
-                - Симоненко Павел
-            Отдельная благодарность:
-                - Сницарюк Роман
-            """,
+            message: "DescriptionApp".localized,
             preferredStyle: .alert
         )
 
