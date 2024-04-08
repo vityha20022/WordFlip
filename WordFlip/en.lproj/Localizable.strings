@@ -1,0 +1,51 @@
+"LogInButton" = "Log in";
+"SignUpButton" = "Sign up";
+"LogInLabel" = "Log in";
+"EnterYourDataLogIn" = "Enter your email and password";
+"TextFieldPassword" = "Password";
+"ContinueButton" = "Continue";
+"SignUpLabel" = "Sign up";
+"smthWrong" = "Something went wrong";
+"SignUpEnterYourData" = "Enter your username, email and password";
+"UsernameTextLabel" = "test";
+"Profile" = "Profile" ;
+"Settings" = "Settings";
+"About the program" = "About the app";
+"SignOutButton" = "Sign out";
+"Delete Account" = "Delete account";
+"Settings" = "Settings";
+"NightTheme" = "Night theme";
+"NumberOfWords" = "Number of words:";
+"Done" = "Done";
+"Decks" = "Decks";
+"words" = "words";
+"Learned" = "Learned";
+"AddDeck" = "Add deck";
+"TypeDeckName..." = "Type your deck name";
+"AddCard" = "Add card";
+"Translate" = "Translate";
+"TypeWord" = "Type a word";
+"TypeTip" = "Type a tip";
+"EmptyDeckName" = "Empty deck name";
+"Deck with empty name" = "Deck with empty name is not allowed";
+"Emptycardfield" = "Empty card field";
+"Cardwithemptyfields" = "Cards with empty fields are not allowed";
+"TranslateError" = "Translate error";
+"Sourcelanguage" = "Source language";
+"Targetlanguage" = "Target language";
+"EditCard" = "Edit card";
+"Edit Deck" = "Edit deck";
+"Sign out" = "Sign out";
+"CardEnd" = "Choose deck or reload";
+"DescriptionApp" = "
+WordFlip is an effective and convenient way to improve your skills, regardless of your level of language proficiency.
+Learning with flashcards will allow you to enrich your vocabulary, regardless of your level of language proficiency.
+
+Developers:
+    - Borisovsky Victor
+    - Zakhar Bryukhanov
+    - Nikita Kislyakov
+    - Pavel Simonenko
+Special thanks:
+    - Snitsaryuk Roman
+";
